@@ -75,13 +75,18 @@ class LoginController extends Controller
         }
         //*/
 
-
+        //dd($data);
         if(isset($data['username'])){
             $user = User::where($username_field, $data['username'])->first();
         }
         if(isset($data['email'])){
             $user = User::where('email', $data['email'])->first();
         }
+        if(isset($data['user_email'])){
+            $user = User::where('email', $data['user_email'])->first();
+        }
+        
+
         if ($user && $user->passwd == md5($data['password']) ){
             //dd($user);
             Auth::login($user,$request->has('remember'));
