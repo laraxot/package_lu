@@ -52,7 +52,10 @@ class CreateLiveuserUsersTable extends Migration {
 		});
 	}
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 4d028dc12dbb9980f6fb4501b4ec458e96047c02
 	/**
 	 * Reverse the migrations.
 	 *

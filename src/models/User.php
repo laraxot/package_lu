@@ -255,22 +255,10 @@ public function getReminderEmail()
 
 
     public function password(){
-        //die('['.__LINE__.']['.__FILE__.']');
         return 'passwd';
     }
 
     public function username(){
-
-        $user_table=$this->table;
-        //echo '<h3>'.$user_table.'</h3>';die();
-         
-        if(!\Schema::connection($this->connection)->hasColumn($user_table, 'remember_token')){
-            \Schema::connection($this->connection)->table($user_table, function($table){$table->string('remember_token');});
-        }
-        if(!\Schema::connection($this->connection)->hasColumn($user_table, 'updated_at')){
-            \Schema::connection($this->connection)->table($user_table, function($table){$table->datetime('updated_at');});
-        }
-        //die('['.__LINE__.']['.__FILE__.']');
         return 'handle';
     }
     //--------------------
