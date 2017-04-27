@@ -1,6 +1,6 @@
 <?php
 
-namespace XRA\LU\models;
+namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use XRA\Extend\Traits\Updater;

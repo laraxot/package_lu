@@ -15,7 +15,7 @@ class AreaController extends Controller{
 use CrudTrait;
 //-------------------------
 public function getModel(){
-    return new \XRA\LU\models\Area;
+    return new \XRA\LU\Models\Area;
 }//end getModel
 
 public function getPrimaryKey(){
@@ -80,14 +80,14 @@ public function store(Request $request){
 	//echo '<pre>';print_r($data);echo '</pre>';
 	$params = \Route::current()->parameters();
 	extract($params);
-	$user=\XRA\LU\models\User::find($id_user);
+	$user=\XRA\LU\Models\User::find($id_user);
 	$perm_user_id=$user->permUsers['perm_user_id'];
 	//echo '<h3>'.$perm_user_id;
-	$res=\XRA\LU\models\AreaAdminArea::where('perm_user_id','=',$perm_user_id)->delete();
+	$res=\XRA\LU\Models\AreaAdminArea::where('perm_user_id','=',$perm_user_id)->delete();
 	extract($data);
 	reset($area_id);
 	while(list($k,$v)=each($area_id)){
-		$row=new \XRA\LU\models\AreaAdminArea;
+		$row=new \XRA\LU\Models\AreaAdminArea;
 		$row->area_id=$v;
 		$row->perm_user_id=$perm_user_id;
 		$row->save();
