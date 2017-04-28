@@ -15,7 +15,7 @@ class CreateLiveuserUsersTable extends Migration {
 		if (!Schema::connection('liveuser_general')->hasTable('liveuser_users')) 
 		Schema::connection('liveuser_general')->create('liveuser_users', function(Blueprint $table)
 		{
-			$table->integer('auth_user_id', true);
+			$table->increments('auth_user_id');
 			$table->string('handle', 32)->nullable()->default('')->index('handle');
 			$table->string('passwd', 32)->nullable()->default('');
 			$table->dateTime('lastlogin')->nullable();
@@ -52,10 +52,6 @@ class CreateLiveuserUsersTable extends Migration {
 		});
 	}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 4d028dc12dbb9980f6fb4501b4ec458e96047c02
 	/**
 	 * Reverse the migrations.
 	 *

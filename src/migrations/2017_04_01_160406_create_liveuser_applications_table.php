@@ -15,7 +15,7 @@ class CreateLiveuserApplicationsTable extends Migration {
 		if (!Schema::connection('liveuser_general')->hasTable('liveuser_applications')) 
 		Schema::connection('liveuser_general')->create('liveuser_applications', function(Blueprint $table)
 		{
-			$table->integer('application_id')->unsigned()->default(0)->primary();
+			$table->increments('application_id');
 			$table->string('application_define_name', 32)->default('')->unique('application_define_name');
 		});
 	}
