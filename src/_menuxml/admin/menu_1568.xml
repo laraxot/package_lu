@@ -2,9 +2,6 @@
     <row>
         <id>1568</id>
         <id_padre>0</id_padre>
-        <id_new>0</id_new>
-        
-        
         <nome>Users</nome>
         <img />
         <ordine>0</ordine>

@@ -5,8 +5,8 @@
         <nome>Lista Utenti</nome>
         <img />
         <ordine>0</ordine>
-        <obj>user</obj>
-        <act>grid</act>
+        <obj>lu.user</obj>
+        <act>index</act>
         <funzione>showTablename</funzione>
         <subtitle />
         <txt />
