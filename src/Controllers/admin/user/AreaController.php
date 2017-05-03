@@ -7,6 +7,10 @@ use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
 
+//--- models ---
+use XRA\LU\Models\AreaAdminArea;
+use XRA\LU\Models\Area;
+use XRA\LU\Models\User;
 
 
 //use blueimp\jquery-file-upload\UploadHandler;
@@ -15,7 +19,7 @@ class AreaController extends Controller{
 use CrudTrait;
 //-------------------------
 public function getModel(){
-    return new \XRA\LU\Models\Area;
+    return new Area;
 }//end getModel
 
 public function getPrimaryKey(){
@@ -62,7 +66,7 @@ public function do_search($data){
 //-------------------------------------------------------------------------
  public function index(Request $request){
         if($request->routelist==1){
-           return app(\App\Http\Controllers\admin\ArtisanController::class)->exe('route:list');
+           return app(ArtisanController::class)->exe('route:list');
         }
         $params = \Route::current()->parameters();
         $model=$this->getModel();
@@ -80,19 +84,19 @@ public function store(Request $request){
 	//echo '<pre>';print_r($data);echo '</pre>';
 	$params = \Route::current()->parameters();
 	extract($params);
-	$user=\XRA\LU\Models\User::find($id_user);
+	$user=User::find($id_user);
 	$perm_user_id=$user->permUsers['perm_user_id'];
 	//echo '<h3>'.$perm_user_id;
-	$res=\XRA\LU\Models\AreaAdminArea::where('perm_user_id','=',$perm_user_id)->delete();
+	$res=AreaAdminArea::where('perm_user_id','=',$perm_user_id)->delete();
 	extract($data);
 	reset($area_id);
 	while(list($k,$v)=each($area_id)){
-		$row=new \XRA\LU\Models\AreaAdminArea;
+		$row=new AreaAdminArea;
 		$row->area_id=$v;
 		$row->perm_user_id=$perm_user_id;
 		$row->save();
 	}
-	\Session::flash('status','aree aggiornate ');
+	\Session::flash('status','aree unte aggiornate ');
 	return back()->withInput();
 }//end update
 

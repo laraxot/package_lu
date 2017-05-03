@@ -23,19 +23,54 @@ public function getPrimaryKey(){
 }//end getPrimaryKey
 
 public function sync(){
-	$namespace='\Xot\Ptv\\Packages';
-	$packs=$namespace::all();
+	$tmp=config('xra.package_boss').'Packages';
+	$packs=$tmp::all();
 	$packs[]='LU';
-	$packs=collect($packs);
-	$areas=Area::all()->keyBy('area_define_name')->keys();
+	$packs=collect(array_combine($packs,$packs));
+	//$areas=Area::all()->keyBy('area_define_name')->keys();
+	$areas=Area::all()->pluck('area_define_name','area_define_name');
+	//dd($packs);
 
 	$add=$packs->diff($areas);
 	$sub=$areas->diff($packs);
 
     $view=CrudTrait::getView();
-    return view($view)->with('add',$add)->with('sub',$sub);
-
-
+    return view($view)->with('add',$add)->with('sub',$sub)->with('row',$this->getModel());
 }
+
+public function store(Request $request){
+	$data=$request->all();
+	//echo '<pre>';print_r($data);echo '</pre>';die('['.__LINE__.']['.__FILE__.']');
+	extract($data);
+	if(isset($add)){
+		reset($add);
+		while(list($k,$v)=each($add)){
+			$tmp= preg_replace('/([A-Z]+)/','_$1', $v);
+			$tmp=strtolower($tmp);
+			$tmp=substr($tmp,1);
+			//echo '<br/>'.$v.' : '.$tmp;
+		
+			$row=new Area;
+			$row->area_define_name=$v;
+			$row->url=$tmp;
+			$row->save();
+		}
+	}
+
+	if(isset($sub)){
+		reset($sub);
+		while(list($k,$v)=each($sub)){
+			Area::where('area_define_name',$v)->delete();
+		}
+	}
+
+
+	//	echo '<pre>';print_r($data);echo '</pre>';die('['.__LINE__.']['.__FILE__.']');
+	\Session::flash('status','aree aggiornate ');
+	return back()->withInput();
+}
+
+
+
 
 }//end class
