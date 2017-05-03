@@ -5,14 +5,11 @@
         <visibility />
         <id>1725</id>
         <id_padre>1568</id_padre>
-        
-        
-        
-        <nome>purge users</nome>
+        <nome>Lista Gruppi</nome>
         <img />
         <ordine />
-        <obj>user</obj>
-        <act>purgeUsers</act>
+        <obj>lu.group</obj>
+        <act>index</act>
         <funzione />
         <subtitle />
         <txt />
