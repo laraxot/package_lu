@@ -28,21 +28,6 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 */
 
-
-<<<<<<< HEAD
-=======
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-
-use Laravel\Scout\Searchable;
-
-
->>>>>>> 8982769be8efbb8c08cd86ce32b95b9ba7ffd2e1
 //class User extends Model
 class User extends \Eloquent implements AuthenticatableContract, CanResetPasswordContract {
     /*
@@ -51,17 +36,10 @@ class User extends \Eloquent implements AuthenticatableContract, CanResetPasswor
                                         CanResetPasswordContract {
     */
     //
-<<<<<<< HEAD
-    // use /*Authenticable,*/ Authorizable, CanResetPassword;
-    use Authenticatable, CanResetPassword;
-    use Notifiable;
-=======
    // use /*Authenticable,*/ Authorizable, CanResetPassword;
      use Authenticatable, CanResetPassword;                                 
      use Notifiable;  
-     use Searchable;
-                                      
->>>>>>> 8982769be8efbb8c08cd86ce32b95b9ba7ffd2e1
+     //use Searchable;
 
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_users';
