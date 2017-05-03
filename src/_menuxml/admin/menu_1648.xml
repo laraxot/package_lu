@@ -1,25 +1,22 @@
 <root>
     <row>
-        <id>1568</id>
-        <id_padre>0</id_padre>
-        <id_new>0</id_new>
-        
-        
-        <nome>Users</nome>
+        <id>1648</id>
+        <id_padre>1568</id_padre>
+        <nome>Lista Utenti</nome>
         <img />
         <ordine>0</ordine>
-        <obj />
-        <act />
-        <funzione />
+        <obj>lu.user</obj>
+        <act>index</act>
+        <funzione>showTablename</funzione>
         <subtitle />
         <txt />
         <query>a:0:{}</query>
         <order_by>a:0:{}</order_by>
-        <load_tables />
+        <load_tables>liveuser_users</load_tables>
         <fieldstorender />
         <hiddenfields />
         <defaults>a:0:{}</defaults>
-        <visibility>3</visibility>
+        <visibility>0</visibility>
         <processed />
         <js_head />
         <js_foot />

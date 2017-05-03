@@ -45,6 +45,10 @@ static public function full(){
 	return $rows;
 }
 
+public function url(){
+  return url('admin/'.$this->area_define_name);
+}
+
 //---------------------------------------------------------------------------
 static public function filter($params){
   

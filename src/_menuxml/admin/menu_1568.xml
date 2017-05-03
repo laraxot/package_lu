@@ -1,29 +1,26 @@
 <root>
     <row>
-        <id>1116</id>
-        <id_padre>1568</id_padre>
-        
-        
-        
-        <nome>Aggiorna Users da Sigma</nome>
-        <img>userss.png</img>
-        <ordine />
-        <obj>sigmax</obj>
-        <act>updateUsersFromSigma</act>
+        <id>1568</id>
+        <id_padre>0</id_padre>
+        <nome>Users</nome>
+        <img />
+        <ordine>0</ordine>
+        <obj />
+        <act />
         <funzione />
         <subtitle />
         <txt />
         <query>a:0:{}</query>
         <order_by>a:0:{}</order_by>
-        <load_tables>liveuser_area_admin_areas</load_tables>
+        <load_tables />
         <fieldstorender />
         <hiddenfields />
         <defaults>a:0:{}</defaults>
-        <visibility />
+        <visibility>3</visibility>
         <processed />
         <js_head />
         <js_foot />
-        <id_approvaz />
+        <id_approvaz>0</id_approvaz>
         <handle />
         <datemod />
         <last_stato />

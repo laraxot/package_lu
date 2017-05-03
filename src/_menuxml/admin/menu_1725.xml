@@ -1,18 +1,15 @@
 <root>
     <row>
         <tipo_act>table</tipo_act>
-        <icons>glyphicon glyphicon-tree-deciduous</icons>
+        <icons>glyphicon glyphicon-cutlery</icons>
         <visibility />
-        <id>1744</id>
+        <id>1725</id>
         <id_padre>1568</id_padre>
-        
-        
-        
-        <nome>purge users from sigma</nome>
+        <nome>Lista Gruppi</nome>
         <img />
         <ordine />
-        <obj>SigmaX</obj>
-        <act>purgeUsersFromSigma</act>
+        <obj>lu.group</obj>
+        <act>index</act>
         <funzione />
         <subtitle />
         <txt />

@@ -17,8 +17,9 @@ class AddTimestampsToLiveUserUsers extends Migration
             if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'deleted_by')) $table->string('deleted_by')->nullable();
             if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'updated_by')) $table->string('updated_by')->nullable();
             if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'created_by')) $table->string('created_by')->nullable();
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'deleted_at')) $table->softDeletes();
-            if (!Schema::connection('liveuser_general')->hasColumns('liveuser_users', ['updated_at', 'created_at'])) $table->timestamps();
+
+            //if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'deleted_at')) $table->softDeletes();
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'updated_at'/*, 'created_at']*/)) $table->timestamps();
         });
     }
 

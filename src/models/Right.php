@@ -14,4 +14,9 @@ class Right extends Model
     protected $table = 'liveuser_rights';
     protected $primaryKey = 'right_id';
 
+
+    static public function filter($params){
+    	$rows=new self;
+    	return $rows;
+    }
 }

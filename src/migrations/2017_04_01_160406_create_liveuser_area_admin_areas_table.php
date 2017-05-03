@@ -15,7 +15,7 @@ class CreateLiveuserAreaAdminAreasTable extends Migration {
 		if (!Schema::connection('liveuser_general')->hasTable('liveuser_area_admin_areas')) 
 		Schema::connection('liveuser_general')->create('liveuser_area_admin_areas', function(Blueprint $table)
 		{
-			$table->integer('id', true);
+			$table->increments('id');
 			$table->integer('area_id')->unsigned()->default(0);
 			$table->integer('perm_user_id')->unsigned()->default(0);
 		});
