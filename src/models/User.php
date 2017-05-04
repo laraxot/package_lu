@@ -3,7 +3,14 @@
 
 namespace XRA\LU\Models;
 
+<<<<<<< HEAD
 
+=======
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+>>>>>>> 80372cafee758f68b6b93426d6ede110545fcabe
 use Illuminate\Notifications\Notifiable;
 /*
 use Illuminate\Database\Eloquent\Model;
@@ -45,10 +52,16 @@ class User extends \Eloquent implements  AuthenticatableContract,
 */
     //
    // use /*Authenticable,*/ Authorizable, CanResetPassword;
+<<<<<<< HEAD
      use Authenticatable, CanResetPassword;                                 
      use Notifiable;  
      use Searchable;
                                       
+=======
+     use Authenticatable, CanResetPassword;
+     use Notifiable;
+     //use Searchable;
+>>>>>>> 80372cafee758f68b6b93426d6ede110545fcabe
 
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_users';
@@ -68,6 +81,7 @@ class User extends \Eloquent implements  AuthenticatableContract,
     {
         return $this->getKey();
     }
+<<<<<<< HEAD
     
 public function getAuthIdentifierName(){
     return 'auth_user_id';
@@ -106,6 +120,40 @@ function groups1(){
         //echo '<pre>['; print_r($v1->toArray()); echo ']</pre>';
         if($v1!=null){
             $groups[]=$v1->toArray();
+=======
+
+    public function getAuthIdentifierName() {
+        return 'auth_user_id';
+    }
+
+    //-----------------------------------------------------------
+    function permUsers() {
+        return $this->hasOne(PermUser::class, 'auth_user_id', 'auth_user_id');
+    }
+
+    ///----------------------------------------------------------------------
+    public function perm_type() {
+        $permUsers = $this->permUsers();
+        return $permUsers;
+    }
+
+
+    function groups1() {
+        $permUsers = $this->permUsers()->first();
+        $groupUsers = $permUsers->groupUsers()->get();
+        //echo '<pre>[';print_r($groupUsers->first()->toArray());echo '</pre>';
+        //$groupUsers=$this->permUsers()->first()->groupUsers()->get();
+        //echo '<pre>['; print_r($groupUsers->toArray()); echo ']</pre>';
+        $groups = [];
+        foreach ($groupUsers as $k => $v) {
+            // $v1=$v->group();
+            //echo '<pre>['; print_r($v->toArray()); echo ']</pre>';
+            $v1 = $v->group()->first();
+            //echo '<pre>['; print_r($v1->toArray()); echo ']</pre>';
+            if ($v1 != null) {
+                $groups[] = $v1->toArray();
+            }
+>>>>>>> 80372cafee758f68b6b93426d6ede110545fcabe
         }
     }
     $collection = collect($groups);
