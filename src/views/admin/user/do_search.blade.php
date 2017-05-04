@@ -18,6 +18,4 @@
 </tr>
 @endforeach
 </table>
-
-
 @endsection

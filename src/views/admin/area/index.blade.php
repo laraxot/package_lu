@@ -1,6 +1,7 @@
 @extends('adm_theme::layouts.app')
 @section('page_heading','lista aree')
-@section('section')
+
+@section('content')
 @include('backend::includes.flash')
 @include('backend::includes.components')
 

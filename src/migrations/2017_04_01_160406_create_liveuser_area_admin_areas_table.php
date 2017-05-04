@@ -31,5 +31,4 @@ class CreateLiveuserAreaAdminAreasTable extends Migration {
 	{
 		Schema::connection('liveuser_general')->drop('liveuser_area_admin_areas');
 	}
-
 }
