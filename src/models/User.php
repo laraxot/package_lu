@@ -77,6 +77,11 @@ function permUsers(){
     return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
 }
 
+function PermUser(){ 
+    return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
+}
+
+
 ///----------------------------------------------------------------------
 public function perm_type(){
     $permUsers=$this->permUsers();
