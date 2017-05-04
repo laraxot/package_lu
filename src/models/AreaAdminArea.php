@@ -24,18 +24,11 @@ function PermUser(){
 //------------------------------------
 static public function filter($params){
 	extract($params);
-	
+	$rows=new self;
 	if(isset($id_user)){
-		/*
-		$rows=Area::whereHas('PermUser',function ($query) use($id_user){
-			$query->where('auth_user_id',$id_user);
-		});
-		*/
 		$user=User::find($id_user);
 		$perm_user_id=$user->perm_user_id();
-		dd($perm_user_id);
-	}else{
-		$rows=new self;
+		$rows=$rows->where('perm_user_id',$perm_user_id);		
 	}
 	return $rows;
 
