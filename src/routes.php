@@ -1,6 +1,5 @@
 <?php
 
-
 //Route::get('timezones/{timezone}', 'XRA\themes\ThemesController@index');
 //Route::group(['middleware' => ['web'],'namespace'=>'XRA\lu'], function () {
 
@@ -10,9 +9,6 @@
 	//Route::get('/product/{id_grid}/pagamento', 'XRA\fpb\ProductController@eseguiPagamento')->name('product.eseguiPagamento');
 	//Route::resource('/upload', 'XRA\fpb\UploadController');
 //});
-
-
-
 
 if(\Request::path() != ''){
 	$tmp=explode('/',\Request::path());
