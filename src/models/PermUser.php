@@ -10,6 +10,10 @@ class PermUser extends Model {
     protected $primaryKey = 'perm_user_id';
     protected $fillable = ['auth_user_id'];
 
+    public function User(){
+        return $this->hasOne('User','auth_user_id','auth_user_id');
+    }
+
     public function areaAdminAreas() {
         //return $this->hasMany('App\Comment', 'foreign_key', 'local_key');
         return $this->hasMany('AreaAdminArea', 'perm_user_id', 'perm_user_id');

@@ -13,7 +13,11 @@ class Area extends Model{
     protected $table = 'liveuser_areas';
     protected $primaryKey = 'area_id';
 
-
+/*
+function PermUser(){
+  return $this->hasOne(PermUser::class,'perm_user_id', 'perm_user_id');
+}   
+*/
 function AreaAdminArea(){
 	return $this->hasMany(AreaAdminArea::class,'area_id','area_id');
 }
