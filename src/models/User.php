@@ -45,10 +45,9 @@ class User extends \Eloquent implements  AuthenticatableContract,
 */
     //
    // use /*Authenticable,*/ Authorizable, CanResetPassword;
-     use Authenticatable, CanResetPassword;                                 
-     use Notifiable;  
+     use Authenticatable, CanResetPassword;
+     use Notifiable;
      use Searchable;
-                                      
 
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_users';
@@ -57,18 +56,18 @@ class User extends \Eloquent implements  AuthenticatableContract,
         'ente', 'matr','handle', 'passwd','email'
     ];
     public $timestamps = true;
-    public static $rules = array();  
+    public static $rules = array();
 
     /**
- * Get the unique identifier for the user.
- *
- * @return mixed
- */
-    public function getAuthIdentifier() 
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+   */
+    public function getAuthIdentifier()
     {
         return $this->getKey();
     }
-    
+
 public function getAuthIdentifierName(){
     return 'auth_user_id';
 }
@@ -77,7 +76,7 @@ function permUsers(){
     return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
 }
 
-function PermUser(){ 
+function PermUser(){
     return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
 }
 
@@ -112,7 +111,7 @@ function groups1(){
     //$collection->prepend(['a'=>'b']);
     $keyed = $collection->keyBy('group_id');
     $keyed ->prepend('--- SELEZIONA ---');
-    //echo '<pre>';print_r($keyed->all()); 
+    //echo '<pre>';print_r($keyed->all());
     return $keyed->all();
     //return $groups;
 }
@@ -178,7 +177,7 @@ public function areaAdminAreas(){
 
     //$perm_user_id=$this->perm_user_id();
     $areaAdminAreas=$this->permUsers()->first()->areaAdminAreas()->get();
-   
+
     //*
     //while(list($k,$v)=each($areaAdminAreas) ){
         //echo '<pre>';print_r($v->area()->first()); echo '</pre>';
@@ -200,8 +199,8 @@ public function areaAdminAreas(){
 public function getAuthPassword(){
      //your passwor field name
     return $this->passwd;
-}   
-    
+}
+
 
     public function metadata()
     {
@@ -220,19 +219,19 @@ public function getReminderEmail()
 }
 
 
-   
+
 
     /**
      * Get the token value for the "remember me" session.
      *
      * @return string
      */
-    
+
     public function getRememberToken(){
         // die('['.__LINE__.']['.__FILE__.']');
         return $this->remember_token;
     }
-    
+
     /**
      * Set the token value for the "remember me" session.
      *
@@ -249,12 +248,12 @@ public function getReminderEmail()
      *
      * @return string
      */
-    
+
     public function getRememberTokenName(){
          //die('['.__LINE__.']['.__FILE__.']');
            return 'remember_token';
     }
-    
+
      protected function authenticated($request, $user){
         die('['.__LINE__.']['.__FILE__.']');
          if($user->role === 'admin') {
@@ -291,14 +290,14 @@ public function getReminderEmail()
         //die('['.__LINE__.']['.__FILE__.']');
         $this->attributes['username'] = strtolower($value);
     }
-//-------------------------------    
+//-------------------------------
 public function name(){
   return $this->handle;
 }
 
 //---------------------------------------------------------------------------
 static public function filter($params){
-  
+
   extract($params);
   //echo '<pre>';print_r($params);echo '</pre>';
   $rows=new self;
