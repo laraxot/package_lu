@@ -8,7 +8,7 @@
 
 {!! Form::bsOpen($rows,'index','store') !!}
 
-{{ Form::bsMultiSelect('area_id',$rows->get(),$rows->first()->full()->get()) }}
+{{ Form::bsMultiSelect('area_id',$rows->get(),\XRA\LU\Models\Area::all()) }}
 
 {{Form::submit('Salva ed esci',['class'=>'submit btn btn-success green-meadow'])}}
 

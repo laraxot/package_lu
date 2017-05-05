@@ -19,7 +19,7 @@ class AreaController extends Controller{
 use CrudTrait;
 //-------------------------
 public function getModel(){
-    return new Area;
+    return new AreaAdminArea;
 }//end getModel
 
 public function getPrimaryKey(){
