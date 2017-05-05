@@ -1,34 +1,29 @@
 <root>
     <row>
-        <tipo_act>table</tipo_act>
-        <icons>glyphicon glyphicon-cutlery</icons>
-        <visibility />
-        <id>1725</id>
+        <id>1575</id>
         <id_padre>1568</id_padre>
-        
-        
-        
-        <nome>purge users</nome>
+        <nome>Lista Aree</nome>
         <img />
-        <ordine />
-        <obj>user</obj>
-        <act>purgeUsers</act>
+        <ordine>100</ordine>
+        <obj>lu.area</obj>
+        <act>index</act>
         <funzione />
         <subtitle />
         <txt />
         <query>a:0:{}</query>
         <order_by>a:0:{}</order_by>
         <load_tables />
-        <fieldstorender>area_id,application_id,area_define_name,db,img</fieldstorender>
+        <fieldstorender />
         <hiddenfields />
         <defaults>a:0:{}</defaults>
+        <visibility>0</visibility>
         <processed />
         <js_head />
         <js_foot />
-        <id_approvaz />
+        <id_approvaz>0</id_approvaz>
         <handle />
         <datemod />
         <last_stato />
-        <querystr_keys />
+        <icons>fa fa-search</icons>
     </row>
 </root>

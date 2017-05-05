@@ -2,9 +2,6 @@
     <row>
         <id>1106</id>
         <id_padre>1714</id_padre>
-        
-        
-        
         <nome>Modifica Utente</nome>
         <img>pencil.png</img>
         <icons>fa fa-pencil</icons>

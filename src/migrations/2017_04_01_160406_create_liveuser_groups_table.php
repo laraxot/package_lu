@@ -15,9 +15,15 @@ class CreateLiveuserGroupsTable extends Migration {
 		if (!Schema::connection('liveuser_general')->hasTable('liveuser_groups')) 
 		Schema::connection('liveuser_general')->create('liveuser_groups', function(Blueprint $table)
 		{
+<<<<<<< HEAD
 			$table->integer('group_id')->unsigned()->default(0)->primary();
 			$table->integer('group_type')->unsigned()->nullable()->default(1);
 			$table->string('group_define_name', 250)->nullable()->unique('group_define_name');
+=======
+			$table->increments('group_id');
+			$table->integer('group_type')->unsigned()->nullable()->default(1);
+			$table->string('group_define_name', 150)->nullable()->unique('group_define_name');
+>>>>>>> master
 			$table->integer('owner_user_id')->unsigned()->nullable();
 			$table->integer('owner_group_id')->unsigned()->nullable();
 			$table->char('is_active', 1)->default('N');

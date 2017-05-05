@@ -1,18 +1,19 @@
 <?php
 
-namespace XRA\LU\models;
+namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use XRA\Extend\Traits\Updater;
-
+use Laravel\Scout\Searchable;
 
 class Group extends Model
 {
     use Updater;
+    use Searchable;
     //
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_groups';
-   // protected $primaryKey = 'group_id';
+    protected $primaryKey = 'group_id';
 
 public function GroupUser(){
 	return $this->hasMany(GroupUser::class,'group_id','group_id');

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
-use XRA\LU\models\Group;
+use XRA\LU\Models\Group;
 
 //use blueimp\jquery-file-upload\UploadHandler;
 
@@ -75,14 +75,14 @@ public function store(Request $request){
 	//echo '<pre>';print_r($data);echo '</pre>';
 	$params = \Route::current()->parameters();
 	extract($params);
-	$user=\XRA\LU\models\User::find($id_user);
+	$user=\XRA\LU\Models\User::find($id_user);
 	$perm_user_id=$user->permUsers['perm_user_id'];
 	//echo '<h3>'.$perm_user_id;
-	$res=\XRA\LU\models\GroupUser::where('perm_user_id','=',$perm_user_id)->delete();
+	$res=\XRA\LU\Models\GroupUser::where('perm_user_id','=',$perm_user_id)->delete();
 	extract($data);
 	reset($group_id);
 	while(list($k,$v)=each($group_id)){
-		$row=new \XRA\LU\models\GroupUser;
+		$row=new \XRA\LU\Models\GroupUser;
 		$row->group_id=$v;
 		$row->perm_user_id=$perm_user_id;
 		$row->save();

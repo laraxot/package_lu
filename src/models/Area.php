@@ -1,6 +1,6 @@
 <?php
 
-namespace XRA\LU\models;
+namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use XRA\Extend\Traits\Updater;
@@ -13,7 +13,11 @@ class Area extends Model{
     protected $table = 'liveuser_areas';
     protected $primaryKey = 'area_id';
 
-
+/*
+function PermUser(){
+  return $this->hasOne(PermUser::class,'perm_user_id', 'perm_user_id');
+}   
+*/
 function AreaAdminArea(){
 	return $this->hasMany(AreaAdminArea::class,'area_id','area_id');
 }
@@ -43,6 +47,10 @@ static public function full(){
 	$rows=new self;
 	
 	return $rows;
+}
+
+public function url(){
+  return url('admin/'.$this->area_define_name);
 }
 
 //---------------------------------------------------------------------------

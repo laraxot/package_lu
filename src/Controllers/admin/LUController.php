@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 
 use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
 
-//-------- models ----------------
+//-------- Models ----------------
 use XRA\LU\Models\User;
-
+use XRA\Backend\Controllers\ArtisanController;
 
 //use blueimp\jquery-file-upload\UploadHandler;
 
@@ -28,7 +28,7 @@ public function getPrimaryKey(){
 
 public function index(Request $request){
 	if($request->routelist==1){
-        return app(\App\Http\Controllers\admin\ArtisanController::class)->exe('route:list');
+        return app(ArtisanController::class)->exe('route:list');
     }
     return view('lu::admin.index');
 }

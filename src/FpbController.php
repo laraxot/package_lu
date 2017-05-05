@@ -1,5 +1,5 @@
 <?php
-namespace Xot\Fpb;
+namespace XRA\Fpb;
  
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;

@@ -32,6 +32,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+use Laravel\Scout\Searchable;
+
 
 //class User extends Model
 class User extends \Eloquent implements AuthenticatableContract,
@@ -44,7 +46,9 @@ class User extends \Eloquent implements  AuthenticatableContract,
     //
    // use /*Authenticable,*/ Authorizable, CanResetPassword;
      use Authenticatable, CanResetPassword;                                 
-     use Notifiable;                                        
+     use Notifiable;  
+     use Searchable;
+                                      
 
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_users';
@@ -71,6 +75,14 @@ public function getAuthIdentifierName(){
 //-----------------------------------------------------------
 function permUsers(){
     return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
+}
+
+function PermUser(){ 
+    return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
+}
+
+function perm_user_id(){ //shortcut
+    return $this->PermUser()->first()->perm_user_id;
 }
 
 ///----------------------------------------------------------------------
@@ -188,7 +200,7 @@ public function areaAdminAreas(){
 public function getAuthPassword(){
      //your passwor field name
     return $this->passwd;
-}	
+}   
     
 
     public function metadata()
@@ -255,22 +267,10 @@ public function getReminderEmail()
 
 
     public function password(){
-        //die('['.__LINE__.']['.__FILE__.']');
         return 'passwd';
     }
 
     public function username(){
-
-        $user_table=$this->table;
-        //echo '<h3>'.$user_table.'</h3>';die();
-         
-        if(!\Schema::connection($this->connection)->hasColumn($user_table, 'remember_token')){
-            \Schema::connection($this->connection)->table($user_table, function($table){$table->string('remember_token');});
-        }
-        if(!\Schema::connection($this->connection)->hasColumn($user_table, 'updated_at')){
-            \Schema::connection($this->connection)->table($user_table, function($table){$table->datetime('updated_at');});
-        }
-        //die('['.__LINE__.']['.__FILE__.']');
         return 'handle';
     }
     //--------------------
@@ -346,5 +346,48 @@ static public function filter($params){
     return $rows;
 }//end search
 //-----------------------------------------------------------------------------------
+ /**
+     * Returns true if the user is a super administrator.
+     */
+    public function superAdmin()
+    {
+        return true;
+        return in_array($this->email, config('laralum.superadmins'));
+    }
+
+    /**
+     * Returns the user avatar.
+     */
+    public function avatar($size = 100)
+    {
+        /*
+        if(File::exists(public_path('/avatars'.'/'.md5($this->email)))){
+            return asset('/avatars'.'/'.md5($this->email));
+        }
+        return "https://tracker.moodle.org/secure/attachment/30912/f3.png";
+        */
+        // Get gavatar avatar
+        $email = md5(strtolower(trim($this->email)));
+        $default = urlencode('https://tracker.moodle.org/secure/attachment/30912/f3.png');
+
+        return "https://www.gravatar.com/avatar/$email?d=$default&s=$size";
+    }
+
+    /**
+     * Returns the a boolean for know if user has avatar.
+     */
+    public function hasAvatar()
+    {
+        /*
+        if (File::exists(public_path('/avatars/'.md5($this->email)))){
+            return true;
+        }
+        return false;
+        */
+
+        // There's always a gavatar
+        return true;
+    }
+
 //---------------------------------------------------
 }//end class

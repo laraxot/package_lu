@@ -15,9 +15,16 @@ class CreateLiveuserRightImpliedTable extends Migration {
 		if (!Schema::connection('liveuser_general')->hasTable('liveuser_right_implied')) 
 		Schema::connection('liveuser_general')->create('liveuser_right_implied', function(Blueprint $table)
 		{
+<<<<<<< HEAD
 			$table->integer('right_id')->unsigned()->default(0)->index('right_id');
 			$table->integer('implied_right_id')->unsigned()->default(0)->index('implied_right_id');
 			$table->primary(['right_id','implied_right_id']);
+=======
+			$table->increments('id');
+			$table->integer('right_id')->unsigned()->default(0)->index('right_id');
+			$table->integer('implied_right_id')->unsigned()->default(0)->index('implied_right_id');
+			//$table->primary(['right_id','implied_right_id']); //meglio usare id, piu' veloce da far mangiare al crud
+>>>>>>> master
 		});
 	}
 
