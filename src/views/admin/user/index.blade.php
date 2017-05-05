@@ -3,7 +3,7 @@
 @section('section')
 @include('backend::includes.flash')
 @include('backend::includes.components')
-
+{!! Form::bsFormSearch() !!}  
 <table class="table">
 @foreach($rows as $row)
 <tr>
