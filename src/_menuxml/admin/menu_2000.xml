@@ -1,0 +1,32 @@
+<root>
+    <row>
+        <id>2000</id>
+        <id_padre>1568</id_padre>
+        <nome>Lista Diritti</nome>
+        <img>pencil.png</img>
+        <icons>fa fa-pencil</icons>
+        <ordine>0</ordine>
+        <obj>lu.right</obj>
+        <act>index</act>
+        <funzione>editXMLMenu</funzione>
+        <subtitle />
+        <txt />
+        <query>a:0:{}</query>
+        <order_by>a:0:{}</order_by>
+        <load_tables>menu</load_tables>
+        <fieldstorender>id,id_padre,id_new,lista_figli,lista_aree,nome,img,ordine,obj,act,funzione,subtitle,txt,query,order_by,load_tables,fieldstorender,hiddenfields,defaults,visibility,processed,js_head,js_foot,id_approvaz</fieldstorender>
+        <hiddenfields />
+        <defaults>a:0:{}</defaults>
+        <visibility>0</visibility>
+        <processed />
+        <js_head />
+        <js_foot />
+        <id_approvaz>0</id_approvaz>
+        <handle />
+        <datemod />
+        <last_stato />
+        <querystr_keys></querystr_keys>
+        
+        <tipo_act>row</tipo_act>
+    </row>
+</root>
