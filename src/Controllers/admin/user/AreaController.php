@@ -43,7 +43,7 @@ public function search(Request $request){
 	}
 	return view('lu::user.search');
 }//end search
-//------------------------------------------------------------------------  
+//------------------------------------------------------------------------
 public function do_search($data){
 	//echo '<h3>do_search</h3>';
 	$rows=$this->getModel();
@@ -51,10 +51,10 @@ public function do_search($data){
 	if(isset($handle) && $handle!=''){
 		$rows=$rows->where('handle',$handle);
 	}
-	if(isset($cognome) && $cognome!=''){	
+	if(isset($cognome) && $cognome!=''){
 		$rows=$rows->where('cognome',$cognome);
 	}
-	if(isset($nome) && $nome!=''){	
+	if(isset($nome) && $nome!=''){
 		$rows=$rows->where('nome',$nome);
 	}
 	$rows=$rows->get();

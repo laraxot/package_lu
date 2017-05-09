@@ -3,7 +3,7 @@
 
 @section('content')
 @include('includes.flash')
-@include('includes.components')
+@include('backend::includes.components')
 
 <a href="{{route('lu.user.area.index',$params)}}" class="btn btn-small btn-info"  data-toggle="tooltip" title="Aree Utente" >
 <i class="fa fa-link fa-fw" aria-hidden="true"></i>&nbsp;</a>

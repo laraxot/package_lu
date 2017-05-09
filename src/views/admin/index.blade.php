@@ -2,7 +2,7 @@
 @section('page_heading','package lu')
 @section('section')
 @include('includes.flash')
-@include('includes.components')
+@include('backend::includes.components')
 
 lu package ..
 

@@ -5,7 +5,6 @@
 @include('backend::includes.flash')
 @include('backend::includes.components')
 {{-- per update ci vuole id_area .. --}}
-
 {!! Form::bsOpen($rows,'index','store') !!}
 
 {{ Form::bsMultiSelect('area_id',$rows->get(),\XRA\LU\Models\Area::all()) }}

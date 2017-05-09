@@ -2,7 +2,7 @@
 @section('page_heading','cerca')
 @section('content')
 @include('includes.flash')
-@include('includes.components')
+@include('backend::includes.components')
 <?php
 $routename=Request::route()->getName();
 ?>

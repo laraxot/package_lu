@@ -3,7 +3,7 @@
 
 @section('content')
 @include('includes.flash')
-@include('includes.components')
+@include('backend::includes.components')
 {{-- per update ci vuole id_area .. --}}
 
 {!! Form::bsOpen($rows,'index','store') !!}

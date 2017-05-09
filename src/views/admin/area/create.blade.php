@@ -1,4 +1,3 @@
-@extends('adm_theme::layouts.app')
 @section('page_heading','lista diritti')
 
 @section('content')

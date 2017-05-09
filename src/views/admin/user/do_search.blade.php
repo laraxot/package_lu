@@ -2,7 +2,7 @@
 @section('page_heading','cerca')
 @section('content')
 @include('includes.flash')
-@include('includes.components')
+@include('backend::includes.components')
 
 <table class="table table-striped table-bordered">
 @foreach($rows as $row)
