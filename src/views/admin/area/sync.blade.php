@@ -1,7 +1,7 @@
 @extends('adm_theme::layouts.app')
 @section('page_heading','Sincronizza Aree/Packages')
 
-@section('section')
+@section('content')
 @include('backend::includes.flash')
 @include('backend::includes.components')
 {{-- per update ci vuole id_area .. --}}

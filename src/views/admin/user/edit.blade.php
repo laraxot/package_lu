@@ -1,7 +1,7 @@
 @extends('adm_theme::layouts.app')
 @section('page_heading','Modifica Utente')
 
-@section('section')
+@section('content')
 @include('includes.flash')
 @include('includes.components')
 
@@ -29,5 +29,3 @@
 {!! Form::close() !!}
 
 @endsection
-
-

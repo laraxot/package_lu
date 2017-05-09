@@ -1,7 +1,7 @@
 @extends('adm_theme::layouts.app')
 @section('page_heading','Modifica Gruppi Utente')
 
-@section('section')
+@section('content')
 @include('includes.flash')
 @include('includes.components')
 {{-- per update ci vuole id_area .. --}}

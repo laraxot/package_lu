@@ -1,9 +1,9 @@
 @extends('adm_theme::layouts.app')
 @section('page_heading','lista utenti')
-@section('section')
+@section('content')
 @include('backend::includes.flash')
 @include('backend::includes.components')
-{!! Form::bsFormSearch() !!}  
+{!! Form::bsFormSearch() !!}
 <table class="table">
 @foreach($rows as $row)
 <tr>
