@@ -3,12 +3,8 @@
 namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use XRA\Extend\Traits\Updater;
-
 
 class Area extends Model{
-  use Updater;
-    //
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_areas';
     protected $primaryKey = 'area_id';
@@ -16,7 +12,7 @@ class Area extends Model{
 /*
 function PermUser(){
   return $this->hasOne(PermUser::class,'perm_user_id', 'perm_user_id');
-}   
+}
 */
 function AreaAdminArea(){
 	return $this->hasMany(AreaAdminArea::class,'area_id','area_id');
@@ -27,7 +23,7 @@ function label(){
 }
 
 function key(){
- return $this->area_id; 
+ return $this->area_id;
 }
 
 function keyName(){
@@ -38,14 +34,9 @@ public function a_href(){
   return url('admin/'.strtolower($this->area_define_name));
 }
 
-/*
-function AreaAdminAreas(){
-	return $this->hasMany('AreaAdminAreas','area_id','area_id');
-}
-*/
 static public function full(){
 	$rows=new self;
-	
+
 	return $rows;
 }
 
@@ -55,7 +46,7 @@ public function url(){
 
 //---------------------------------------------------------------------------
 static public function filter($params){
-  
+
   extract($params);
   //echo '<pre>';print_r($params);echo '</pre>';
   if(isset($id_user)){
