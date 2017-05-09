@@ -10,7 +10,6 @@ use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
 //------models------
 use \XRA\LU\Models\Area;
 
-
 class AreaController extends Controller{
 use CrudTrait;
 //-------------------------
@@ -21,6 +20,40 @@ public function getModel(){
 public function getPrimaryKey(){
     return 'id_area';
 }//end getPrimaryKey
+
+public function upload(){
+  $row = new Area;
+  $view = $this->getView();
+  return view($view)->with('row',$row);
+}
+
+public function postUpload(Request $request){
+  $rules = [
+    'file_zip' => 'mimes:zip,rar,tar'
+  ];
+  $messages = [
+    'file_zip.mimes' => 'Inserisci un archivio valido.'
+  ];
+
+  $validator = \Validator::make($request->file(), $rules, $messages);
+  if($validator->fails()){
+    return redirect()->back()->withErrors($validator);
+  }
+
+  $zipper = new \Chumper\Zipper\Zipper;
+  $zipper->make('test.zip')->folder('test')->add('composer.json');
+  $zipper->zip('test.zip')->folder('test')->add('composer.json','test');
+  $zipper->remove('composer.lock');
+  $zipper->folder('mySuperPackage')->add(
+      array(
+          'vendor',
+          'composer.json'
+      ));
+
+  $zipper->getFileContent('mySuperPackage/composer.json');
+  $zipper->make('test.zip')->extractTo('',array('mySuperPackage/composer.json'),Zipper::WHITELIST);
+  $zipper->close();
+}
 
 public function sync(){
 	$tmp=config('xra.package_boss').'Packages';
@@ -49,7 +82,7 @@ public function store(Request $request){
 			$tmp=strtolower($tmp);
 			$tmp=substr($tmp,1);
 			//echo '<br/>'.$v.' : '.$tmp;
-		
+
 			$row=new Area;
 			$row->area_define_name=$v;
 			$row->url=$tmp;

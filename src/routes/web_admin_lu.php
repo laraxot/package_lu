@@ -3,7 +3,7 @@
 $item0=[
 	'name'=>'lu'
 	,'prefix'=>'lu'
-	,'as'=>'lu.'//'trasferte.' 
+	,'as'=>'lu.'//'trasferte.'
 	,'namespace'=>null
 	//,'controller' => 'UserController'
 	,'controller' =>  'LUController'
@@ -62,6 +62,18 @@ $item0=[
 					'method'=>'get',
 					'act'=>'sync',
 				],//end act_n
+				[
+					'name'=>'upload',
+					'as'=>'upload',
+					'method'=>'get',
+					'act'=>'upload',
+				],//end act_n
+				[
+					'name'=>'postUpload',
+					'as'=>'postUpload',
+					'method'=>'post',
+					'act'=>'postUpload',
+				],//end act_n
 			],//end acts
 		],//end sub_n
 		[
@@ -79,7 +91,7 @@ $item0=[
 			'controller'=>'RightController',
 		],//end sub_n
 	],//end subs
-	
+
 ];
 
 $areas_prgs=[

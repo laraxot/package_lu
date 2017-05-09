@@ -5,8 +5,8 @@
 @include('backend::includes.flash')
 @include('backend::includes.components')
 
-<a href="{{route('lu.area.sync',$params)}}" class="btn btn-small btn-info"  data-toggle="tooltip" title="Sincronizza Aree con Packages" >
-<i class="fa fa-refresh fa-fw" aria-hidden="true"></i>&nbsp;</a>
+<div style="text-align:center"><a href="{{route('lu.area.sync',$params)}}" class="btn btn-small btn-info"  data-toggle="tooltip" title="Sincronizza Aree con Packages" >
+<i class="fa fa-refresh fa-fw" aria-hidden="true"></i>&nbsp;</a></div>
 
 <table class="table">
 @foreach($rows as $row)

@@ -5,6 +5,16 @@
     @include('backend::includes.flash')
     @include('backend::includes.components')
 
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
 {{-- Form::open($row, 'upload','postUpload') --}}
 {!! Form::open(['method' => 'post', 'route' => 'lu.area.postUpload', 'files' => true]) !!}
 <h1> Carica un nuovo plugin</h1>
