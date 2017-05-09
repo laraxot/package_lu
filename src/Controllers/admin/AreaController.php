@@ -62,13 +62,28 @@ public function sync(){
 	$packs=collect(array_combine($packs,$packs));
 	//$areas=Area::all()->keyBy('area_define_name')->keys();
 	$areas=Area::all()->pluck('area_define_name','area_define_name');
-	//dd($packs);
+
+  $ew8_id = \XRA\LU\Models\Application::select('application_id')->where('application_define_name', 'Enteweb');
 
 	$add=$packs->diff($areas);
 	$sub=$areas->diff($packs);
 
-    $view=CrudTrait::getView();
-    return view($view)->with('add',$add)->with('sub',$sub)->with('row',$this->getModel());
+  // $ordine = 0;
+  // foreach ($add as $key => $value) {
+  //   $liveuser_area = new Area;
+  //   $liveuser_area->area_define_name = $value;
+  //   $liveuser_area->application_id = $ew8_id;
+  //   $liveuser_area->db = env('DB_DATABASE');
+  //   $liveuser_area->img = '.jpg';
+  //   $liveuser_area->icons = 'fa fa-pensil';
+  //   $liveuser_area->ordine = $ordine;
+  //   $ordine += 10;
+  //   $liveuser_area->controller_path = 'path';
+  //   $liveuser_area->save();
+  // }
+  $view=CrudTrait::getView();
+
+  return view($view)->with('add',$add)->with('sub',$sub)->with('row',$this->getModel())->with('id_dashboard', '1');
 }
 
 public function store(Request $request){
