@@ -5,6 +5,7 @@ namespace XRA\LU\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class PermUser extends Model {
+
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_perm_users';
     protected $primaryKey = 'perm_user_id';
@@ -24,4 +25,8 @@ class PermUser extends Model {
         return $this->hasMany('GroupUser', 'perm_user_id', 'perm_user_id');
     }
 
+    public function getPermTypeByUser($user_id){
+      $perm_user = $this->where('auth_user_id', $user_id)->first();
+      return $perm_user->perm_type;
+    }
 }//end class PermUsers

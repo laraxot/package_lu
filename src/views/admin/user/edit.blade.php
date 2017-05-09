@@ -11,7 +11,7 @@
 <a href="{{route('lu.user.group.index',$params)}}" class="btn btn-small btn-info"  data-toggle="tooltip" title="Gruppi Utente" >
 <i class="fa fa-users fa-fw" aria-hidden="true"></i>&nbsp;</a>
 
-<a href="" class="btn btn-small btn-info"  data-toggle="tooltip" title="Livello Utente">
+<a href="{{route('lu.user.permuser.index',$params)}}" class="btn btn-small btn-info"  data-toggle="tooltip" title="Livello Utente">
 <i class="fa fa-level-up fa-fw" aria-hidden="true"></i>&nbsp;</a>
 
 {!! Form::bsOpen($row,'update') !!}
@@ -19,8 +19,7 @@
 {{ Form::bsText('cognome') }}
 {{ Form::bsText('nome') }}
 {{ Form::bsText('email') }}
-{{ Form::bsText('ente') }}
-{{ Form::bsText('matr') }}
+{{ Form::bsText('handle') }}
 {{ Form::bsText('passwd') }}
 
 {{-- Form::bsSelect('giust',null,$row->giust_opts()) --}}

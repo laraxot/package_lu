@@ -39,6 +39,13 @@ $item0=[
 						'controller'=>'GroupController',
 					],//end sub_n
 					[
+						'name'=>'permuser',
+						'prefix'=>'permuser',
+						'as'=>'.permuser',
+						'namespace'=>null,
+						'controller'=>'PermUserController',
+					],//end sub_n
+					[
 						'name'=>'area',
 						'prefix'=>'area',
 						'as'=>'.area',
