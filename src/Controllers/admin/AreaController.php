@@ -39,20 +39,11 @@ public function postUpload(Request $request){
   if($validator->fails()){
     return redirect()->back()->withErrors($validator);
   }
-
+  $archive = $request->file('file_zip');
   $zipper = new \Chumper\Zipper\Zipper;
-  $zipper->make('test.zip')->folder('test')->add('composer.json');
-  $zipper->zip('test.zip')->folder('test')->add('composer.json','test');
-  $zipper->remove('composer.lock');
-  $zipper->folder('mySuperPackage')->add(
-      array(
-          'vendor',
-          'composer.json'
-      ));
-
-  $zipper->getFileContent('mySuperPackage/composer.json');
-  $zipper->make('test.zip')->extractTo('',array('mySuperPackage/composer.json'),Zipper::WHITELIST);
+  $zipper->make($archive)->extractTo('plugin-module');
   $zipper->close();
+  return view('lu::admin.area.upload');
 }
 
 public function sync(){
