@@ -15,11 +15,7 @@ class CreateLiveuserAreaAdminAreasTable extends Migration {
 		if (!Schema::connection('liveuser_general')->hasTable('liveuser_area_admin_areas')) 
 		Schema::connection('liveuser_general')->create('liveuser_area_admin_areas', function(Blueprint $table)
 		{
-<<<<<<< HEAD
-			$table->integer('id', true);
-=======
 			$table->increments('id');
->>>>>>> master
 			$table->integer('area_id')->unsigned()->default(0);
 			$table->integer('perm_user_id')->unsigned()->default(0);
 		});
@@ -35,8 +31,4 @@ class CreateLiveuserAreaAdminAreasTable extends Migration {
 	{
 		Schema::connection('liveuser_general')->drop('liveuser_area_admin_areas');
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 }
