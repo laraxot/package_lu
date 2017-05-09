@@ -7,6 +7,7 @@
 {{-- per update ci vuole id_area .. --}}
 
 {!! Form::bsOpen($row,'sync','store') !!}
+
 <h3>Add</h3>
 {!! Form::bsMultiSelectCollection('add',collect([]),$add) !!}
 <h3>Sub</h3>

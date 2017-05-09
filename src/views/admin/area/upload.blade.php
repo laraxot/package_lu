@@ -29,7 +29,7 @@
         </tbody>
     </table>
     {{ Form::label('Attiva subito', false) }}
-    {{ Form::checkbox('active', false) }}
+    {{ Form::checkbox('active', 1,false) }}
     {{ Form::bsSubmit('Carica') }}
 {{ Form::close() }}
 @endsection

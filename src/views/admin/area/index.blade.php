@@ -14,9 +14,12 @@
 	<td>{{ $row->area_id}}</td>
 	<td>{{ $row->application_id}}</td>
 	<td>{{ $row->area_define_name}}</td>
-	<td>{!! Form::bsBtnEdit(['id_area'=>$row->area_id]) !!}</td>
+	<td>
+		{!! Form::bsBtnEdit(['id_area'=>$row->area_id]) !!}
+	</td>
 </tr>
 @endforeach
 </table>
 {{ $rows->links() }}
+
 @endsection

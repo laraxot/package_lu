@@ -74,6 +74,12 @@ $item0=[
 					'method'=>'post',
 					'act'=>'postUpload',
 				],//end act_n
+				[
+					'name'=>'activePlugin',
+					'as'=>'activePlugin',
+					'method'=>'get',
+					'act'=>'activePlugin',
+				],//end act_n
 			],//end acts
 		],//end sub_n
 		[
