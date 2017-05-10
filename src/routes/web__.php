@@ -1,5 +1,5 @@
 <?php
-
+//die('['.__LINE__.']['.__FILE__.']');
 $middleware=['web','guest'];
 $namespace='XRA\LU\Controllers\Auth';
 
