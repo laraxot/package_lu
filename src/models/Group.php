@@ -3,15 +3,13 @@
 namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use XRA\Extend\Traits\Updater;
 use Laravel\Scout\Searchable;
 
 class Group extends Model
 {
-    use Updater;
     use Searchable;
-    //
-    protected $connection = 'liveuser_general'; // this will use the specified database conneciton
+
+    protected $connection = 'liveuser_general';
     protected $table = 'liveuser_groups';
     protected $primaryKey = 'group_id';
 
@@ -24,7 +22,7 @@ function label(){
 }
 
 function key(){
- return $this->group_id; 
+ return $this->group_id;
 }
 
 function keyName(){
@@ -38,13 +36,13 @@ function AreaAdminAreas(){
 */
 static public function full(){
 	$rows=new self;
-	
+
 	return $rows;
 }
 
 //---------------------------------------------------------------------------
 static public function filter($params){
-  
+
   extract($params);
   //echo '<pre>';print_r($params);echo '</pre>';
   if(isset($id_user)){
