@@ -41,7 +41,7 @@ static public function full(){
 }
 
 public function url(){
-  return url('admin/'.$this->area_define_name);
+  return url('admin/'.$this->url);
 }
 
 //---------------------------------------------------------------------------

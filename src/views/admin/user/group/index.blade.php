@@ -2,7 +2,7 @@
 @section('page_heading','Modifica Gruppi Utente')
 
 @section('content')
-@include('includes.flash')
+@include('backend::includes.flash')
 @include('backend::includes.components')
 {{-- per update ci vuole id_area .. --}}
 

@@ -92,6 +92,7 @@ class LoginController extends Controller
             Auth::login($user,$request->has('remember'));
             $auth = Auth::loginUsingId($user->auth_user_id, $request->has('remember'));
             //return redirect()->intended('/admin');
+            
             return redirect()->intended($this->redirectPath());
         }else{
             return redirect()->guest('login')

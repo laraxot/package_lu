@@ -2,7 +2,7 @@
 @section('page_heading','Modifica Utente')
 
 @section('content')
-@include('includes.flash')
+@include('backend::includes.flash')
 @include('backend::includes.components')
 
 <a href="{{route('lu.user.area.index',$params)}}" class="btn btn-small btn-info"  data-toggle="tooltip" title="Aree Utente" >

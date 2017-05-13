@@ -1,8 +1,8 @@
 @extends('adm_theme::layouts.app')
 @section('page_heading','cerca')
 @section('section')
-@include('includes.flash')
-@include('includes.components')
+@include('backend::includes.flash')
+@include('backend::includes.components')
 <?php
 $routename=Request::route()->getName();	
 ?>
