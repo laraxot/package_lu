@@ -56,9 +56,12 @@ class AreaController extends Controller{
 
   public function sync(){
   	$tmp=config('xra.package_boss').'Packages';
-
   	$packs=$tmp::all();
-  	$packs[]='LU';
+  	//$packs[]='LU';
+    $xra_packs=\XRA\XRA\Packages::all();
+    $packs=array_merge($packs,$xra_packs);
+    //dd($tmp1);
+
   	$packs=collect(array_combine($packs,$packs));
 
     $areas=Area::all()->pluck('area_define_name','area_define_name');
