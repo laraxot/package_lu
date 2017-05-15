@@ -4,10 +4,11 @@ namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use XRA\Extend\Traits\Updater;
 
-class Group extends Model
-{
+class Group extends Model{
     use Searchable;
+    use Updater;
 
     protected $connection = 'liveuser_general';
     protected $table = 'liveuser_groups';
