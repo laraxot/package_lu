@@ -4,10 +4,10 @@
 //Route::group(['middleware' => ['web'],'namespace'=>'XRA\lu'], function () {
 
 //	Route::resource('/lu', 'LUController'); 
-	//Route::get('/product/{id_grid}', 'XRA\fpb\ProductController@preview')->name('product.preview');
-	//Route::get('/product/{id_grid}/thanks', 'XRA\fpb\ProductController@thanks')->name('product.thanks');
-	//Route::get('/product/{id_grid}/pagamento', 'XRA\fpb\ProductController@eseguiPagamento')->name('product.eseguiPagamento');
-	//Route::resource('/upload', 'XRA\fpb\UploadController');
+	//Route::get('/product/{id_grid}', 'XRA\Fpb\ProductController@preview')->name('product.preview');
+	//Route::get('/product/{id_grid}/thanks', 'XRA\Fpb\ProductController@thanks')->name('product.thanks');
+	//Route::get('/product/{id_grid}/pagamento', 'XRA\Fpb\ProductController@eseguiPagamento')->name('product.eseguiPagamento');
+	//Route::resource('/upload', 'XRA\Fpb\UploadController');
 //});
 
 if(\Request::path() != ''){
