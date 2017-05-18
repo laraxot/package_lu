@@ -7,4 +7,15 @@ Route::group(['prefix' => null, 'middleware' => $middleware, 'namespace' => $nam
     Route::post('logout', ['as'=>'logout','uses'=>'LoginController@logout'] ); // non serve 'guest'
 });
 
+$middleware=['web','guest'];
+Route::group(['prefix' => null, 'middleware' => $middleware, 'namespace' => $namespace]
+, function () {
+	Route::match(array('GET', 'HEAD'),'register',[
+    			'as'=>'register'
+    			,'uses'=>'RegisterController@showRegistrationForm'] ); 
+    Route::post('register','RegisterController@register');
+
+});
+
+
 $this->routes();
