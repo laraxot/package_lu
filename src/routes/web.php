@@ -14,6 +14,7 @@ Route::group(['prefix' => null, 'middleware' => $middleware, 'namespace' => $nam
     			'as'=>'register'
     			,'uses'=>'RegisterController@showRegistrationForm'] ); 
     Route::post('register','RegisterController@register');
+    Route::get('login', ['as'=>'login','uses'=>'LoginController@showLoginForm'] );
 
 });
 
