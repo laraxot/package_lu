@@ -44,22 +44,20 @@ class LoginController extends Controller
     }
 
      public function username(){
+        //die('['.__LINE__.']['.__FILE__.']');
         return 'handle';
     }
 
     //--------------------
     public function password(){
+        //die('['.__LINE__.']['.__FILE__.']');
         return 'passwd';
     }
 
-    public function showLoginForm(Request $request){
-        if($request->ajax()){
-            return view('pub_theme::auth.ajax_login');
-        }
-        return view('adm_theme::auth.login');
-    }
+    //public function authenticate(){ non viene chiamato
+    //    die('['.__LINE__.']['.__FILE__.']');
+    //}
 
-    
     public function login(Request $request){
         //nel FORM : USERNAME,EMAIL E PASSWORD
         $data=$request->all();
@@ -94,16 +92,9 @@ class LoginController extends Controller
             Auth::login($user,$request->has('remember'));
             $auth = Auth::loginUsingId($user->auth_user_id, $request->has('remember'));
             //return redirect()->intended('/admin');
-            $out=redirect()->intended($this->redirectPath());
-            if($request->ajax()){
-                return response()->json(['status' => 1, 'msg' => 'attendere..']);
-            }
             
-            return $out;
+            return redirect()->intended($this->redirectPath());
         }else{
-            if($request->ajax()){
-                return response()->json(['status' => 0, 'msg' => 'user o pwd errati']);
-            }
             return redirect()->guest('login')
                 ->withError('Qualcosa di errato !')
                 ->withInput($request->all())

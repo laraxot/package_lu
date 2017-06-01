@@ -274,7 +274,7 @@ public function getReminderEmail()
     }
     //--------------------
     //--------------------
-    /* questa funzione commentata mi serve per vedere la funzione standard
+    /*
     public function setPasswordAttribute($value) {
         //die('['.__LINE__.']['.__FILE__.']');
         $this->attributes['password'] = bcrypt($value);
@@ -282,9 +282,8 @@ public function getReminderEmail()
     */
      //--------------------
     public function setPasswdAttribute($value) {
-        if(strlen($value)<30){
-            $this->attributes['passwd'] = md5($value);
-        }
+       // die('['.__LINE__.']['.__FILE__.']');
+        $this->attributes['passwd'] = md5($value);
     }
 
     public function setUsernameAttribute($value){
