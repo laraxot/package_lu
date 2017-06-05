@@ -38,15 +38,48 @@ public function a_href(){
   return url('admin/'.strtolower($this->area_define_name));
 }
 
-static public function full(){
-	$rows=new self;
-
-	return $rows;
-}
-
 public function url(){
   return url('admin/'.$this->url);
 }
+
+public function icon_src(){
+    //*
+    /*
+    $path= \XRA\XRA\Packages::menuxml($this->area_define_name).'/admin/icon.png';
+
+    
+    $path=realpath($path);
+    
+    if(file_exists($path)){
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        return $base64;
+    }else{
+        //echo $path; die();
+    }
+    */
+
+   // */
+    return asset('icons/'.$this->area_define_name.'/icon.png');
+    /*
+    if($this->icon_path==null){
+        $this->icon_path='/icon/'.$this->area_define_name.'/icon.png';
+        $this->save();
+    }
+    return asset($this->icon_path);
+    */
+}
+
+
+static public function full(){
+  $rows=new self;
+
+  return $rows;
+}
+
+
+
 
 //---------------------------------------------------------------------------
 static public function filter($params){
