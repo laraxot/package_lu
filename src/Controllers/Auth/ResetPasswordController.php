@@ -5,6 +5,10 @@ namespace XRA\LU\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+
+//--------- Models ------------
+use XRA\LU\Models\User;
 
 class ResetPasswordController extends Controller
 {
@@ -57,6 +61,24 @@ class ResetPasswordController extends Controller
         ])->save();
 
         $this->guard()->login($user);
+    }
+
+    /**
+     * Display the password reset view for the given token.
+     *
+     * If no token is present, display the link request form.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string|null  $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showResetForm(Request $request, $token = null){
+        //qui da fare controllo se esiste pub_theme::auth.passwords.reset mostra quello
+        //se no se esiste adm_theme::auth.passwords.reset mostra quello
+        //altrimenti mostra 'lu::auth.passwords.reset' che esiste per forza
+        return view('lu::auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
     }
 
 }

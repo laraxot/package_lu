@@ -1,4 +1,4 @@
-<?
+<?php
 $middleware=['web','guest'];
 $namespace='XRA\LU\Controllers\Auth';
 

@@ -34,6 +34,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 use Laravel\Scout\Searchable;
 
+use XRA\LU\Notifications\ResetPassword as ResetPasswordNotification;
+
 
 //class User extends Model
 class User extends \Eloquent implements AuthenticatableContract,
@@ -261,6 +263,17 @@ public function getReminderEmail()
         }
 
         return redirect()->intended('/path_for_normal_user');
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token){
+        //die('['.__LINE__.']['.__FILE__.']');
+        $this->notify(new ResetPasswordNotification($token));
     }
 
 

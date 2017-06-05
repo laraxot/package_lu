@@ -15,6 +15,9 @@ Route::group(['prefix' => null, 'middleware' => $middleware, 'namespace' => $nam
     			,'uses'=>'RegisterController@showRegistrationForm'] ); 
     Route::post('register','RegisterController@register');
     Route::get('login', ['as'=>'login','uses'=>'LoginController@showLoginForm'] );
+    // POST     | password/email         | password.email   | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail  | web,guest  
+    Route::post('password/email',['as'=>'password.email','uses'=>'ForgotPasswordController@sendResetLinkEmail']);
+
 
 });
 
