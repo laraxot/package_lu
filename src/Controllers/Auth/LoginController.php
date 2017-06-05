@@ -53,10 +53,24 @@ class LoginController extends Controller
     }
 
     public function showLoginForm(Request $request){
+        $locz=['pub_theme','adm_theme','lu'];
         if($request->ajax()){
-            return view('pub_theme::auth.ajax_login');
+            foreach($locz as $loc){
+                $view=$loc.'::auth.ajax_login';
+                if (\View::exists($view)) {
+                    return view($view);
+                }
+            }
+            return '<h3>Non esiste la view ['.$view.']</h3>';
         }
-        return view('adm_theme::auth.login');
+
+        foreach($locz as $loc){
+            $view=$loc.'::auth.login';
+            if (\View::exists($view)) {
+                return view($view);
+            }
+        }
+        return '<h3>Non esiste la view ['.$view.']</h3>';
     }
 
     

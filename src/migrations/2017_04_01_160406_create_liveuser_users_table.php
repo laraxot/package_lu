@@ -29,6 +29,8 @@ class CreateLiveuserUsersTable extends Migration {
 			$table->integer('question_id')->unsigned()->nullable()->default(0);
 			$table->string('nome', 90)->nullable();
 			$table->string('cognome', 50)->nullable()->default('');
+			//$table->string('first_name'); //sarebbe meglio tradurre tutti i campi in inglese
+    		//$table->string('last_name');
 			$table->integer('ente')->unsigned()->nullable()->index('i_ente');
 			$table->integer('matr')->unsigned()->nullable()->index('i_matr');
 			$table->integer('stabi')->nullable();
@@ -38,7 +40,6 @@ class CreateLiveuserUsersTable extends Migration {
 			$table->string('activation_code', 40)->nullable()->default('0');
 			$table->string('forgotten_password_code', 40)->nullable()->default('0');
 			$table->string('provincia', 2)->nullable()->default('');
-			$table->string('remember_token', 100)->nullable()->default('0');
 			$table->string('conosciuto', 50)->nullable();
 			$table->string('news', 10)->nullable();
 			$table->string('citta', 100)->nullable()->default('');
@@ -47,7 +48,10 @@ class CreateLiveuserUsersTable extends Migration {
 			$table->boolean('bounce')->nullable()->default(0);
 			$table->timestamp('dataIscrizione')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
 			$table->integer('dataCancellazione')->nullable()->default(0);
-			$table->dateTime('updated_at')->nullable();
+			//$table->string('remember_token', 100)->nullable()->default('0'); //riga sotto dovrebbe fare la stessa cosa
+			$table->rememberToken();
+			//$table->dateTime('updated_at')->nullable(); //riga sotto dovrebbe fare la stessa cosa
+    		$table->timestamps();
 			$table->index(['ente','matr'], 'i_ente_matr');
 		});
 	}
