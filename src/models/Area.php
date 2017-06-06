@@ -5,6 +5,8 @@ namespace XRA\LU\Models;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use XRA\Extend\Traits\Updater;
+use XRA\Extend\Services\ThemeService;
+
 
 class Area extends Model{
     use Searchable;
@@ -59,9 +61,15 @@ public function icon_src(){
         //echo $path; die();
     }
     */
+    $src=strtolower($this->area_define_name.'::img/icon.png');
+    $srcz = ThemeService::viewNamespaceToUrl([$src]);
+    //dd($srcz);
+    $src=$srcz[0];
+    $newsrc = ThemeService::getFileUrl($src);
+    return $newsrc;
 
    // */
-    return asset('icons/'.$this->area_define_name.'/icon.png');
+    //return asset('icons/'.$this->area_define_name.'/icon.png');
     /*
     if($this->icon_path==null){
         $this->icon_path='/icon/'.$this->area_define_name.'/icon.png';
