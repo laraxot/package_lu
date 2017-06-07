@@ -41,7 +41,7 @@ class AreaController extends Controller{
     }
     $archive = $request->file('file_zip');
     $zipper = new \Chumper\Zipper\Zipper;
-    $zipper->make($archive)->extractTo('../laravel/packages/Enteweb');
+    $zipper->make($archive)->extractTo('../laravel/'.config('xra.package_boss'));
     $zipper->close();
 
     if($request->input('active') !== null){
