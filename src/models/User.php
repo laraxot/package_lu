@@ -74,30 +74,41 @@ public function getAuthIdentifierName(){
     return 'auth_user_id';
 }
 //-----------------------------------------------------------
-function permUsers(){
+/*
+function permUser(){
     return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
+    //$row= PermUser::firstOrCreate(['auth_user_id'=>$this->auth_user_id]);
+    //dd($row);
+    return $row;
 }
+*/
 
 function PermUser(){
-    return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
+    $row=$this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
+    //dd($row->first()->perm_user_id);
+    return $row;
 }
 
 function perm_user_id(){ //shortcut
-    return $this->PermUser()->first()->perm_user_id;
+    //$permUsers=$this->permUser();
+    //dd($permUsers->first()->perm_user_id);
+    $row=$this->permUser()->first()->perm_user_id;
+    //dd($row);
+    return $row;
 }
 
 ///----------------------------------------------------------------------
 public function perm_type(){
-    $permUsers=$this->permUsers();
+    $permUsers=$this->permUser();
     return $permUsers;
 }
 
 
 function groups1(){
-    $permUsers=$this->permUsers()->first();
+    $permUsers=$this->permUser()->first();
     $groupUsers=$permUsers->groupUsers()->get();
     //echo '<pre>[';print_r($groupUsers->first()->toArray());echo '</pre>';
-    //$groupUsers=$this->permUsers()->first()->groupUsers()->get();
+    //$groupUsers=$this->permUser()->first()->groupUsers()->get();
     //echo '<pre>['; print_r($groupUsers->toArray()); echo ']</pre>';
     $groups=[];
     foreach($groupUsers as $k => $v){
@@ -129,8 +140,8 @@ function groups_opts(){
 
 function areas(){
     //$areas=[];
-    if($this->permUsers()->first()==null) return [];
-    $perm_user_id=$this->permUsers['perm_user_id'];
+    if($this->permUser()->first()==null) return [];
+    $perm_user_id=$this->permUser['perm_user_id'];
     //echo '<h3>'.$perm_user_id;
     $areas=Area::whereHas('AreaAdminArea',function ($query) use ($perm_user_id){
         $query->where('perm_user_id','=',$perm_user_id);
@@ -140,8 +151,8 @@ function areas(){
 
 function groups(){
     //$areas=[];
-    if($this->permUsers()->first()==null) return [];
-    $perm_user_id=$this->permUsers['perm_user_id'];
+    if($this->permUser()->first()==null) return [];
+    $perm_user_id=$this->permUser['perm_user_id'];
     //echo '<h3>'.$perm_user_id;
     $groups=Group::whereHas('GroupUser',function ($query) use ($perm_user_id){
         $query->where('perm_user_id','=',$perm_user_id);
@@ -155,8 +166,8 @@ function groups(){
 function areas(){
     $areas=[];
     //$tmp=\Auth::user()->permUsers()->first()->areaAdminAreas()->get();
-    if($this->permUsers()->first()==null) return $areas;
-    $tmp=$this->permUsers()->first()->areaAdminAreas()->get();
+    if($this->permUser()->first()==null) return $areas;
+    $tmp=$this->permUser()->first()->areaAdminAreas()->get();
     foreach($tmp as $v){
       $v1=$v->area()->get()->toArray();
       if(isset($v1[0])){
@@ -178,7 +189,7 @@ function areas(){
 public function areaAdminAreas(){
 
     //$perm_user_id=$this->perm_user_id();
-    $areaAdminAreas=$this->permUsers()->first()->areaAdminAreas()->get();
+    $areaAdminAreas=$this->permUser()->first()->areaAdminAreas()->get();
 
     //*
     //while(list($k,$v)=each($areaAdminAreas) ){

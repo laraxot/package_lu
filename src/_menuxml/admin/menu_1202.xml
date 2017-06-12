@@ -2,9 +2,6 @@
     <row>
         <id>1202</id>
         <id_padre>1154</id_padre>
-        
-        
-        
         <nome>Load data from file</nome>
         <img />
         <ordine />

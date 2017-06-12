@@ -1,10 +1,11 @@
 @extends('adm_theme::layouts.app')
-@section('page_heading','Modifica Utente')
+@section('page_heading','Crea Utente')
 
 @section('content')
 @include('backend::includes.flash')
 @include('backend::includes.components')
 
+{{--  
 <a href="{{route('lu.user.area.index',$params)}}" class="btn btn-small btn-info"  data-toggle="tooltip" title="Aree Utente" >
 <i class="fa fa-link fa-fw" aria-hidden="true"></i>&nbsp;</a>
 
@@ -13,7 +14,7 @@
 
 <a href="" class="btn btn-small btn-info"  data-toggle="tooltip" title="Livello Utente">
 <i class="fa fa-level-up fa-fw" aria-hidden="true"></i>&nbsp;</a>
-
+--}}
 {!! Form::bsOpen($row,'store') !!}
 
 {{ Form::bsText('cognome') }}

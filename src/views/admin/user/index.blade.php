@@ -3,8 +3,21 @@
 @section('content')
 @include('backend::includes.flash')
 @include('backend::includes.components')
+{!! Form::bsBtnCreate() !!}
 {!! Form::bsFormSearch() !!}
 <table class="table">
+<thead>
+<tr>
+	<th>ID</th>
+	<th>Handle</th>
+	<th>Cognome</th>
+	<th>Nome</th>
+	<th>Email</th>
+	<th></th>
+
+</tr>
+</thead>
+<tbody>
 @foreach($rows as $row)
 <tr>
 	<td>{{ $row->auth_user_id}}</td>
@@ -16,6 +29,7 @@
 
 </tr>
 @endforeach
+</tbody>
 </table>
 
 @endsection
