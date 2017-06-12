@@ -90,7 +90,7 @@ function PermUser(){
 }
 
 function perm_user_id(){ //shortcut
-    //$permUsers=$this->permUser()->first();
+    $permUsers=$this->permUser();
     
     //dd($permUsers->first()->perm_user_id);
     $perm_user_id=$permUsers->firstOrCreate()->perm_user_id;
