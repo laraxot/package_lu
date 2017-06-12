@@ -2,9 +2,6 @@
     <row>
         <id>1142</id>
         <id_padre>1136</id_padre>
-        <id_new>0</id_new>
-        
-        
         <nome>TABLE EDITABLE JQUERY</nome>
         <img />
         <ordine />

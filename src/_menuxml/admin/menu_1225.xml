@@ -2,9 +2,6 @@
     <row>
         <id>1225</id>
         <id_padre>1692</id_padre>
-        
-        
-        
         <nome>elimina Lista Aree</nome>
         <img>cross.png</img>
         <ordine />

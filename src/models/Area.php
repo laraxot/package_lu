@@ -102,7 +102,7 @@ static public function filter($params){
 	}
   //echo '<pre>';print_r($areas->toArray());echo '</pre>';
   //echo '<pre>';print_r($user);echo '</pre>';
-  //$perm_user=$user->permUsers['perm_user_id'];
+  //$perm_user=$user->permUser['perm_user_id'];
   //echo '<pre>-';print_r($perm_user);echo '-</pre>';
 
   //

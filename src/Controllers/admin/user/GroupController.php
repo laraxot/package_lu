@@ -76,7 +76,7 @@ public function store(Request $request){
 	$params = \Route::current()->parameters();
 	extract($params);
 	$user=\XRA\LU\Models\User::find($id_user);
-	$perm_user_id=$user->permUsers['perm_user_id'];
+	$perm_user_id=$user->permUser['perm_user_id'];
 	//echo '<h3>'.$perm_user_id;
 	$res=\XRA\LU\Models\GroupUser::where('perm_user_id','=',$perm_user_id)->delete();
 	extract($data);
