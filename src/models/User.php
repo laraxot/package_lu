@@ -90,10 +90,12 @@ function PermUser(){
 }
 
 function perm_user_id(){ //shortcut
-    $permUsers=$this->permUser();
-    
+    $permUser=$this->permUser()->first();
+    if($permUser==null){
+        $permUser= PermUser::firstOrCreate(['auth_user_id'=>$this->auth_user_id]);  
+    }
     //dd($permUsers->first()->perm_user_id);
-    $perm_user_id=$permUsers->firstOrCreate()->perm_user_id;
+    $perm_user_id=$permUser->perm_user_id;
     //dd($row);
     return $perm_user_id;
 }
