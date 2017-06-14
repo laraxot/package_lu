@@ -2,9 +2,6 @@
     <row>
         <id>1110</id>
         <id_padre>1106</id_padre>
-        
-        
-        
         <nome>Permessi Utente</nome>
         <img>areas.png</img>
 		<icons>fa fa-cube</icons>

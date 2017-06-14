@@ -85,8 +85,9 @@ public function store(Request $request){
 	$params = \Route::current()->parameters();
 	extract($params);
 	$user=User::find($id_user);
-	$perm_user_id=$user->permUsers['perm_user_id'];
-	//echo '<h3>'.$perm_user_id;
+	//$perm_user_id=$user->permUser['perm_user_id'];
+	$perm_user_id=$user->perm_user_id();
+	//echo '<h3>'.$perm_user_id;die('['.__LINE__.']['.__FILE__.']');
 	$res=AreaAdminArea::where('perm_user_id','=',$perm_user_id)->delete();
 	extract($data);
 	reset($area_id);

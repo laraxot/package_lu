@@ -2,9 +2,6 @@
     <row>
         <id>1300</id>
         <id_padre>1685</id_padre>
-        <id_new>0</id_new>
-        
-        
         <nome>cerca Aree nelle Directory</nome>
         <img />
         <ordine>0</ordine>
