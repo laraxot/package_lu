@@ -101,10 +101,20 @@ class RegisterController extends Controller{
     }
 //---------------------------------------------------------------------------------------    
     public function showRegistrationForm(Request $request){
+        $locz=['pub_theme','adm_theme','lu'];
+        $tpl='auth.register';
         if($request->ajax()){
-            return view('pub_theme::auth.ajax_login'); //nel ajax_login contiene tutti  e 3 i form
+            $tpl='auth.ajax_register';
         }
-        return view('adm_theme::auth.register');
+
+        foreach($locz as $loc){
+            $view=$loc.'::'.$tpl;
+            if (\View::exists($view)) {
+                return view($view);
+            }
+        }
+        return '<h3>Non esiste la view ['.$view.']</h3>';
+
     }
 //--------------------------------------------------------------------------------  
  /**

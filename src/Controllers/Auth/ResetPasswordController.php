@@ -76,9 +76,26 @@ class ResetPasswordController extends Controller
         //qui da fare controllo se esiste pub_theme::auth.passwords.reset mostra quello
         //se no se esiste adm_theme::auth.passwords.reset mostra quello
         //altrimenti mostra 'lu::auth.passwords.reset' che esiste per forza
+        $locz=['pub_theme','adm_theme','lu'];
+        $tpl='auth.passwords.reset';
+        if($request->ajax()){
+            $tpl='auth.passwords.ajax_reset';
+        }
+
+        foreach($locz as $loc){
+            $view=$loc.'::'.$tpl;
+            if (\View::exists($view)) {
+                return view($view)->with(
+                            ['token' => $token, 'email' => $request->email]
+                        );
+            }
+        }
+        return '<h3>Non esiste la view ['.$view.']</h3>';
+        /*
         return view('lu::auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
+        */
     }
 
 }

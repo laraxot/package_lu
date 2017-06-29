@@ -1,4 +1,3 @@
-<div class="mfp-with-anim mfp-dialog clearfix">
 <i class="fa fa-sign-in dialog-icon"></i>
     <h3>Member Login</h3>
     <h5>Welcome back, friend. Login to get started</h5>
@@ -19,24 +18,8 @@
         <input type="submit" value="Sign in" class="btn btn-primary">
     </form>
     <ul class="dialog-alt-links">
-        {{--
         <li><a class="popup-text" href="#register-dialog" data-effect="mfp-zoom-out">Not member yet</a>
         </li>
         <li><a class="popup-text" href="#password-recover-dialog" data-effect="mfp-zoom-out">Forgot password</a>
         </li>
-        --}}
-        <li>
-        <a href="{{ asset('/register') }}" class="new-ajax-popup-link nav-link">Not member yet</a>
-        </li>
-        <li>
-        <a href="{{ asset('/password/reset') }}" class="new-ajax-popup-link nav-link">Forgot password</a>
-        </li>
     </ul>
-</div>
-{{--
-<script>
-$('.ajax-popup-link').magnificPopup({
-  type: 'ajax'
-});
-</script>
---}}

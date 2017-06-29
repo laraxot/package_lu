@@ -55,6 +55,8 @@ class LoginController extends Controller
     public function showLoginForm(Request $request){
         $locz=['pub_theme','adm_theme','lu'];
         if($request->ajax()){
+            //return '['.__LINE__.']['.__FILE__.']';
+            //return view('lu::auth.ajax_login')->__toString();
             foreach($locz as $loc){
                 $view=$loc.'::auth.ajax_login';
                 if (\View::exists($view)) {
