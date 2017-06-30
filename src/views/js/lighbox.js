@@ -63,35 +63,149 @@ $('.popup-ajax').magnificPopup({
     midClick: true
 });
 
+$('.new-ajax-popup-link').magnificPopup({
+    type: 'ajax',
+    removalDelay: 500,
+    closeBtnInside: true
+});
+
+var mfp=$.magnificPopup;
+
+$('.ajax-popup-link1').on('click', function(e) {
+    e.preventDefault();
+    var $href=$(this).attr('href');
+   
+    mfp.open({
+        type: 'inline',
+        closeOnContentClick: false,
+        items: {
+            src: $href
+        }
+    });
+    return false;
+
+});
+
 
 $('.ajax-popup-link').magnificPopup({
   	type: 'ajax',
   	removalDelay: 500,
     closeBtnInside: true,
+    modal: true,
+
   	callbacks: {
   		beforeOpen: function() {
-            this.st.mainClass = this.st.el.attr('data-effect');
+            //alert('beforeOpen');
+        //    this.st.mainClass = this.st.el.attr('data-effect');
         },
     	open: function() {
+            /*
+            alert('Open');
         	$('.new-ajax-popup-link').on('click', function(e) {
-        		alert('cli');
+        		alert('cli1');
           		e.preventDefault();
 				// close current popup
           		$.magnificPopup.close();
           		return false;
         	});
+            //*/
       	},
       	afterClose: function() {
+            //alert('afterClose');
         	// new popup instance
-        	var newAjaxPopupLink = $('.new-ajax-popup-link').magnificPopup({
+            /*
+        	var newAjaxPopupLink = $('.ajax-popup-link').magnificPopup({
           		type: 'ajax'
       		});
     		// open it
-        	$('.new-ajax-popup-link').magnificPopup('open');
-      	}
+        	$('.ajax-popup-link').magnificPopup('open');
+            */
+      	},
+        parseAjax: function (ajaxResponse) { 
+            ajaxResponse.data = '<div class="mfp-with-anim mfp-dialog clearfix">'+ajaxResponse.data+'</div>';
+        },
+        ajaxContentAdded: function() {
+            $('.ajax-popup-link').on('click', function(e) {
+                e.preventDefault();
+                var $href=$(this).attr('href');
+                mfp.open({
+                    type: 'inline',
+                    removalDelay: 500,
+                    closeBtnInside: true,
+                    closeOnContentClick: false,
+                    items: {
+                        src: $href
+                    }
+                })
+                return false;
+            });
+            $(".dialog-form").submit(function(e) {
+                alert('submit form');   
+                //prevent Default functionality
+                var myform = $(this);
+                var querystring = myform.serialize();
+                //alert(myform.serialize());
+                e.preventDefault();
+                //get the action-url of the form
+                var actionurl = e.currentTarget.action;
+                $('.loginRes').html("<i class=\"fa fa-refresh fa-spin\"><\/i>");
+                //alert(actionurl);
+                //do your own request an handle the results
+                $.ajax({
+                    url: actionurl,
+                    type: 'post',
+                    dataType: 'json',
+                    data: querystring,
+                    success: function(data) {
+                        if(data.status==0){
+                            $('.loginRes').html('<div class="alert alert-danger" role="alert">'+data.msg+'</div>');
+                        }else{
+                            $('.loginRes').html('<div class="alert alert-success" role="alert">'+data.msg+'</div>');
+                            if(myform.attr('id')=='formLogin'){
+                                location.reload();
+                            }
+                        }
+                        
+                       // ... do something with the data...
+                    }
+                });
+             
+                return false;
+            });
+            
+        }
+
+
 	},
 	midClick: true
 });
 
 
 
+$('a.ajax-popup-link2').on('click',function(e){
+    //alert();
+    //*
+    var $obj=$(this);
+    var $href=$(this).attr('href');
+    e.preventDefault();
+    $.ajax({
+        type: "GET", // or POST
+        url: $href,
+        /*
+        data: {
+            get_request_id : $(this).data('id'), // assign a data-id to the link
+        },
+        */                                      
+        success: function(data){
+            //$.magnificPopup.open({
+            $obj.magnificPopup({
+                type: 'inline',
+                closeOnContentClick: false,
+                items: {
+                    src: data
+                }
+            })
+        }
+    });
+    
+});

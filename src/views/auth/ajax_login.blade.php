@@ -1,6 +1,9 @@
+{{--
 <div class="mfp-with-anim mfp-dialog clearfix">
+--}}
+<div class="loginRes"></div>
 <i class="fa fa-sign-in dialog-icon"></i>
-    <h3>Member Login</h3>
+    <h3>Member Login </h3>
     <h5>Welcome back, friend. Login to get started</h5>
     <form method="POST" action="{{ asset('/login') }}" accept-charset="UTF-8" class="dialog-form">{{ csrf_field() }}
         <div class="form-group">
@@ -19,24 +22,12 @@
         <input type="submit" value="Sign in" class="btn btn-primary">
     </form>
     <ul class="dialog-alt-links">
-        {{--
-        <li><a class="popup-text" href="#register-dialog" data-effect="mfp-zoom-out">Not member yet</a>
+        <li><a href="{{ asset('/register') }}" class="ajax-popup-link"  data-effect="mfp-zoom-out">Not member yet</a>
         </li>
-        <li><a class="popup-text" href="#password-recover-dialog" data-effect="mfp-zoom-out">Forgot password</a>
+        <li><a href="{{ asset('/password/reset') }}" class="ajax-popup-link" data-effect="mfp-zoom-out">Forgot password</a>
         </li>
-        --}}
-        <li>
-        <a href="{{ asset('/register') }}" class="new-ajax-popup-link nav-link">Not member yet</a>
-        </li>
-        <li>
-        <a href="{{ asset('/password/reset') }}" class="new-ajax-popup-link nav-link">Forgot password</a>
-        </li>
+       
     </ul>
-</div>
 {{--
-<script>
-$('.ajax-popup-link').magnificPopup({
-  type: 'ajax'
-});
-</script>
+</div>
 --}}

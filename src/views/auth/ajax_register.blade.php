@@ -1,4 +1,7 @@
+{{--
 <div class="mfp-with-anim mfp-dialog clearfix">
+--}}
+<div class="loginRes"></div>
 <i class="fa fa-edit dialog-icon"></i>
 <h3>Member Register</h3>
 <h5>Ready to get best offers? Let's get started!</h5>
@@ -37,7 +40,9 @@
     <input type="submit" value="Sign up" class="btn btn-primary">
 </form>
 <ul class="dialog-alt-links">
-    <li><a class="popup-text" href="#login-dialog" data-effect="mfp-zoom-out">Already member</a>
+    <li><a href="{{ asset('/login') }}" class="ajax-popup-link" data-effect="mfp-zoom-out">Already member</a>
     </li>
 </ul>
+{{--
 </div>
+--}}
