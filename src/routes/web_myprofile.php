@@ -2,7 +2,7 @@
 
 use XRA\Extend\Library\XOT;
 
-$namespace=$this->getNamespace().DIRECTORY_SEPARATOR.'Controllers';
+$namespace=$this->getNamespace().'\Controllers';
 //$pack= class_basename($this->getNamespace());
 $pack='MyProfile';
 $pack_low=strtolower($pack);
