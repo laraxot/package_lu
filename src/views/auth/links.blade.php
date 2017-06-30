@@ -1,9 +1,10 @@
 @if(\Auth::check())
     <li class="nav-item dropdown">
-        <a class="popup-text nav-link dropdown-toggle" href="#" data-effect="mfp-move-from-top" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" data-effect="mfp-move-from-top" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user"></i>Welcome {{\Auth::user()->handle}}!
         </a>
         <div class="dropdown-menu">
+            <a href="{{ url('/myprofile') }}" class="dropdown-item">Profile</a>
             <a href="{{ url('/logout') }}" class="dropdown-item" 
                 onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">
