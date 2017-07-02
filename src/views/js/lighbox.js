@@ -91,7 +91,8 @@ $('.ajax-popup-link').magnificPopup({
   	type: 'ajax',
   	removalDelay: 500,
     closeBtnInside: true,
-    modal: true,
+    modal: false,
+    enableEscapeKey: true,
 
   	callbacks: {
   		beforeOpen: function() {
@@ -140,7 +141,6 @@ $('.ajax-popup-link').magnificPopup({
                 return false;
             });
             $(".dialog-form").submit(function(e) {
-                alert('submit form');   
                 //prevent Default functionality
                 var myform = $(this);
                 var querystring = myform.serialize();

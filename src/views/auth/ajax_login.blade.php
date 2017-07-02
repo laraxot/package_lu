@@ -5,7 +5,7 @@
 <i class="fa fa-sign-in dialog-icon"></i>
     <h3>Member Login </h3>
     <h5>Welcome back, friend. Login to get started</h5>
-    <form method="POST" action="{{ asset('/login') }}" accept-charset="UTF-8" class="dialog-form">{{ csrf_field() }}
+    <form method="POST" action="{{ asset('/login') }}" accept-charset="UTF-8" class="dialog-form" id="formLogin">{{ csrf_field() }}
         <div class="form-group">
             <label>E-mail</label>
             <input type="text" placeholder="email@domain.com" class="form-control" name="email" />
