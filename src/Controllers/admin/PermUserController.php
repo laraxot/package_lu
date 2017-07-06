@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
+use XRA\Extend\Traits\ArtisanTrait;
 
 //------models------
 use \XRA\LU\Models\PermUser;
@@ -15,7 +16,7 @@ class PermUserController extends Controller
 
     public function index(Request $request, $user_id){
       if ($request->routelist == 1) {
-          return app(\XRA\Backend\Controllers\Admin\ArtisanController::class)->exe('route:list');
+          return ArtisanTrait::exe('route:list');
       }
       $tmp = new PermUser;
       $perm_user = PermUser::where('auth_user_id', $user_id)->first();

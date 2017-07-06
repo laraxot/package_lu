@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
+use XRA\Extend\Traits\ArtisanTrait;
+
+//------models-------
 use XRA\LU\Models\Group;
 
 //use blueimp\jquery-file-upload\UploadHandler;
@@ -23,7 +26,7 @@ public function getPrimaryKey(){
 /*
 public function index(Request $request){
 	if($request->routelist==1){
-        return app(\App\Http\Controllers\admin\ArtisanController::class)->exe('route:list');
+        return ArtisanTrait::exe('route:list');
     }
     return view('lu::index');
 }
@@ -61,7 +64,7 @@ public function do_search($data){
 ////-------------------------------------------------------------------------
  public function index(Request $request){
         if($request->routelist==1){
-           return app(\App\Http\Controllers\admin\ArtisanController::class)->exe('route:list');
+           return ArtisanTrait::exe('route:list');
         }
         $params = \Route::current()->parameters();
         $model=$this->getModel();

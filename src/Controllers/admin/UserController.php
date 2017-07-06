@@ -26,7 +26,7 @@ public function getPrimaryKey(){
 /*
 public function index(Request $request){
 	if($request->routelist==1){
-        return app(\App\Http\Controllers\admin\ArtisanController::class)->exe('route:list');
+        return ArtisanTrait::exe('route:list');
     }
     return view('lu::index');
 }

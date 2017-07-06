@@ -11,7 +11,7 @@ use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
 
 //-------- Models ----------------
 use XRA\LU\Models\User;
-use XRA\Backend\Controllers\ArtisanController;
+use XRA\Extend\Traits\ArtisanTrait;
 
 //use blueimp\jquery-file-upload\UploadHandler;
 
@@ -28,7 +28,7 @@ public function getPrimaryKey(){
 
 public function index(Request $request){
 	if($request->routelist==1){
-        return app(ArtisanController::class)->exe('route:list');
+        return ArtisanTrait::exe('route:list');
     }
     return view('lu::admin.index');
 }
