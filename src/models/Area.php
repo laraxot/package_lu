@@ -150,5 +150,15 @@ static public function filter($params){
     return $rows;
 }//end search
 //-----------------------------------------------------------------------------------
+function dashboard_widget(){
+	$view=strtolower($this->area_define_name).'::admin.dashboard_widget';
+	if (\View::exists($view)) {
+		return view($view)->with('row',$this);
+	}else{
+		return view('lu::admin.dashboard_widget_default')->with('row',$this);
+	}
+	
+}
+//------------------------------------------------------------------------------------
 
 }//---------end class Areas
