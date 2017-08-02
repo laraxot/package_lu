@@ -70,7 +70,9 @@ class AreaController extends Controller{
         //dd($tmp1);
 
   	    
-		*/$packs=collect(array_combine($packs,$packs));
+		*/  
+	
+		$packs=collect(array_combine($packs,$packs));
         //dd($packs);
         $areas=Area::all()->pluck('area_define_name','area_define_name');
         $add=$packs->diff($areas);
