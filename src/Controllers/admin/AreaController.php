@@ -55,21 +55,26 @@ class AreaController extends Controller{
     }
 
     public function sync(){
-  	    $tmp=config('xra.package_boss').'Packages';
+    	$vendors=\XRA\XRA\Packages::allVendors();
+    	$packs=[];
+    	foreach($vendors as $vendor){
+  	    	$tmp=\XRA\XRA\Packages::all($vendor);
+  	    	$packs=array_merge($packs,$tmp);
+  	    }
+  	    /*
+  	    dd($tmp);
   	    $packs=$tmp::all();
   	    //$packs[]='LU';
         $xra_packs=\XRA\XRA\Packages::all();
         $packs=array_merge($packs,$xra_packs);
         //dd($tmp1);
 
-  	     $packs=collect(array_combine($packs,$packs));
-
+  	    
+		*/$packs=collect(array_combine($packs,$packs));
+        //dd($packs);
         $areas=Area::all()->pluck('area_define_name','area_define_name');
-
-    
-
         $add=$packs->diff($areas);
-  	     $sub=$areas->diff($packs);
+	    $sub=$areas->diff($packs);
 
         $view=CrudTrait::getView();
 
