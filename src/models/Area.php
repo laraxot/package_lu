@@ -62,9 +62,12 @@ public function icon_src(){
     }
     */
     $src=strtolower($this->area_define_name.'::img/icon.png');
+
     $srcz = ThemeService::viewNamespaceToUrl([$src]);
+    
     //dd($srcz);
     $src=$srcz[0];
+
     $newsrc = ThemeService::getFileUrl($src);
     return $newsrc;
 
