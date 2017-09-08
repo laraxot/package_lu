@@ -15,12 +15,13 @@ class AreaAdminArea extends Model{
     protected $table = 'liveuser_area_admin_areas';
     //protected $primaryKey = 'auth_user_id'; ha 2 keys
 
-function Area(){
+function area(){
+	//dd('['.__LINE__.']['.__FILE__.']');
 	//return $this->belongsTo('App\Post', 'foreign_key', 'other_key');
 	return $this->belongsTo(Area::class,'area_id','area_id');
 }
 
-function PermUser(){
+function permUser(){
 	return $this->hasOne(PermUser::class,'perm_user_id', 'perm_user_id');
 }   
 //------------------------------------
@@ -35,5 +36,12 @@ static public function filter($params){
 	return $rows;
 
 }
+
+public function getAreaDefineNameAttribute($value){
+	$area=$this->area();
+	return $area->first()->area_define_name;
+}
+
+
 //------------------------------------
 }//---end class

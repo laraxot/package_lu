@@ -142,18 +142,16 @@ function groups_opts(){
 }
 
 function areas(){
-    //$areas=[];
-    if($this->permUser()->first()==null) return [];
-    $perm_user_id=$this->permUser['perm_user_id'];
-    //echo '<h3>'.$perm_user_id;
-    $areas=Area::whereHas('AreaAdminArea',function ($query) use ($perm_user_id){
-        $query->where('perm_user_id','=',$perm_user_id);
-    });
-    return $areas;
+    //l'ideale sarebbe riuscire a sparare  fuori una relazione principale di AREA
+    $rel1=$this->hasManyThrough(
+            AreaAdminArea::class, PermUser::class,
+            'auth_user_id','perm_user_id'
+    )->with('area');//(Area::class,'area_id','area_id');
+    return $rel1;
 }
 
 function groups(){
-    //$areas=[];
+    // da fare come areas ? da valutare
     if($this->permUser()->first()==null) return [];
     $perm_user_id=$this->permUser['perm_user_id'];
     //echo '<h3>'.$perm_user_id;
