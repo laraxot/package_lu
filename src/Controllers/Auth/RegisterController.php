@@ -2,8 +2,6 @@
 
 namespace XRA\LU\Controllers\Auth;
 
-
-
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -12,8 +10,8 @@ use Illuminate\Http\Request;
 //--------- Models ------------
 use XRA\LU\Models\User;
 
-
-class RegisterController extends Controller{
+class RegisterController extends Controller
+{
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -55,7 +53,7 @@ class RegisterController extends Controller{
         return Validator::make($data, [
             //'name' => 'required|max:255',
             'handle' => 'required|max:255',
-            'email' => 'required|email|max:255', // |unique:users 
+            'email' => 'required|email|max:255', // |unique:users
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -66,8 +64,9 @@ class RegisterController extends Controller{
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data){
-        if(!isset($data['handle'])){
+    protected function create(array $data)
+    {
+        if (!isset($data['handle'])) {
             $data['handle']=$data['username']; //molti template precotti hanno username.. se non hanno neppure questo meglio avere errore
         }
         $user= User::create([
@@ -80,49 +79,45 @@ class RegisterController extends Controller{
         ]);
 
         //http://stackoverflow.com/questions/33562285/how-can-i-use-md5-hashing-for-passwords-in-laravel
- // email the user
-         /*
+        // email the user
+        /*
         Mail::send('emails.register', ['user' => $user], function($message) use ($user)
         {
-            $message->to($user->email, $user->name)->subject('Edexus - Welcome');
+           $message->to($user->email, $user->name)->subject('Edexus - Welcome');
         });
 
         // email the admin
         Mail::send('emails.register-admin', ['user' => $user], function($message) use ($user)
         {
-            $message->to('admins@***.com', 'Edexus')->subject('Edexus - New user sign up');
+           $message->to('admins@***.com', 'Edexus')->subject('Edexus - New user sign up');
         });
         */
         return $user;
-
-
-
-
     }
-//---------------------------------------------------------------------------------------    
-    public function showRegistrationForm(Request $request){
+    //---------------------------------------------------------------------------------------
+    public function showRegistrationForm(Request $request)
+    {
         $locz=['pub_theme','adm_theme','lu'];
         $tpl='auth.register';
-        if($request->ajax()){
+        if ($request->ajax()) {
             $tpl='auth.ajax_register';
         }
 
-        foreach($locz as $loc){
+        foreach ($locz as $loc) {
             $view=$loc.'::'.$tpl;
             if (\View::exists($view)) {
                 return view($view);
             }
         }
         return '<h3>Non esiste la view ['.$view.']</h3>';
-
     }
-//--------------------------------------------------------------------------------  
- /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //--------------------------------------------------------------------------------
+    /**
+        * Handle a registration request for the application.
+        *
+        * @param  \Illuminate\Http\Request  $request
+        * @return \Illuminate\Http\Response
+        */
     public function register(Request $request)
     {
         /*
@@ -135,7 +130,7 @@ class RegisterController extends Controller{
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());
         */
-       $data = $request->all();
+        $data = $request->all();
 
         $rules = array(
             'username' => 'required|alpha_num|min:3|max:32',
@@ -152,7 +147,7 @@ class RegisterController extends Controller{
             $msg.='<br/>'.$message;
         }
         if ($validator->fails()) {
-            if($request->ajax()){
+            if ($request->ajax()) {
                 return response()->json(['status' => 0, 'msg' => $msg]);
             }
             return back()
@@ -160,15 +155,12 @@ class RegisterController extends Controller{
                 ->withInput($request->all())
                 ->withErrors($validator->messages());
         }
-        $user = $this->create($request->all());       
+        $user = $this->create($request->all());
         $this->guard()->login($user);
-        if($request->ajax()){
-                return response()->json(['status' => 1, 'msg' => 'registrato con successo']);
+        if ($request->ajax()) {
+            return response()->json(['status' => 1, 'msg' => 'registrato con successo']);
         }
 
         return redirect($this->redirectPath());
-
     }
-
-
 }//end class

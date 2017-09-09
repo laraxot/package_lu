@@ -10,7 +10,6 @@ use Auth;
 //use App\Http\Requests;
 use XRA\LU\Models\User;
 
-
 class LoginController extends Controller
 {
     /*
@@ -43,21 +42,24 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-     public function username(){
+    public function username()
+    {
         return 'handle';
     }
 
     //--------------------
-    public function password(){
+    public function password()
+    {
         return 'passwd';
     }
 
-    public function showLoginForm(Request $request){
+    public function showLoginForm(Request $request)
+    {
         $locz=['pub_theme','adm_theme','lu'];
-        if($request->ajax()){
+        if ($request->ajax()) {
             //return '['.__LINE__.']['.__FILE__.']';
             //return view('lu::auth.ajax_login')->__toString();
-            foreach($locz as $loc){
+            foreach ($locz as $loc) {
                 $view=$loc.'::auth.ajax_login';
                 if (\View::exists($view)) {
                     return view($view);
@@ -66,7 +68,7 @@ class LoginController extends Controller
             return '<h3>Non esiste la view ['.$view.']</h3>';
         }
 
-        foreach($locz as $loc){
+        foreach ($locz as $loc) {
             $view=$loc.'::auth.login';
             if (\View::exists($view)) {
                 return view($view);
@@ -76,13 +78,14 @@ class LoginController extends Controller
     }
 
     
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         //nel FORM : USERNAME,EMAIL E PASSWORD
         $data=$request->all();
         //$user=new User;
-        $username_field=$this->username(); 
+        $username_field=$this->username();
         //dd($data);
-        if(isset($data['ente']) && isset($data['matr'])){
+        if (isset($data['ente']) && isset($data['matr'])) {
             $data['username']=$data['ente'].'-'.$data['matr'];
         }
         /*
@@ -94,30 +97,30 @@ class LoginController extends Controller
         //*/
 
         //dd($data);
-        if(isset($data['username'])){
+        if (isset($data['username'])) {
             $user = User::where($username_field, $data['username'])->first();
         }
-        if(isset($data['email'])){
+        if (isset($data['email'])) {
             $user = User::where('email', $data['email'])->first();
         }
-        if(isset($data['user_email'])){
+        if (isset($data['user_email'])) {
             $user = User::where('email', $data['user_email'])->first();
         }
         
 
-        if ($user && $user->passwd == md5($data['password']) ){
+        if ($user && $user->passwd == md5($data['password'])) {
             //dd($user);
-            Auth::login($user,$request->has('remember'));
+            Auth::login($user, $request->has('remember'));
             $auth = Auth::loginUsingId($user->auth_user_id, $request->has('remember'));
             //return redirect()->intended('/admin');
             $out=redirect()->intended($this->redirectPath());
-            if($request->ajax()){
+            if ($request->ajax()) {
                 return response()->json(['status' => 1, 'msg' => 'attendere..']);
             }
             
             return $out;
-        }else{
-            if($request->ajax()){
+        } else {
+            if ($request->ajax()) {
                 return response()->json(['status' => 0, 'msg' => 'user o pwd errati']);
             }
             return redirect()->guest('login')
@@ -150,6 +153,5 @@ class LoginController extends Controller
                 $this->username() => "auth.failed",
             ]);
     }
-//------------------
-
+    //------------------
 }

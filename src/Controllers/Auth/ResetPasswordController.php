@@ -43,7 +43,7 @@ class ResetPasswordController extends Controller
     }
 
 
-      /**
+    /**
      * Reset the given user's password.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
@@ -72,17 +72,18 @@ class ResetPasswordController extends Controller
      * @param  string|null  $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showResetForm(Request $request, $token = null){
+    public function showResetForm(Request $request, $token = null)
+    {
         //qui da fare controllo se esiste pub_theme::auth.passwords.reset mostra quello
         //se no se esiste adm_theme::auth.passwords.reset mostra quello
         //altrimenti mostra 'lu::auth.passwords.reset' che esiste per forza
         $locz=['pub_theme','adm_theme','lu'];
         $tpl='auth.passwords.reset';
-        if($request->ajax()){
+        if ($request->ajax()) {
             $tpl='auth.passwords.ajax_reset';
         }
 
-        foreach($locz as $loc){
+        foreach ($locz as $loc) {
             $view=$loc.'::'.$tpl;
             if (\View::exists($view)) {
                 return view($view)->with(
@@ -97,5 +98,4 @@ class ResetPasswordController extends Controller
         );
         */
     }
-
 }

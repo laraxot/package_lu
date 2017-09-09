@@ -14,11 +14,21 @@ class AddTimestampsToLiveUserPermuser extends Migration
     public function up()
     {
         Schema::connection('liveuser_general')->table('liveuser_perm_users', function (Blueprint $table) {
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_perm_users', 'deleted_by')) $table->string('deleted_by')->nullable();
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_perm_users', 'updated_by')) $table->string('updated_by')->nullable();
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_perm_users', 'created_by')) $table->string('created_by')->nullable();
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_perm_users', 'deleted_at')) $table->softDeletes();
-            if (!Schema::connection('liveuser_general')->hasColumns('liveuser_perm_users', ['updated_at', 'created_at'])) $table->timestamps();
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_perm_users', 'deleted_by')) {
+                $table->string('deleted_by')->nullable();
+            }
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_perm_users', 'updated_by')) {
+                $table->string('updated_by')->nullable();
+            }
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_perm_users', 'created_by')) {
+                $table->string('created_by')->nullable();
+            }
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_perm_users', 'deleted_at')) {
+                $table->softDeletes();
+            }
+            if (!Schema::connection('liveuser_general')->hasColumns('liveuser_perm_users', ['updated_at', 'created_at'])) {
+                $table->timestamps();
+            }
         });
     }
 

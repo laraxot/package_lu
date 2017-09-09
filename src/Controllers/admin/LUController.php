@@ -15,23 +15,26 @@ use XRA\Extend\Traits\ArtisanTrait;
 
 //use blueimp\jquery-file-upload\UploadHandler;
 
-class LUController extends Controller{
-use CrudTrait;
-//-------------------------
-public function getModel(){
-    return new User;
-}//end getModel
+class LUController extends Controller
+{
+    use CrudTrait;
+    //-------------------------
+    public function getModel()
+    {
+        return new User;
+    }//end getModel
 
-public function getPrimaryKey(){
-    return 'id_individuale';
-}//end getPrimaryKey
+    public function getPrimaryKey()
+    {
+        return 'id_individuale';
+    }//end getPrimaryKey
 
-public function index(Request $request){
-	if($request->routelist==1){
-        return ArtisanTrait::exe('route:list');
+    public function index(Request $request)
+    {
+        if ($request->routelist==1) {
+            return ArtisanTrait::exe('route:list');
+        }
+        return view('lu::admin.index');
     }
-    return view('lu::admin.index');
-}
-//---------------------------------
-  
+    //---------------------------------
 }

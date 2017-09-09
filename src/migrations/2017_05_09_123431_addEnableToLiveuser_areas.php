@@ -13,11 +13,11 @@ class AddEnableToLiveuserAreas extends Migration
      */
     public function up()
     {
-      Schema::connection('liveuser_general')->table('liveuser_areas', function (Blueprint $table) {
-          if (!Schema::connection('liveuser_general')->hasColumn('liveuser_areas', 'enable'))
-            $table->tinyInteger('enable')->nullable();
-
-      });
+        Schema::connection('liveuser_general')->table('liveuser_areas', function (Blueprint $table) {
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_areas', 'enable')) {
+                $table->tinyInteger('enable')->nullable();
+            }
+        });
     }
 
     /**
@@ -27,8 +27,8 @@ class AddEnableToLiveuserAreas extends Migration
      */
     public function down()
     {
-      Schema::connection('liveuser_general')->table('liveuser_areas', function (Blueprint $table) {
-          $table->dropColumn(['enable']);
-      });
+        Schema::connection('liveuser_general')->table('liveuser_areas', function (Blueprint $table) {
+            $table->dropColumn(['enable']);
+        });
     }
 }

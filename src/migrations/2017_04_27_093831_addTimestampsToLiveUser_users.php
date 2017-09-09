@@ -14,12 +14,20 @@ class AddTimestampsToLiveUserUsers extends Migration
     public function up()
     {
         Schema::connection('liveuser_general')->table('liveuser_users', function (Blueprint $table) {
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'deleted_by')) $table->string('deleted_by')->nullable();
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'updated_by')) $table->string('updated_by')->nullable();
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'created_by')) $table->string('created_by')->nullable();
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'deleted_by')) {
+                $table->string('deleted_by')->nullable();
+            }
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'updated_by')) {
+                $table->string('updated_by')->nullable();
+            }
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'created_by')) {
+                $table->string('created_by')->nullable();
+            }
 
             //if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'deleted_at')) $table->softDeletes();
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'updated_at'/*, 'created_at']*/)) $table->timestamps();
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_users', 'updated_at'/*, 'created_at']*/)) {
+                $table->timestamps();
+            }
         });
     }
 
