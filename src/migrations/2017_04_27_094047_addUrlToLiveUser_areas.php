@@ -14,8 +14,9 @@ class AddUrlToLiveUserAreas extends Migration
     public function up()
     {
         Schema::connection('liveuser_general')->table('liveuser_areas', function (Blueprint $table) {
-            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_areas', 'url')) $table->string('url')->nullable();
-            
+            if (!Schema::connection('liveuser_general')->hasColumn('liveuser_areas', 'url')) {
+                $table->string('url')->nullable();
+            }
         });
     }
 

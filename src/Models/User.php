@@ -3,7 +3,6 @@
 
 namespace XRA\LU\Models;
 
-
 use Illuminate\Notifications\Notifiable;
 /*
 use Illuminate\Database\Eloquent\Model;
@@ -36,20 +35,21 @@ use Laravel\Scout\Searchable;
 
 use XRA\LU\Notifications\ResetPassword as ResetPasswordNotification;
 
-
 //class User extends Model
-class User extends \Eloquent implements AuthenticatableContract,
+class User extends \Eloquent implements
+    AuthenticatableContract,
+                                        CanResetPasswordContract
+{
+    /*
+    class User extends \Eloquent implements  AuthenticatableContract,
+                                        AuthorizableContract,
                                         CanResetPasswordContract {
-/*
-class User extends \Eloquent implements  AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract {
-*/
+    */
     //
-   // use /*Authenticable,*/ Authorizable, CanResetPassword;
-     use Authenticatable, CanResetPassword;
-     use Notifiable;
-     use Searchable;
+    // use /*Authenticable,*/ Authorizable, CanResetPassword;
+    use Authenticatable, CanResetPassword;
+    use Notifiable;
+    use Searchable;
 
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_users';
@@ -70,150 +70,163 @@ class User extends \Eloquent implements  AuthenticatableContract,
         return $this->getKey();
     }
 
-public function getAuthIdentifierName(){
-    return 'auth_user_id';
-}
-//-----------------------------------------------------------
-/*
-function permUser(){
-    return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
-    //$row= PermUser::firstOrCreate(['auth_user_id'=>$this->auth_user_id]);
-    //dd($row);
-    return $row;
-}
-*/
-
-function PermUser(){
-    $row=$this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
-    //dd($row->first()->perm_user_id);
-    return $row;
-}
-
-function perm_user_id(){ //shortcut
-    $permUser=$this->permUser()->first();
-    if($permUser==null){
-        $permUser= PermUser::firstOrCreate(['auth_user_id'=>$this->auth_user_id]);  
+    public function getAuthIdentifierName()
+    {
+        return 'auth_user_id';
     }
-    //dd($permUsers->first()->perm_user_id);
-    $perm_user_id=$permUser->perm_user_id;
-    //dd($row);
-    return $perm_user_id;
-}
+    //-----------------------------------------------------------
+    /*
+    function permUser(){
+        return $this->hasOne(PermUser::class,'auth_user_id','auth_user_id');
+        //$row= PermUser::firstOrCreate(['auth_user_id'=>$this->auth_user_id]);
+        //dd($row);
+        return $row;
+    }
+    */
 
-///----------------------------------------------------------------------
-public function perm_type(){
-    $permUsers=$this->permUser();
-    return $permUsers;
-}
+    public function PermUser()
+    {
+        $row=$this->hasOne(PermUser::class, 'auth_user_id', 'auth_user_id');
+        //dd($row->first()->perm_user_id);
+        return $row;
+    }
 
-
-function groups1(){
-    $permUsers=$this->permUser()->first();
-    $groupUsers=$permUsers->groupUsers()->get();
-    //echo '<pre>[';print_r($groupUsers->first()->toArray());echo '</pre>';
-    //$groupUsers=$this->permUser()->first()->groupUsers()->get();
-    //echo '<pre>['; print_r($groupUsers->toArray()); echo ']</pre>';
-    $groups=[];
-    foreach($groupUsers as $k => $v){
-       // $v1=$v->group();
-        //echo '<pre>['; print_r($v->toArray()); echo ']</pre>';
-        $v1=$v->group()->first();
-        //echo '<pre>['; print_r($v1->toArray()); echo ']</pre>';
-        if($v1!=null){
-            $groups[]=$v1->toArray();
+    public function perm_user_id()
+    { //shortcut
+        $permUser=$this->permUser()->first();
+        if ($permUser==null) {
+            $permUser= PermUser::firstOrCreate(['auth_user_id'=>$this->auth_user_id]);
         }
+        //dd($permUsers->first()->perm_user_id);
+        $perm_user_id=$permUser->perm_user_id;
+        //dd($row);
+        return $perm_user_id;
     }
-    $collection = collect($groups);
-    //$collection->prepend(['a'=>'b']);
-    $keyed = $collection->keyBy('group_id');
-    $keyed ->prepend('--- SELEZIONA ---');
-    //echo '<pre>';print_r($keyed->all());
-    return $keyed->all();
-    //return $groups;
-}
 
-function groups_opts(){
+    ///----------------------------------------------------------------------
+    public function perm_type()
+    {
+        $permUsers=$this->permUser();
+        return $permUsers;
+    }
 
-    $groups=$this->groups()->get()->toArray();
-    $collection = collect($groups);
-    $plucked = $collection->pluck('group_define_name', 'group_id');
-    $plucked->prepend('','');
-    return $plucked->all();
-}
 
-function areas(){
-    //l'ideale sarebbe riuscire a sparare  fuori una relazione principale di AREA
-    $rel1=$this->hasManyThrough(
-            AreaAdminArea::class, PermUser::class,
-            'auth_user_id','perm_user_id'
+    public function groups1()
+    {
+        $permUsers=$this->permUser()->first();
+        $groupUsers=$permUsers->groupUsers()->get();
+        //echo '<pre>[';print_r($groupUsers->first()->toArray());echo '</pre>';
+        //$groupUsers=$this->permUser()->first()->groupUsers()->get();
+        //echo '<pre>['; print_r($groupUsers->toArray()); echo ']</pre>';
+        $groups=[];
+        foreach ($groupUsers as $k => $v) {
+            // $v1=$v->group();
+            //echo '<pre>['; print_r($v->toArray()); echo ']</pre>';
+            $v1=$v->group()->first();
+            //echo '<pre>['; print_r($v1->toArray()); echo ']</pre>';
+            if ($v1!=null) {
+                $groups[]=$v1->toArray();
+            }
+        }
+        $collection = collect($groups);
+        //$collection->prepend(['a'=>'b']);
+        $keyed = $collection->keyBy('group_id');
+        $keyed ->prepend('--- SELEZIONA ---');
+        //echo '<pre>';print_r($keyed->all());
+        return $keyed->all();
+        //return $groups;
+    }
+
+    public function groups_opts()
+    {
+        $groups=$this->groups()->get()->toArray();
+        $collection = collect($groups);
+        $plucked = $collection->pluck('group_define_name', 'group_id');
+        $plucked->prepend('', '');
+        return $plucked->all();
+    }
+
+    public function areas()
+    {
+        //l'ideale sarebbe riuscire a sparare  fuori una relazione principale di AREA
+        $rel1=$this->hasManyThrough(
+            AreaAdminArea::class,
+        PermUser::class,
+            'auth_user_id',
+        'perm_user_id'
     )->with('area');//(Area::class,'area_id','area_id');
-    return $rel1;
-}
-
-function groups(){
-    // da fare come areas ? da valutare
-    if($this->permUser()->first()==null) return [];
-    $perm_user_id=$this->permUser['perm_user_id'];
-    //echo '<h3>'.$perm_user_id;
-    $groups=Group::whereHas('GroupUser',function ($query) use ($perm_user_id){
-        $query->where('perm_user_id','=',$perm_user_id);
-    });
-    return $groups;
-}
-
-
-
-/*
-function areas(){
-    $areas=[];
-    //$tmp=\Auth::user()->permUsers()->first()->areaAdminAreas()->get();
-    if($this->permUser()->first()==null) return $areas;
-    $tmp=$this->permUser()->first()->areaAdminAreas()->get();
-    foreach($tmp as $v){
-      $v1=$v->area()->get()->toArray();
-      if(isset($v1[0])){
-        $tmp=array_merge($v->toArray(),$v1[0]);
-        $tmp['routename']=str_replace('-','_',str_slug($tmp['area_define_name'])).'.index';
-        if(\Route::has( $tmp['routename'])){
-          $tmp['url']=route($tmp['routename']);
-        }else{
-          $tmp['url']='#4-'.$tmp['routename'];
-        }
-        $areas[]=$tmp;
-      }
+        return $rel1;
     }
-    return $areas;
-}
-*/
 
-//-----------------------------------------------------------
-public function areaAdminAreas(){
+    public function groups()
+    {
+        // da fare come areas ? da valutare
+        if ($this->permUser()->first()==null) {
+            return [];
+        }
+        $perm_user_id=$this->permUser['perm_user_id'];
+        //echo '<h3>'.$perm_user_id;
+        $groups=Group::whereHas('GroupUser', function ($query) use ($perm_user_id) {
+            $query->where('perm_user_id', '=', $perm_user_id);
+        });
+        return $groups;
+    }
+
+
+
+    /*
+    function areas(){
+        $areas=[];
+        //$tmp=\Auth::user()->permUsers()->first()->areaAdminAreas()->get();
+        if($this->permUser()->first()==null) return $areas;
+        $tmp=$this->permUser()->first()->areaAdminAreas()->get();
+        foreach($tmp as $v){
+          $v1=$v->area()->get()->toArray();
+          if(isset($v1[0])){
+            $tmp=array_merge($v->toArray(),$v1[0]);
+            $tmp['routename']=str_replace('-','_',str_slug($tmp['area_define_name'])).'.index';
+            if(\Route::has( $tmp['routename'])){
+              $tmp['url']=route($tmp['routename']);
+            }else{
+              $tmp['url']='#4-'.$tmp['routename'];
+            }
+            $areas[]=$tmp;
+          }
+        }
+        return $areas;
+    }
+    */
+
+    //-----------------------------------------------------------
+    public function areaAdminAreas()
+    {
 
     //$perm_user_id=$this->perm_user_id();
-    $areaAdminAreas=$this->permUser()->first()->areaAdminAreas()->get();
+        $areaAdminAreas=$this->permUser()->first()->areaAdminAreas()->get();
 
-    //*
-    //while(list($k,$v)=each($areaAdminAreas) ){
+        //*
+        //while(list($k,$v)=each($areaAdminAreas) ){
         //echo '<pre>';print_r($v->area()->first()); echo '</pre>';
-    //    die();
-    //}
-    //*/
-    foreach($areaAdminAreas as $tmp){
-        echo '<br/>'.$tmp->areas()->first()->area_id;
-    }
+        //    die();
+        //}
+        //*/
+        foreach ($areaAdminAreas as $tmp) {
+            echo '<br/>'.$tmp->areas()->first()->area_id;
+        }
 
-    return ['area1','area2','area_3'];
-}
+        return ['area1','area2','area_3'];
+    }
 
     /**
  * Get the password for the user.
  *
  * @return string
  */
-public function getAuthPassword(){
-     //your passwor field name
-    return $this->passwd;
-}
+    public function getAuthPassword()
+    {
+        //your passwor field name
+        return $this->passwd;
+    }
 
 
     public function metadata()
@@ -221,16 +234,16 @@ public function getAuthPassword(){
         return $this->hasOne('Metadata');
     }
 
-/**
- * Get the e-mail address where password reminders are sent.
- *
- * @return string
- */
+    /**
+     * Get the e-mail address where password reminders are sent.
+     *
+     * @return string
+     */
 
-public function getReminderEmail()
-{
-    return $this->email;
-}
+    public function getReminderEmail()
+    {
+        return $this->email;
+    }
 
 
 
@@ -241,7 +254,8 @@ public function getReminderEmail()
      * @return string
      */
 
-    public function getRememberToken(){
+    public function getRememberToken()
+    {
         // die('['.__LINE__.']['.__FILE__.']');
         return $this->remember_token;
     }
@@ -252,9 +266,10 @@ public function getReminderEmail()
      * @param  string  $value
      * @return void
      */
-    public function setRememberToken($value){
-      //   die('['.__LINE__.']['.__FILE__.']');
-         $this->remember_token = $value;
+    public function setRememberToken($value)
+    {
+        //   die('['.__LINE__.']['.__FILE__.']');
+        $this->remember_token = $value;
     }
 
     /**
@@ -263,14 +278,16 @@ public function getReminderEmail()
      * @return string
      */
 
-    public function getRememberTokenName(){
-         //die('['.__LINE__.']['.__FILE__.']');
-           return 'remember_token';
+    public function getRememberTokenName()
+    {
+        //die('['.__LINE__.']['.__FILE__.']');
+        return 'remember_token';
     }
 
-     protected function authenticated($request, $user){
+    protected function authenticated($request, $user)
+    {
         die('['.__LINE__.']['.__FILE__.']');
-         if($user->role === 'admin') {
+        if ($user->role === 'admin') {
             return redirect()->intended('/admin_path_here');
         }
 
@@ -283,18 +300,21 @@ public function getReminderEmail()
      * @param  string  $token
      * @return void
      */
-    public function sendPasswordResetNotification($token){
+    public function sendPasswordResetNotification($token)
+    {
         //die('['.__LINE__.']['.__FILE__.']');
         $this->notify(new ResetPasswordNotification($token));
     }
 
 
 
-    public function password(){
+    public function password()
+    {
         return 'passwd';
     }
 
-    public function username(){
+    public function username()
+    {
         return 'handle';
     }
     //--------------------
@@ -305,75 +325,78 @@ public function getReminderEmail()
         $this->attributes['password'] = bcrypt($value);
     }
     */
-     //--------------------
-    public function setPasswdAttribute($value) {
-        if(strlen($value)<30){
+    //--------------------
+    public function setPasswdAttribute($value)
+    {
+        if (strlen($value)<30) {
             $this->attributes['passwd'] = md5($value);
         }
     }
 
-    public function setUsernameAttribute($value){
+    public function setUsernameAttribute($value)
+    {
         //die('['.__LINE__.']['.__FILE__.']');
         $this->attributes['username'] = strtolower($value);
     }
-//-------------------------------
-public function name(){
-  return $this->handle;
-}
+    //-------------------------------
+    public function name()
+    {
+        return $this->handle;
+    }
 
-//---------------------------------------------------------------------------
-static public function filter($params){
-
-  extract($params);
-  //echo '<pre>';print_r($params);echo '</pre>';
-  $rows=new self;
-    /*
-  if(!isset($tipo)){ // e' il tipo che dice se e' admin o meno.. utente normale solo "competenza"
-    $ente=\Auth::user()->ente;
-    $matr=\Auth::user()->matr;
-  }
-    */
-
-  if(isset($ente)){
-        $rows=$rows->where('ente','=',$ente);
+    //---------------------------------------------------------------------------
+    public static function filter($params)
+    {
+        extract($params);
         //echo '<pre>';print_r($params);echo '</pre>';
-    }
-    if(isset($matr)){
-        $rows=$rows->where('matr','=',$matr);
-    }
-    $datefield='data_start';
-    if(isset($tipo)){
-        switch($tipo){
+        $rows=new self;
+        /*
+  if(!isset($tipo)){ // e' il tipo che dice se e' admin o meno.. utente normale solo "competenza"
+        $ente=\Auth::user()->ente;
+        $matr=\Auth::user()->matr;
+  }
+        */
+
+        if (isset($ente)) {
+            $rows=$rows->where('ente', '=', $ente);
+            //echo '<pre>';print_r($params);echo '</pre>';
+        }
+        if (isset($matr)) {
+            $rows=$rows->where('matr', '=', $matr);
+        }
+        $datefield='data_start';
+        if (isset($tipo)) {
+            switch ($tipo) {
             case 1: $datefield='data_start'; break;
             case 2: $datefield='datemod'; break;
         }
-    }
+        }
 
-    if(isset($mese)){
-        $rows=$rows->whereMonth($datefield,$mese);
-    }
-    if(isset($anno)){
-        //$rows=$rows->whereYear($datefield,$anno);
-        $rows=$rows->where('anno',$anno);
-    }
-    if(isset($stabi)){
-        $rows=$rows->where('stabi',$stabi);
-    }
-    if(isset($repar)){
-        $rows=$rows->where('repar',$repar);
-    }
+        if (isset($mese)) {
+            $rows=$rows->whereMonth($datefield, $mese);
+        }
+        if (isset($anno)) {
+            //$rows=$rows->whereYear($datefield,$anno);
+            $rows=$rows->where('anno', $anno);
+        }
+        if (isset($stabi)) {
+            $rows=$rows->where('stabi', $stabi);
+        }
+        if (isset($repar)) {
+            $rows=$rows->where('repar', $repar);
+        }
 
 
-    if(isset($stati)){
-      $rows=$rows->whereRaw('find_in_set(last_stato,"'.$stati.'")');
-    }
-    //$rows=$rows->orderBy('data_start', 'desc');
-    return $rows;
-}//end search
-//-----------------------------------------------------------------------------------
- /**
-     * Returns true if the user is a super administrator.
-     */
+        if (isset($stati)) {
+            $rows=$rows->whereRaw('find_in_set(last_stato,"'.$stati.'")');
+        }
+        //$rows=$rows->orderBy('data_start', 'desc');
+        return $rows;
+    }//end search
+    //-----------------------------------------------------------------------------------
+    /**
+        * Returns true if the user is a super administrator.
+        */
     public function superAdmin()
     {
         return true;
@@ -414,5 +437,5 @@ static public function filter($params){
         return true;
     }
 
-//---------------------------------------------------
+    //---------------------------------------------------
 }//end class

@@ -27,7 +27,8 @@ class ForgotPasswordController extends Controller
      *
      * @return void
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('guest');
     }
 
@@ -36,15 +37,16 @@ class ForgotPasswordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLinkRequestForm(Request $request){
+    public function showLinkRequestForm(Request $request)
+    {
         //return view('lu::auth.passwords.email');
         $locz=['pub_theme','adm_theme','lu'];
         $tpl='auth.passwords.email';
-        if($request->ajax()){
+        if ($request->ajax()) {
             $tpl='auth.passwords.ajax_email';
         }
 
-        foreach($locz as $loc){
+        foreach ($locz as $loc) {
             $view=$loc.'::'.$tpl;
             if (\View::exists($view)) {
                 return view($view);
@@ -52,5 +54,4 @@ class ForgotPasswordController extends Controller
         }
         return '<h3>Non esiste la view ['.$view.']</h3>';
     }
-
 }
