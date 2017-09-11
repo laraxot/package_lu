@@ -14,6 +14,7 @@ class GroupController extends Controller
 {
     use CrudTrait;
     //-------------------------
+    /*
     public function getModel()
     {
         return new Group;
@@ -23,4 +24,5 @@ class GroupController extends Controller
     {
         return 'id_group';
     }//end getPrimaryKey
+    */
 }//end class

@@ -10,6 +10,8 @@ use XRA\Extend\Traits\ArtisanTrait;
 
 //------models-------
 use XRA\LU\Models\Group;
+use XRA\LU\Models\User;
+
 
 //use blueimp\jquery-file-upload\UploadHandler;
 
@@ -65,37 +67,40 @@ class GroupController extends Controller
     }
     //-------------------------------------------------------------------------
     ////-------------------------------------------------------------------------
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         if ($request->routelist==1) {
             return ArtisanTrait::exe('route:list');
         }
         $params = \Route::current()->parameters();
+        extract($params);
+        $user=User::find($id_user);
+        $rows=$user->groups();
+        /*
         $model=$this->getModel();
         //$rows = $model->all();
         $rows=$model->search($params);
-        return view('lu::admin.user.group.index')->with('rows', $rows)->with('params', $params);
+        */
+        $view=CrudTrait::getView();//'lu::admin.user.group.index'
+        return view($view)->with('rows', $rows)->with('params', $params);
     }//end index
     //---------------------------------------------------
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $data=$request->all();
-        //echo '<pre>';print_r($data);echo '</pre>';
+        extract($data);
         $params = \Route::current()->parameters();
         extract($params);
-        $user=\XRA\LU\Models\User::find($id_user);
-        $perm_user_id=$user->permUser['perm_user_id'];
-        //echo '<h3>'.$perm_user_id;
-        $res=\XRA\LU\Models\GroupUser::where('perm_user_id', '=', $perm_user_id)->delete();
-        extract($data);
-        reset($group_id);
-        while (list($k, $v)=each($group_id)) {
-            $row=new \XRA\LU\Models\GroupUser;
-            $row->group_id=$v;
-            $row->perm_user_id=$perm_user_id;
-            $row->save();
-        }
-        \Session::flash('status', 'gruppi aggiornati ');
+        $user=User::find($id_user);
+        
+        $items=$user->groups();
+        $items_key='group_id';
+        $items_0=$items->get()->pluck($items_key);
+        $items_1=collect($group_id);
+        $items_add=$items_1->diff($items_0);
+        $items_sub=$items_0->diff($items_1);
+        $items->detach($items_sub->all());
+        $items->attach($items_add->all());
+        $status='collegati ['.implode(', ',$items_add->all()).'] scollegati ['.implode(', ',$items_sub->all()).']';
+        \Session::flash('status', $status);
         return back()->withInput();
     }//end update
 }

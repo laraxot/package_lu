@@ -83,6 +83,10 @@ class User extends \Eloquent implements
         return $row;
     }
     */
+   
+   public function perm(){
+        return $this->hasOne(PermUser::class, 'auth_user_id', 'auth_user_id');
+   }
 
     public function PermUser()
     {
@@ -146,56 +150,17 @@ class User extends \Eloquent implements
         return $plucked->all();
     }
 
-    public function areas()
-    {
-        //l'ideale sarebbe riuscire a sparare  fuori una relazione principale di AREA
-        $rel1=$this->hasManyThrough(
-            AreaAdminArea::class,
-        PermUser::class,
-            'auth_user_id',
-        'perm_user_id'
-    )->with('area');//(Area::class,'area_id','area_id');
-        return $rel1;
+    public function areas() {
+        return $this->perm->areas();
     }
 
-    public function groups()
-    {
-        // da fare come areas ? da valutare
-        if ($this->permUser()->first()==null) {
-            return [];
-        }
-        $perm_user_id=$this->permUser['perm_user_id'];
-        //echo '<h3>'.$perm_user_id;
-        $groups=Group::whereHas('GroupUser', function ($query) use ($perm_user_id) {
-            $query->where('perm_user_id', '=', $perm_user_id);
-        });
-        return $groups;
+    
+
+    public function groups(){
+        return $this->perm->groups();
     }
 
 
-
-    /*
-    function areas(){
-        $areas=[];
-        //$tmp=\Auth::user()->permUsers()->first()->areaAdminAreas()->get();
-        if($this->permUser()->first()==null) return $areas;
-        $tmp=$this->permUser()->first()->areaAdminAreas()->get();
-        foreach($tmp as $v){
-          $v1=$v->area()->get()->toArray();
-          if(isset($v1[0])){
-            $tmp=array_merge($v->toArray(),$v1[0]);
-            $tmp['routename']=str_replace('-','_',str_slug($tmp['area_define_name'])).'.index';
-            if(\Route::has( $tmp['routename'])){
-              $tmp['url']=route($tmp['routename']);
-            }else{
-              $tmp['url']='#4-'.$tmp['routename'];
-            }
-            $areas[]=$tmp;
-          }
-        }
-        return $areas;
-    }
-    */
 
     //-----------------------------------------------------------
     public function areaAdminAreas()

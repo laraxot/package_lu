@@ -6,22 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use XRA\Extend\Traits\Updater;
 
-class Group extends Model
-{
-    use Searchable;
+class Group extends Model{
+    //use Searchable;
     use Updater;
 
     protected $connection = 'liveuser_general';
     protected $table = 'liveuser_groups';
     protected $primaryKey = 'group_id';
 
-    public function GroupUser()
-    {
+
+    public function search(){
+        return $this;
+    }
+
+    public function GroupUser(){
         return $this->hasMany(GroupUser::class, 'group_id', 'group_id');
     }
 
-    public function label()
-    {
+    public function label(){
         return $this->group_id.'] '.$this->group_define_name;
     }
 
@@ -51,7 +53,7 @@ class Group extends Model
     public static function filter($params)
     {
         extract($params);
-        //echo '<pre>';print_r($params);echo '</pre>';
+        //echo '<pre>';print_r($params);echo '</pre>'
         if (isset($id_user)) {
             $user=User::find($id_user);
             $rows=$user->groups();

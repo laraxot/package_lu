@@ -60,16 +60,16 @@ class AreaController extends Controller
     }
 
     //-------------------------------------------------------------------------
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         if ($request->routelist==1) {
             return ArtisanTrait::exe('route:list');
         }
         $params = \Route::current()->parameters();
-        $model=$this->getModel();
-        //$rows = $model->all();
-        $rows=$model->filter($params);
-        return view('lu::admin.user.area.index')->with('rows', $rows)->with('params', $params);
+        extract($params);
+        $user=User::find($id_user);
+        $rows=$user->areas();
+        $view=CrudTrait::getView();//'lu::admin.user.area.index'
+        return view($view)->with('rows', $rows)->with('params', $params);
     }//end index
 
     //---------------------------------------------------------------------------
@@ -77,26 +77,21 @@ class AreaController extends Controller
     {
         die('['.__LINE__.']['.__FILE__.']');
     }//end update
-    public function store(Request $request)
-    {
+     
+    public function store(Request $request){
         $data=$request->all();
-        //echo '<pre>';print_r($data);echo '</pre>';
+        extract($data);
         $params = \Route::current()->parameters();
         extract($params);
         $user=User::find($id_user);
-        //$perm_user_id=$user->permUser['perm_user_id'];
-        $perm_user_id=$user->perm_user_id();
-        //echo '<h3>'.$perm_user_id;die('['.__LINE__.']['.__FILE__.']');
-        $res=AreaAdminArea::where('perm_user_id', '=', $perm_user_id)->delete();
-        extract($data);
-        reset($area_id);
-        while (list($k, $v)=each($area_id)) {
-            $row=new AreaAdminArea;
-            $row->area_id=$v;
-            $row->perm_user_id=$perm_user_id;
-            $row->save();
-        }
-        \Session::flash('status', 'aree unte aggiornate ');
+        $areas_0=$user->areas()->get()->pluck('area_id');
+        $areas_1=collect($area_id);
+        $areas_add=$areas_1->diff($areas_0);
+        $areas_sub=$areas_0->diff($areas_1);
+        $user->areas()->detach($areas_sub->all());
+        $user->areas()->attach($areas_add->all());
+        $status='aree aggiunte ['.implode(', ',$areas_add->all()).'] aree tolte ['.implode(', ',$areas_sub->all()).']';
+        \Session::flash('status', $status);
         return back()->withInput();
     }//end update
 }//end class

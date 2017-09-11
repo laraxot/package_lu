@@ -4,6 +4,9 @@
 @section('content')
 @include('backend::includes.flash')
 @include('backend::includes.components')
+
+@include('lu::admin.user.edit.nav')
+
 {{-- per update ci vuole id_area .. --}}
 {!! Form::bsOpen($rows,'index','store') !!}
 
