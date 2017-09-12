@@ -84,13 +84,18 @@ class AreaController extends Controller
         $params = \Route::current()->parameters();
         extract($params);
         $user=User::find($id_user);
-        $areas_0=$user->areas()->get()->pluck('area_id');
-        $areas_1=collect($area_id);
-        $areas_add=$areas_1->diff($areas_0);
-        $areas_sub=$areas_0->diff($areas_1);
-        $user->areas()->detach($areas_sub->all());
-        $user->areas()->attach($areas_add->all());
-        $status='aree aggiunte ['.implode(', ',$areas_add->all()).'] aree tolte ['.implode(', ',$areas_sub->all()).']';
+        
+        $items=$user->areas();
+        $items_key='area_id';
+        $items_0=$items->get()->pluck($items_key);
+        $items_1=collect($area_id);
+        $items_add=$items_1->diff($items_0);
+        $items_sub=$items_0->diff($items_1);
+        $items->detach($items_sub->all());
+        $items->attach($items_add->all());
+        $status='collegati ['.implode(', ',$items_add->all()).'] scollegati ['.implode(', ',$items_sub->all()).']';
+
+
         \Session::flash('status', $status);
         return back()->withInput();
     }//end update
