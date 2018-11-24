@@ -26,6 +26,7 @@ class LUServiceProvider extends ServiceProvider{
 			//https://laracasts.com/series/laravel-5-fundamentals/episodes/13
 			return Area::where('area_id', $value)->first() ?? abort(404);
 		});
+		$router->pattern('user','[0-9]+');
 		$router->bind('user', function ($value) {
 			return User::find($value) ?? abort(404);
 		});

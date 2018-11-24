@@ -64,4 +64,5 @@ class UserController extends Controller{
         return view('lu::admin.user.do_search')->with('rows', $rows);
     }
     //-------------------------------------------------------------------------
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace XRA\LU\Controllers\Admin\LU\user;
+namespace XRA\LU\Controllers\Admin\LU\User;
 
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
