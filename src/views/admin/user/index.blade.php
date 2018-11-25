@@ -5,6 +5,7 @@
 @include('backend::includes.components')
 {!! Form::bsBtnCreate() !!}
 {!! Form::bsFormSearch() !!}
+<h3>N Records: {{ $rows->total() }}</h3>
 <table class="table">
 <thead>
 <tr>
@@ -34,5 +35,5 @@
 @endforeach
 </tbody>
 </table>
-
+{{ $rows->links() }}
 @endsection
