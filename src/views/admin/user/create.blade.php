@@ -17,6 +17,7 @@
 --}}
 {!! Form::bsOpen($row,'store') !!}
 
+{{ Form::bsText('handle') }}
 {{ Form::bsText('cognome') }}
 {{ Form::bsText('nome') }}
 {{ Form::bsText('email') }}
