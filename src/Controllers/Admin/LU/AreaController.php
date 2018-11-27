@@ -11,18 +11,20 @@ use XRA\Extend\Traits\CrudBindTrait as CrudTrait;
 use \XRA\LU\Models\Area;
 
 class AreaController extends Controller{
-	use CrudTrait;
-	/*
-	public function getModel()
-	{
-		return new Area;
+	use CrudTrait{
+		index as protected indexTrait;
+		edit as protected editTrait;
 	}
 
-	public function getPrimaryKey()
-	{
-		return 'id_area';
+
+	public function index(Request $request){
+		if($request->refresh==1){
+			$this->refresh();
+		}
+		return $this->indexTrait($request);
 	}
-	*/
+
+	
 
 	public function upload(){
 		$row = new Area;
@@ -56,6 +58,40 @@ class AreaController extends Controller{
 	public function activePlugin(Request $request){
 		dd($request->all());
 	}
+
+	public function refresh(){
+		$vendors=\XRA\XRA\Packages::allVendors();
+		$packs=[];
+		foreach ($vendors as $vendor) {
+			$tmp=\XRA\XRA\Packages::all($vendor);
+			$packs=array_merge($packs, $tmp);
+		}
+		$packs=collect(array_combine($packs, $packs));
+		$areas=Area::all()->pluck('area_define_name', 'area_define_name');
+		$add=$packs->diff($areas);
+		$sub=$areas->diff($packs);
+		//ddd($add);
+		$this->addAreas($add);
+		$this->subAreas($add);
+
+	}
+
+	public function addAreas($add){
+		foreach($add as $k=>$v) {
+				$tmp= preg_replace('/([A-Z]+)/', '_$1', $v);
+				$tmp=strtolower($tmp);
+				$tmp=substr($tmp, 1);
+				echo '<br/>Add : '.$v.' : '.$tmp;
+				$row=Area::firstOrCreate(['area_define_name'=>$v],['url'=>$tmp]);
+			}
+	}
+
+	public function subAreas($sub){
+		foreach($sub as $k=>$v) {
+				Area::where('area_define_name', $v)->delete();
+			}
+	}
+
 
 	public function sync(){
 		$vendors=\XRA\XRA\Packages::allVendors();
