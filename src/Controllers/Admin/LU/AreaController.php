@@ -81,8 +81,9 @@ class AreaController extends Controller{
 				$tmp= preg_replace('/([A-Z]+)/', '_$1', $v);
 				$tmp=strtolower($tmp);
 				$tmp=substr($tmp, 1);
-				echo '<br/>Add : '.$v.' : '.$tmp;
 				$row=Area::firstOrCreate(['area_define_name'=>$v],['url'=>$tmp]);
+				echo '<br/>Add : ['.$row->area_id.']'.$row->area_define_name.' : '.$area->url;
+				//ddd($row);
 			}
 	}
 
