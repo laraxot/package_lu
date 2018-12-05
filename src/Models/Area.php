@@ -14,6 +14,8 @@ class Area extends Model{
     protected $table = 'liveuser_areas';
     protected $primaryKey = 'area_id';
 
+     protected $fillable = ['area_id','area_define_name','url'];
+
     /*
     function PermUser(){
       return $this->hasOne(PermUser::class,'perm_user_id', 'perm_user_id');
