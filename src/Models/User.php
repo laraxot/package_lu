@@ -2,6 +2,8 @@
 namespace XRA\LU\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -19,9 +21,11 @@ use XRA\LU\Notifications\ResetPassword as ResetPasswordNotification;
 
 //class User extends Model
 class User extends \Eloquent implements
-							AuthenticatableContract,
-							AuthorizableContract, 
-							CanResetPasswordContract{
+							AuthenticatableContract
+							,AuthorizableContract
+							,CanResetPasswordContract
+							//,MustVerifyEmail
+							{
 
 	use Authenticatable, CanResetPassword;
 	use Authorizable;

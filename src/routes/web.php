@@ -52,6 +52,21 @@ Route::group(
     }
 );
 
+$middleware=['web','auth'];
+Route::group(
+    [
+        'prefix' => null, 
+        'middleware' => $middleware, 
+        'namespace' => $namespace.'\Controllers\Auth',
+    ], 
+    function () {
+        Route::match(array('GET', 'HEAD'), 'email/resend',                  ['as'=>'verification.resend',          'uses'=>'VerificationController@resend']);
+        Route::match(array('GET', 'HEAD'), 'email/verify',                  ['as'=>'verification.notice',          'uses'=>'VerificationController@show']);
+        Route::match(array('GET', 'HEAD'), 'email/verify/{id}',             ['as'=>'verification.verify',          'uses'=>'VerificationController@verify']);
+    }
+);
+
+
 
 
 $this->routes();
