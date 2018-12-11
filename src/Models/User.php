@@ -2,7 +2,9 @@
 namespace XRA\LU\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+//use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -16,18 +18,28 @@ use Laravel\Scout\Searchable;
 use XRA\Extend\Traits\Updater;
 
 use XRA\LU\Notifications\ResetPassword as ResetPasswordNotification;
+use XRA\LU\Notifications\VerifyEmail   as VerifyEmailNotification;
 
 //class User extends Model
+/*
 class User extends \Eloquent implements
-							AuthenticatableContract,
-							AuthorizableContract, 
-							CanResetPasswordContract{
+							AuthenticatableContract
+							,AuthorizableContract
+							,CanResetPasswordContract
+							//,MustVerifyEmail
+							{
 
 	use Authenticatable, CanResetPassword;
 	use Authorizable;
 	use Notifiable;
 	use Searchable;
 	use Updater;
+*/
+class User extends Authenticatable implements MustVerifyEmail
+{
+    use Notifiable;
+	use Updater;
+	use Searchable;
 
 	protected $connection = 'liveuser_general'; // this will use the specified database conneciton
 	protected $table = 'liveuser_users';
@@ -68,6 +80,15 @@ class User extends \Eloquent implements
 	];
 	public $timestamps = true;
 	
+
+	public function sendEmailVerificationNotification(){
+    	$this->notify(new VerifyEmailNotification);
+	}
+
+	public function routeNotificationForSlack(){
+		//return env('SLACK_WEBHOOK_URL');
+       	return 'https://hooks.slack.com/services/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';
+   	}
 
 	/**
 	 * Get the unique identifier for the user.
