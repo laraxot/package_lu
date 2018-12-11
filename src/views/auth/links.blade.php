@@ -30,12 +30,12 @@
     </li>
 @else
     <li class="nav-item">
-        <a href="{{ asset('/login') }}" class="ajax-popup-link nav-link" title="login">
+        <a href="{{ asset('/login') }}" class="ajax-popup-link nav-link" id="js-login" title="login">
             <i class="fa fa-sign-in"></i>&nbsp;Sign in
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ asset('/register') }}" class="ajax-popup-link nav-link" title="register">
+        <a href="{{ asset('/register') }}" class="ajax-popup-link nav-link" title="register" >
             <i class="fa fa-edit"></i>&nbsp;Sign up
         </a>
     </li>
