@@ -85,6 +85,11 @@ class User extends Authenticatable implements MustVerifyEmail
     	$this->notify(new VerifyEmailNotification);
 	}
 
+	public function routeNotificationForSlack(){
+		//return env('SLACK_WEBHOOK_URL');
+       	return 'https://hooks.slack.com/services/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';
+   	}
+
 	/**
 	 * Get the unique identifier for the user.
 	 *
