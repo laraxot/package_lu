@@ -17,6 +17,7 @@
 
 //='XRA\LU\Controllers\Auth';
 $namespace=$this->getNamespace();
+/*
 $middleware=['web','guest'];
 Route::group(
     [
@@ -63,6 +64,30 @@ Route::group(
         Route::match(array('GET', 'HEAD'), 'email/resend',                  ['as'=>'verification.resend',          'uses'=>'VerificationController@resend']);
         Route::match(array('GET', 'HEAD'), 'email/verify',                  ['as'=>'verification.notice',          'uses'=>'VerificationController@show']);
         Route::match(array('GET', 'HEAD'), 'email/verify/{id}',             ['as'=>'verification.verify',          'uses'=>'VerificationController@verify']);
+    } 
+);
+*/
+
+Route::group( 
+    [
+        'namespace'=>$namespace.'\Controllers',
+        'middleware'=>['web']
+    ],function(){
+        Auth::routes(['verify' => true]);
+    }
+);
+
+$middleware=['web','guest'];
+Route::group(
+    [
+        'prefix' => null, 
+        'middleware' => $middleware, 
+        'namespace' => $namespace.'\Controllers\Auth',
+    ], 
+    function () {
+        //--------- SOCIALITE ----------------
+        Route::get(                         'login/{provider}',         ['as'=>null,                'uses'=>'LoginController@redirectToProvider']);
+        Route::get(                         'login/{provider}/callback',['as'=>null,                'uses'=>'LoginController@handleProviderCallback']);
     }
 );
 
