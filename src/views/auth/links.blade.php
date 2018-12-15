@@ -3,19 +3,6 @@
         <a class="nav-link dropdown-toggle" title="Welcome {{\Auth::user()->handle}}" href="#" data-effect="mfp-move-from-top" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user"></i>Welcome {{\Auth::user()->handle}}!
         </a>
-        {{-- 
-        <div class="dropdown-menu">
-            <a href="{{ url('/myprofile') }}" class="dropdown-item">Profile</a>
-            <a href="{{ url('/logout') }}" class="dropdown-item" 
-                onclick="event.preventDefault();
-                     document.getElementById('logout-form').submit();">
-                Logout
-            </a>
-            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
-            </form>
-        </div>
-         --}}
         <ul class="dropdown-menu">
             <li><a href="{{ url(\App::getLocale().'/profile/'.\Auth::user()->handle) }}" class="dropdown-item" title="profile">Profile</a></li>
             <li><a href="{{ url('/logout') }}" class="dropdown-item" title="logout"
@@ -48,7 +35,7 @@
 <div id="register-ajax" class="mfp-with-anim mfp-hide mfp-dialog clearfix"><i class="fa fa-refresh fa-spin"></i></div>    
 @include('lu::auth.login_register_recover')
 --}}
-{{ Theme::add('theme/bc/jquery/dist/jquery.min.js') }}
+{{-- Theme::add('theme/bc/jquery/dist/jquery.min.js') --}}
 {{ Theme::add('theme/bc/magnific-popup/dist/jquery.magnific-popup.min.js') }}
 {{ Theme::add('theme/bc/magnific-popup/dist/magnific-popup.css') }}
 
