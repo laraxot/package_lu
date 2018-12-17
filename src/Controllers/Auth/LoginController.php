@@ -113,7 +113,7 @@ class LoginController extends Controller{
 		
 		//}
 
-		if ($user && $user->passwd == md5($data['password'])) {
+		if (isset($user) && $user->passwd == md5($data['password'])) {
 			//dd($user);
 			Auth::login($user, $request->has('remember'));
 			$auth = Auth::loginUsingId($user->auth_user_id, $request->has('remember'));
