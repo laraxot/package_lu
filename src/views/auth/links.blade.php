@@ -26,8 +26,6 @@
             <i class="fa fa-edit"></i>&nbsp;Sign up
         </a>
     </li>
-
-
 @endif
 
 {{--
