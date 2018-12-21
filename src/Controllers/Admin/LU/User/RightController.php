@@ -10,10 +10,12 @@ use XRA\Extend\Traits\CrudBindTrait as CrudTrait;
 use \XRA\LU\Models\PermUser;
 use \XRA\LU\Models\Right;
 
-class RightController extends Controller{
+class RightController extends Controller
+{
     use CrudTrait;
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $data=$request->all();
         $right_id=[];
         extract($data);
@@ -30,10 +32,9 @@ class RightController extends Controller{
         $items_sub=$items_0->diff($items_1);
         $items->detach($items_sub->all());
         $items->attach($items_add->all());
-        $status='collegati ['.implode(', ',$items_add->all()).'] scollegati ['.implode(', ',$items_sub->all()).']';
+        $status='collegati ['.implode(', ', $items_add->all()).'] scollegati ['.implode(', ', $items_sub->all()).']';
 
         \Session::flash('status', $status);
         return back()->withInput();
     }//end update
-
 }//end controller

@@ -1,10 +1,11 @@
 <?php
 $namespace=$this->getNamespace();
-Route::group( 
+Route::group(
     [
         'namespace'=>$namespace.'\Controllers',
         'middleware'=>['web']
-    ],function(){
+    ],
+    function () {
         Auth::routes(['verify' => true]);
     }
 );
@@ -12,14 +13,14 @@ Route::group(
 $middleware=['web','guest'];
 Route::group(
     [
-        'prefix' => null, 
-        'middleware' => $middleware, 
+        'prefix' => null,
+        'middleware' => $middleware,
         'namespace' => $namespace.'\Controllers\Auth',
-    ], 
+    ],
     function () {
         //--------- SOCIALITE ----------------
-        Route::get(                         'login/{provider}',         ['as'=>null,                'uses'=>'LoginController@redirectToProvider']);
-        Route::get(                         'login/{provider}/callback',['as'=>null,                'uses'=>'LoginController@handleProviderCallback']);
+        Route::get('login/{provider}', ['as'=>null,                'uses'=>'LoginController@redirectToProvider']);
+        Route::get('login/{provider}/callback', ['as'=>null,                'uses'=>'LoginController@handleProviderCallback']);
     }
 );
 
@@ -40,7 +41,6 @@ Route::get('/slack', function () {
     //https://github.com/freshbitsweb/slack-error-notifier
     //https://github.com/gpressutto5/laravel-slack
     //https://laravel-news.com/email-on-error-exceptions
-    
 });
 
 $this->routes();

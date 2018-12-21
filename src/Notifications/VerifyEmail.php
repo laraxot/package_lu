@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Lang;
 class VerifyEmail extends Notification
 {
     use Queueable;
-     /**
-     * The callback that should be used to build the mail message.
-     *
-     * @var \Closure|null
-     */
+    /**
+    * The callback that should be used to build the mail message.
+    *
+    * @var \Closure|null
+    */
     public static $toMailCallback;
 
 
@@ -50,12 +50,12 @@ class VerifyEmail extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-     /**
-     * Build the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+    /**
+    * Build the mail representation of the notification.
+    *
+    * @param  mixed  $notifiable
+    * @return \Illuminate\Notifications\Messages\MailMessage
+    */
     public function toMail($notifiable)
     {
         if (static::$toMailCallback) {
@@ -81,7 +81,9 @@ class VerifyEmail extends Notification
     protected function verificationUrl($notifiable)
     {
         return URL::temporarySignedRoute(
-            'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
+            'verification.verify',
+            Carbon::now()->addMinutes(60),
+            ['id' => $notifiable->getKey()]
         );
     }
 

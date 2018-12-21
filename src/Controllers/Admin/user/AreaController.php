@@ -7,6 +7,9 @@ use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
 use XRA\Extend\Traits\ArtisanTrait;
+//--- services
+use XRA\Extend\Services\ThemeService;
+
 
 //--- models ---
 use XRA\LU\Models\AreaAdminArea;
@@ -15,19 +18,23 @@ use XRA\LU\Models\User;
 
 //use blueimp\jquery-file-upload\UploadHandler;
 
-class AreaController extends Controller{
+class AreaController extends Controller
+{
     use CrudTrait;
     //-------------------------
-    public function getModel(){
+    public function getModel()
+    {
         return new AreaAdminArea;
     }//end getModel
 
-    public function getPrimaryKey(){
+    public function getPrimaryKey()
+    {
         return 'id_area';
     }//end getPrimaryKey
 
     //---------------------------------
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $data=$request->all();
         //echo '<pre>';print_r($data);echo '</pre>';
         if ($request->_method!='') {
@@ -36,7 +43,8 @@ class AreaController extends Controller{
         return view('lu::user.search');
     }//end search
     //------------------------------------------------------------------------
-    public function do_search($data){
+    public function do_search($data)
+    {
         //echo '<h3>do_search</h3>';
         $rows=$this->getModel();
         extract($data);
@@ -55,7 +63,8 @@ class AreaController extends Controller{
     }
 
     //-------------------------------------------------------------------------
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if ($request->routelist==1) {
             return ArtisanTrait::exe('route:list');
         }
@@ -63,16 +72,18 @@ class AreaController extends Controller{
         extract($params);
         $user=User::find($id_user);
         $rows=$user->areas();
-        $view=CrudTrait::getView();//'lu::admin.user.area.index'
+        $view=ThemeService::getView();//'lu::admin.user.area.index'
         return view($view)->with('rows', $rows)->with('params', $params);
     }//end index
 
     //---------------------------------------------------------------------------
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         die('['.__LINE__.']['.__FILE__.']');
     }//end update
      
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $data=$request->all();
         $area_id=[];
         extract($data);
@@ -88,7 +99,7 @@ class AreaController extends Controller{
         $items_sub=$items_0->diff($items_1);
         $items->detach($items_sub->all());
         $items->attach($items_add->all());
-        $status='collegati ['.implode(', ',$items_add->all()).'] scollegati ['.implode(', ',$items_sub->all()).']';
+        $status='collegati ['.implode(', ', $items_add->all()).'] scollegati ['.implode(', ', $items_sub->all()).']';
 
         \Session::flash('status', $status);
         return back()->withInput();

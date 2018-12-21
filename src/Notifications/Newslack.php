@@ -8,22 +8,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 
-use Carbon\Carbon; 
+use Carbon\Carbon;
 
-class Newslack extends Notification{
+class Newslack extends Notification
+{
+    use Queueable;
 
-   	use Queueable;
+    public function __construct()
+    {
+    }
 
-   	public function __construct(){
-   	}
+    public function via($notifiable)
+    {
+        return ['slack'];
+    }
 
-   	public function via($notifiable){
-		return ['slack'];
-   	}
-
-   	public function toSlack($notifiable){
-	   return (new SlackMessage)
-		   ->content('A new visitor has visited to your application . at '.Carbon::now());
-   	} 
-
+    public function toSlack($notifiable)
+    {
+        return (new SlackMessage)
+           ->content('A new visitor has visited to your application . at '.Carbon::now());
+    }
 }

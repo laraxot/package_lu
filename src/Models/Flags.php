@@ -5,7 +5,6 @@ namespace XRA\LU\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-
 class Flags extends Model
 {
     protected $connection = 'liveuser_general';

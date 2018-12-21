@@ -11,6 +11,7 @@ use XRA\Extend\Traits\ArtisanTrait;
 //------models------
 use \XRA\LU\Models\PermUser;
 
-class RightController extends Controller{
+class RightController extends Controller
+{
     use CrudTrait;
 }

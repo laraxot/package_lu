@@ -12,7 +12,8 @@ use XRA\LU\Models\User;
 
 //use blueimp\jquery-file-upload\UploadHandler;
 
-class UserController extends Controller{
+class UserController extends Controller
+{
     use CrudTrait;
     //-------------------------
     /*
@@ -64,5 +65,4 @@ class UserController extends Controller{
         return view('lu::admin.user.do_search')->with('rows', $rows);
     }
     //-------------------------------------------------------------------------
-
 }

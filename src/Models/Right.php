@@ -1,13 +1,16 @@
 <?php
 
 namespace XRA\LU\Models;
+
 use XRA\XRA\Models\XotModel;
+
 /*
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use XRA\Extend\Traits\Updater;
 */
-class Right extends XotModel{
+class Right extends XotModel
+{
     //use Searchable;
     //use Updater;
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
@@ -22,15 +25,18 @@ class Right extends XotModel{
     }
     */
     //---- per il multiselect ---
-    public function label(){
+    public function label()
+    {
         return $this->right_id.'] '.$this->right_define_name;
     }
 
-    public function key(){
+    public function key()
+    {
         return $this->right_id;
     }
 
-    public function keyName(){
+    public function keyName()
+    {
         return 'right_id';
     }
 }

@@ -7,52 +7,61 @@ use Laravel\Scout\Searchable;
 use XRA\Extend\Traits\Updater;
 use XRA\Extend\Services\ThemeService;
 
-class Area extends Model{
+class Area extends Model
+{
     use Searchable;
     use Updater;
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_areas';
     protected $primaryKey = 'area_id';
 
-     protected $fillable = ['area_id','area_define_name','url'];
+    protected $fillable = ['area_id','area_define_name','url'];
 
     /*
     function PermUser(){
       return $this->hasOne(PermUser::class,'perm_user_id', 'perm_user_id');
     }
     */
-    public function areaAdminArea(){
+    public function areaAdminArea()
+    {
         return $this->hasMany(AreaAdminArea::class, 'area_id', 'area_id');
     }
 
-    public function label(){
+    public function label()
+    {
         return $this->area_id.'] '.$this->area_define_name;
     }
 
-    public function key(){
+    public function key()
+    {
         return $this->area_id;
     }
 
-    public function keyName(){
+    public function keyName()
+    {
         return 'area_id';
     }
 
     
-    public function imageHtml($params=[]){
+    public function imageHtml($params=[])
+    {
         extract($params);
         return '<img src="'.asset($this->icon_src).'" width="'.$width.'" height="'.$height.'" />';
     }
 
 
-    public function getUrlAttribute($value){
+    public function getUrlAttribute($value)
+    {
         return url('admin/'.strtolower($this->area_define_name));
     }
 
-    public function getGuidAttribute($value){
+    public function getGuidAttribute($value)
+    {
         return str_slug($this->area_define_name);
     }
 
-    public function getIconSrcAttribute($value){
+    public function getIconSrcAttribute($value)
+    {
         //*
         /*
         $path= \XRA\XRA\Packages::menuxml($this->area_define_name).'/admin/icon.png';
@@ -102,14 +111,15 @@ class Area extends Model{
 
 
     //---------------------------------------------------------------------------
-    public static function filter($params){
+    public static function filter($params)
+    {
         $rows=new self;
         extract($params);
         //echo '<pre>';print_r($params);echo '</pre>';
         if (isset($id_user)) {
             $user=User::find($id_user);
             $rows=$user->areas();
-        } 
+        }
         //echo '<pre>';print_r($areas->toArray());echo '</pre>';
         //echo '<pre>';print_r($user);echo '</pre>';
         //$perm_user=$user->permUser['perm_user_id'];
@@ -160,18 +170,19 @@ class Area extends Model{
         return $rows;
     }//end search
     //-----------------------------------------------------------------------------------
-    public function dashboard_widget(){
+    public function dashboard_widget()
+    {
         $view=strtolower($this->area_define_name).'::admin.dashboard_widget';
         $view_default='lu::admin.dashboard_widget_default';
         $namespace=config('xra.namespaces');
-        if(isset($namespace[$this->area_define_name])){
-            $model=$namespace[$this->area_define_name].'\Models\\'.$this->area_define_name; 
-        }else{
+        if (isset($namespace[$this->area_define_name])) {
+            $model=$namespace[$this->area_define_name].'\Models\\'.$this->area_define_name;
+        } else {
             $model='---';
         }
-        if(class_exists($model)){
+        if (class_exists($model)) {
             $model_obj=new $model;
-        }else{
+        } else {
             $model_obj=new \stdClass();
         }
         $data=['area'=>$this,'row'=>$model_obj];
@@ -180,7 +191,7 @@ class Area extends Model{
         //if (\View::exists($view)) {
         if (view()->exists($view)) {
             $namespace=config('xra.namespaces');
-            $model=$namespace[$this->area_define_name].'\Models\\'.$this->area_define_name; 
+            $model=$namespace[$this->area_define_name].'\Models\\'.$this->area_define_name;
             $model_obj=new $model;
             return view($view)->with('area', $this)->with('row',$model_obj);
         } else {
@@ -189,7 +200,8 @@ class Area extends Model{
         */
     }
     //------------------------------------------------------------------------------------
-    public static function syncPacks(){
+    public static function syncPacks()
+    {
         $vendors=\XRA\XRA\Packages::allVendors();
         $packs=[];
         foreach ($vendors as $vendor) {
@@ -200,14 +212,13 @@ class Area extends Model{
         $areas=Area::all()->pluck('area_define_name', 'area_define_name');
         $adds=$packs->diff($areas)->all();
         $subs=$areas->diff($packs)->all();
-        foreach($adds as $add){
+        foreach ($adds as $add) {
             $row=new Area;
             $row->area_define_name=$add;
             $row->save();
         }
-        foreach($subs as $sub){
+        foreach ($subs as $sub) {
             Area::where('area_define_name', $sub)->delete();
         }
-
     }
 }//---------end class Areas

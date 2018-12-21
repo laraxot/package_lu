@@ -7,6 +7,9 @@ use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use XRA\Extend\Traits\CrudBindTrait as CrudTrait;
 use XRA\Extend\Traits\ArtisanTrait;
+//--- services
+use XRA\Extend\Services\ThemeService;
+
 
 //--- models ---
 use XRA\LU\Models\AreaAdminArea;
@@ -15,7 +18,8 @@ use XRA\LU\Models\User;
 
 //use blueimp\jquery-file-upload\UploadHandler;
 
-class AreaController extends Controller{
+class AreaController extends Controller
+{
     use CrudTrait;
     //-------------------------
     public function getModel()
@@ -68,7 +72,7 @@ class AreaController extends Controller{
         extract($params);
         $user=User::find($id_user);
         $rows=$user->areas();
-        $view=CrudTrait::getView();//'lu::admin.user.area.index'
+        $view=ThemeService::getView();//'lu::admin.user.area.index'
         return view($view)->with('rows', $rows)->with('params', $params);
     }//end index
     */
@@ -78,7 +82,8 @@ class AreaController extends Controller{
         die('['.__LINE__.']['.__FILE__.']');
     }//end update
      
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $data=$request->all();
         $area_id=[];
         extract($data);
@@ -94,7 +99,7 @@ class AreaController extends Controller{
         $items_sub=$items_0->diff($items_1);
         $items->detach($items_sub->all());
         $items->attach($items_add->all());
-        $status='collegati ['.implode(', ',$items_add->all()).'] scollegati ['.implode(', ',$items_sub->all()).']';
+        $status='collegati ['.implode(', ', $items_add->all()).'] scollegati ['.implode(', ', $items_sub->all()).']';
 
         \Session::flash('status', $status);
         return back()->withInput();

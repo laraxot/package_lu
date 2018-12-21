@@ -4,14 +4,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSocialProvidersTable extends Migration{
+class CreateSocialProvidersTable extends Migration
+{
     protected $table='social_providers';
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up(){
+    public function up()
+    {
         if (!Schema::connection('liveuser_general')->hasTable($this->table)) {
             Schema::connection('liveuser_general')->create($this->table, function (Blueprint $table) {
                 $table->increments('id');
@@ -29,7 +31,8 @@ class CreateSocialProvidersTable extends Migration{
      *
      * @return void
      */
-    public function down(){
+    public function down()
+    {
         Schema::dropIfExists($this->table);
     }
 }

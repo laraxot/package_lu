@@ -11,9 +11,11 @@ use XRA\Extend\Traits\ArtisanTrait;
 //------models------
 use \XRA\LU\Models\PermUser;
 
-class PermUserController extends Controller{
+class PermUserController extends Controller
+{
     use CrudTrait;
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $data=$request->all();
         $group_id=[];
         extract($data);

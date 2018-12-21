@@ -7,9 +7,8 @@ use Laravel\Scout\Searchable;
 use XRA\Extend\Traits\Updater;
 use XRA\Extend\Services\ThemeService;
 
-
-
-class AreaAdminArea extends Model{
+class AreaAdminArea extends Model
+{
     //
     use Searchable;
     use Updater;
@@ -18,15 +17,18 @@ class AreaAdminArea extends Model{
     //protected $primaryKey = 'auth_user_id'; ha 2 keys
     protected $primaryKey = 'area_id'; //array da errore su hasManyThrough
 
-    public function area(){
+    public function area()
+    {
         return $this->belongsTo(Area::class, 'area_id', 'area_id');
     }
 
-    public function permUser(){
+    public function permUser()
+    {
         return $this->belongsTo(PermUser::class, 'perm_user_id', 'perm_user_id');
     }
     //------------------------------------
-    public static function filter($params){
+    public static function filter($params)
+    {
         $rows=new self;
         extract($params);
         if (isset($id_user)) {
@@ -37,7 +39,8 @@ class AreaAdminArea extends Model{
         return $rows;
     }
 
-    public function getAreaDefineNameAttribute($value){
+    public function getAreaDefineNameAttribute($value)
+    {
         $area=$this->area();
         return $area->first()->area_define_name;
     }
@@ -46,8 +49,9 @@ class AreaAdminArea extends Model{
     /**
      * { item_description }
      */
-     //-----------------------------------------------------------------------------------
-    public function dashboard_widget(){
+    //-----------------------------------------------------------------------------------
+    public function dashboard_widget()
+    {
         $view=strtolower($this->area_define_name).'::admin.dashboard_widget';
         if (\View::exists($view)) {
             return view($view)->with('row', $this);
@@ -58,11 +62,13 @@ class AreaAdminArea extends Model{
     /**
      * { item_description }
      */
-    public function a_href(){
+    public function a_href()
+    {
         return url('admin/'.strtolower($this->area_define_name));
     }
     //-----------------------------------------------------------------------------
-    public function icon_src(){
+    public function icon_src()
+    {
         //*
         /*
         $path= \XRA\XRA\Packages::menuxml($this->area_define_name).'/admin/icon.png';
@@ -99,5 +105,4 @@ class AreaAdminArea extends Model{
     return asset($this->icon_path);
     */
     }
-
 }//---end class

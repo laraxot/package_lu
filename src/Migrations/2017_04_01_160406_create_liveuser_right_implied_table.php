@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateLiveuserRightImpliedTable extends Migration{
+class CreateLiveuserRightImpliedTable extends Migration
+{
     protected $table='liveuser_right_implied';
     protected $connection='liveuser_general';
     /**
@@ -11,17 +12,18 @@ class CreateLiveuserRightImpliedTable extends Migration{
      *
      * @return void
      */
-    public function up(){
+    public function up()
+    {
         $schema=Schema::connection($this->connection);
         if (!$schema->hasTable($this->table)) {
-            try{
-            $schema->create($this->table, function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('right_id')->unsigned()->default(0)->index('right_id');
-                $table->integer('implied_right_id')->unsigned()->default(0)->index('implied_right_id');
-                //$table->primary(['right_id','implied_right_id']); //meglio usare id, piu' veloce da far mangiare al crud
-            });
-            }catch(QueryException $e){
+            try {
+                $schema->create($this->table, function (Blueprint $table) {
+                    $table->increments('id');
+                    $table->integer('right_id')->unsigned()->default(0)->index('right_id');
+                    $table->integer('implied_right_id')->unsigned()->default(0)->index('implied_right_id');
+                    //$table->primary(['right_id','implied_right_id']); //meglio usare id, piu' veloce da far mangiare al crud
+                });
+            } catch (QueryException $e) {
                 dd($e);
             }
         }
@@ -33,7 +35,8 @@ class CreateLiveuserRightImpliedTable extends Migration{
      *
      * @return void
      */
-    public function down(){
+    public function down()
+    {
         Schema::connection('liveuser_general')->drop($this->table);
     }
 }

@@ -7,11 +7,13 @@ use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
 use XRA\Extend\Traits\ArtisanTrait;
+//--- services
+use XRA\Extend\Services\ThemeService;
+
 
 //------models-------
 use XRA\LU\Models\Group;
 use XRA\LU\Models\User;
-
 
 //use blueimp\jquery-file-upload\UploadHandler;
 
@@ -37,7 +39,8 @@ class GroupController extends Controller
     }
     */
     //---------------------------------
-    public function filter(Request $request){
+    public function filter(Request $request)
+    {
         $data=$request->all();
         //echo '<pre>';print_r($data);echo '</pre>';
         if ($request->_method!='') {
@@ -66,7 +69,8 @@ class GroupController extends Controller
     }
     //-------------------------------------------------------------------------
     ////-------------------------------------------------------------------------
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if ($request->routelist==1) {
             return ArtisanTrait::exe('route:list');
         }
@@ -79,11 +83,12 @@ class GroupController extends Controller
         //$rows = $model->all();
         $rows=$model->search($params);
         */
-        $view=CrudTrait::getView();//'lu::admin.user.group.index'
+        $view=ThemeService::getView();//'lu::admin.user.group.index'
         return view($view)->with('rows', $rows)->with('params', $params);
     }//end index
     //---------------------------------------------------
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $data=$request->all();
         $group_id=[];
         extract($data);
@@ -99,7 +104,7 @@ class GroupController extends Controller
         $items_sub=$items_0->diff($items_1);
         $items->detach($items_sub->all());
         $items->attach($items_add->all());
-        $status='collegati ['.implode(', ',$items_add->all()).'] scollegati ['.implode(', ',$items_sub->all()).']';
+        $status='collegati ['.implode(', ', $items_add->all()).'] scollegati ['.implode(', ', $items_sub->all()).']';
         \Session::flash('status', $status);
         return back()->withInput();
     }//end update
