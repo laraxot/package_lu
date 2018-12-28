@@ -488,4 +488,8 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
     //---------------------------------------------------
+    public function urlLang($lang){
+        return '#';
+    }
+
 }//end class

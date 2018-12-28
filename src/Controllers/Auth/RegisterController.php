@@ -98,6 +98,8 @@ class RegisterController extends Controller
     //---------------------------------------------------------------------------------------
     public function showRegistrationForm(Request $request)
     {
+        $params = \Route::current()->parameters();
+        $row=new User;
         $locz=['pub_theme','adm_theme','lu'];
         $tpl='auth.register';
         if ($request->ajax()) {
@@ -108,7 +110,11 @@ class RegisterController extends Controller
             $view=$loc.'::'.$tpl;
            
             if (\View::exists($view)) {
-                return view($view, ['action'=>'register']);
+                return view($view, ['action'=>'register'])
+                       ->with('params',$params)
+                       ->with('lang',\App::getLocale())
+                       ->with('view',$view)
+                       ->with('row',$row);
             }
         }
         return '<h3>Non esiste la view ['.$view.']</h3>';
