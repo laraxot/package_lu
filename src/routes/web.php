@@ -2,8 +2,9 @@
 $namespace=$this->getNamespace();
 Route::group(
     [
+        'prefix' => null,
+        'middleware'=>['web'],
         'namespace'=>$namespace.'\Controllers',
-        'middleware'=>['web']
     ],
     function () {
         Auth::routes(['verify' => true]);

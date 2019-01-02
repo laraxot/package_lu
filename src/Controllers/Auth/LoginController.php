@@ -59,6 +59,14 @@ class LoginController extends Controller
 
     public function showLoginForm(Request $request)
     {
+        /* --- il segnmento 1 
+        $locale = \Request::segment(1);
+        if (in_array($locale, ['it','en','de','fr'])) {
+            \App::setLocale($locale);
+        };
+        */
+
+        $params = \Route::current()->parameters();
         if (User::count()==0) {//creazione 1' utente.. forse mettere dati in xra,o fare un form.
             $firstUser=new User;
             $firstUser->email='marco.sottana@gmail.com';
@@ -67,19 +75,34 @@ class LoginController extends Controller
             $firstUser->save();
         }
         $locz=['pub_theme','adm_theme','lu'];
+        $tpl='auth.login';
+        if ($request->ajax()) {
+            $tpl='auth.ajax_login';
+        }/*
         if ($request->ajax()) {
             foreach ($locz as $loc) {
                 $view=$loc.'::auth.ajax_login';
                 if (\View::exists($view)) {
-                    return view($view)->with('view', $view);
+                    return view($view)
+                        ->with('params',$params)
+                        ->with('lang',\App::getLocale())
+                        ->with('view',$view)
+                        ;
                 }
             }
             return '<h3>Non esiste la view ['.$view.']</h3>';
         }
+        */
         foreach ($locz as $loc) {
-            $view=$loc.'::auth.login';
+            $view=$loc.'::'.$tpl;
             if (\View::exists($view)) {
-                return view($view, ['action'=>'login'])->with('view', $view);
+                return view($view, ['action'=>'login'])
+                            ->with('params',$params)
+                            ->with('lang',\App::getLocale())
+                            ->with('view',$view)
+                            ->with('tmp',$locale)
+                            //->with('row',$row)
+                            ;
             }
         }
         return '<h3>Non esiste la view ['.$view.']</h3>';
