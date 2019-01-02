@@ -3,7 +3,7 @@ $('.popup-text').magnificPopup({
     removalDelay: 500,
     closeBtnInside: true,
     callbacks: {
-        beforeOpen: function() {
+        beforeOpen: function () {
             this.st.mainClass = this.st.el.attr('data-effect');
         }
     },
@@ -14,34 +14,34 @@ $('.popup-ajax').magnificPopup({
     removalDelay: 500,
     closeBtnInside: true,
     callbacks: {
-        beforeOpen: function() {
+        beforeOpen: function () {
             this.st.mainClass = this.st.el.attr('data-effect');
         },
-        open: function(){
+        open: function () {
             var popup = this;
-            var content=this.content;
+            var content = this.content;
 
             var ajax_url = this.st.el.attr('data-src');
             var target = this.st.el.attr('href');
-            
-            if ( content.data( 'ajax_url' ) === ajax_url ){
-                content.addClass( 'ajax-loaded' );
+
+            if (content.data('ajax_url') === ajax_url) {
+                content.addClass('ajax-loaded');
                 return;
             }
-            
-            content.children( '.row, hr, a.btn-primary' ).remove();
-            content.html( "<i class=\"fa fa-refresh fa-spin\"><\/i>" );
-            
+
+            content.children('.row, hr, a.btn-primary').remove();
+            content.html("<i class=\"fa fa-refresh fa-spin\"><\/i>");
+
             //*
-            $.get( ajax_url, {
-                target:target
-            }, function( response ){
-            	//alert(response);
-            	//content.children( '.fa' ).remove();
+            $.get(ajax_url, {
+                target: target
+            }, function (response) {
+                //alert(response);
+                //content.children( '.fa' ).remove();
                 //content.prepend( response );
                 content.html(response);
                 //popup.content.html( $.trim(response) );
-                popup.content.data( 'ajax_url', ajax_url ).addClass( 'ajax-loaded' );
+                popup.content.data('ajax_url', ajax_url).addClass('ajax-loaded');
             });
             //*/
             /*
@@ -54,10 +54,10 @@ $('.popup-ajax').magnificPopup({
     			}
     		});
     		*/
-            
+
         },
-        close: function(){
-            this.content.removeClass( 'ajax-loaded' );
+        close: function () {
+            this.content.removeClass('ajax-loaded');
         }
     },
     midClick: true
@@ -69,12 +69,12 @@ $('.new-ajax-popup-link').magnificPopup({
     closeBtnInside: true
 });
 
-var mfp=$.magnificPopup;
+var mfp = $.magnificPopup;
 
-$('.ajax-popup-link1').on('click', function(e) {
+$('.ajax-popup-link1').on('click', function (e) {
     e.preventDefault();
-    var $href=$(this).attr('href');
-   
+    var $href = $(this).attr('href');
+
     mfp.open({
         type: 'inline',
         closeOnContentClick: false,
@@ -88,18 +88,18 @@ $('.ajax-popup-link1').on('click', function(e) {
 
 
 $('.ajax-popup-link').magnificPopup({
-  	type: 'ajax',
-  	removalDelay: 500,
+    type: 'ajax',
+    removalDelay: 500,
     closeBtnInside: true,
     modal: false,
     enableEscapeKey: true,
 
-  	callbacks: {
-  		beforeOpen: function() {
+    callbacks: {
+        beforeOpen: function () {
             //alert('beforeOpen');
-        //    this.st.mainClass = this.st.el.attr('data-effect');
+            //    this.st.mainClass = this.st.el.attr('data-effect');
         },
-    	open: function() {
+        open: function () {
             /*
             alert('Open');
         	$('.new-ajax-popup-link').on('click', function(e) {
@@ -110,10 +110,10 @@ $('.ajax-popup-link').magnificPopup({
           		return false;
         	});
             //*/
-      	},
-      	afterClose: function() {
+        },
+        afterClose: function () {
             //alert('afterClose');
-        	// new popup instance
+            // new popup instance
             /*
         	var newAjaxPopupLink = $('.ajax-popup-link').magnificPopup({
           		type: 'ajax'
@@ -121,14 +121,14 @@ $('.ajax-popup-link').magnificPopup({
     		// open it
         	$('.ajax-popup-link').magnificPopup('open');
             */
-      	},
-        parseAjax: function (ajaxResponse) { 
-            ajaxResponse.data = '<div class="mfp-with-anim mfp-dialog clearfix">'+ajaxResponse.data+'</div>';
         },
-        ajaxContentAdded: function() {
-            $('.ajax-popup-link').on('click', function(e) {
+        parseAjax: function (ajaxResponse) {
+            ajaxResponse.data = '<div class="mfp-with-anim mfp-dialog clearfix">' + ajaxResponse.data + '</div>';
+        },
+        ajaxContentAdded: function () {
+            $('.ajax-popup-link').on('click', function (e) {
                 e.preventDefault();
-                var $href=$(this).attr('href');
+                var $href = $(this).attr('href');
                 mfp.open({
                     type: 'inline',
                     removalDelay: 500,
@@ -146,7 +146,7 @@ $('.ajax-popup-link').magnificPopup({
                 }
             });
 
-            $(".dialog-form").submit(function(e) {
+            $(".dialog-form").submit(function (e) {
                 //prevent Default functionality
                 var myform = $(this);
                 var querystring = myform.serialize();
@@ -163,7 +163,7 @@ $('.ajax-popup-link').magnificPopup({
                     type: 'post',
                     dataType: 'json',
                     data: querystring,
-                    success: function(response) {
+                    success: function (response) {
                         /*
                         if(data.status==0){
                             $('.loginRes').html('<div class="alert alert-danger" role="alert">'+data.msg+'</div>');
@@ -176,33 +176,39 @@ $('.ajax-popup-link').magnificPopup({
                         */
                         //console.log(response);
                         //alert(response);
-                        $('.loginRes').html('<div class="alert alert-success" role="alert">'+response.msg+'</div>');
-                        window.location.href=response.redirect;
-                       // ... do something with the data...
+                        $('.loginRes').html('<div class="alert alert-success" role="alert">' + response.msg + '</div>');
+                        window.location.href = response.redirect;
+                        // ... do something with the data...
                     },
-                    error: function(response) {
-                        //alert();
-                        $('.loginRes').html('<div class="alert alert-danger" role="alert">'+response.responseJSON.error+'</div>');
+                    error: function (response) {
+                        var errors = response.responseJSON.errors;
+                        for (var key in errors) {
+                            $('#' + key + '_error').remove();
+
+                            $('#' + key).parent('.form-group').append('<span id="' + key + '_error" class="help-block">\n' +
+                                '\t\t\t<strong>' + errors[key] + '</strong>\n' +
+                                '\t\t</span>');
+                        }
+                        //$('.loginRes').html('<div class="alert alert-danger" role="alert">'+response.responseJSON.error+'</div>');
                     }
                 });
-             
+
                 return false;
             });
-            
+
         }
 
 
-	},
-	midClick: true
+    },
+    midClick: true
 });
 
 
-
-$('a.ajax-popup-link2').on('click',function(e){
+$('a.ajax-popup-link2').on('click', function (e) {
     //alert();
     //*
-    var $obj=$(this);
-    var $href=$(this).attr('href');
+    var $obj = $(this);
+    var $href = $(this).attr('href');
     e.preventDefault();
     $.ajax({
         type: "GET", // or POST
@@ -211,8 +217,8 @@ $('a.ajax-popup-link2').on('click',function(e){
         data: {
             get_request_id : $(this).data('id'), // assign a data-id to the link
         },
-        */                                      
-        success: function(data){
+        */
+        success: function (data) {
             //$.magnificPopup.open({
             $obj.magnificPopup({
                 type: 'inline',
@@ -223,5 +229,5 @@ $('a.ajax-popup-link2').on('click',function(e){
             })
         }
     });
-    
+
 });
