@@ -100,7 +100,7 @@ class LoginController extends Controller
                             ->with('params',$params)
                             ->with('lang',\App::getLocale())
                             ->with('view',$view)
-                            ->with('tmp',$locale)
+                            //->with('tmp',$locale)
                             //->with('row',$row)
                             ;
             }
