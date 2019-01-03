@@ -182,14 +182,19 @@ $('.ajax-popup-link').magnificPopup({
                     },
                     error: function (response) {
                         var errors = response.responseJSON.errors;
+                        var $err_msg='<ul>';
                         for (var key in errors) {
-                            $('#' + key + '_error').remove();
+                            //console.log(key+' : '+myform.find('[id="'+key+'"]').length );
+                            
+                            myform.find('[id="' + key + '_error"]').remove();
 
-                            $('#' + key).parent('.form-group').append('<span id="' + key + '_error" class="help-block">\n' +
+                            myform.find('[id="'+key+'"]').parent('.form-group').append('<span id="' + key + '_error" class="help-block">\n' +
                                 '\t\t\t<strong>' + errors[key] + '</strong>\n' +
                                 '\t\t</span>');
+                            $err_msg=$err_msg+'<li>'+errors[key]+'</li>';
                         }
-                        //$('.loginRes').html('<div class="alert alert-danger" role="alert">'+response.responseJSON.error+'</div>');
+                        var $err_msg=$err_msg+'</ul>';
+                        $('.loginRes').html('<div class="alert alert-danger" role="alert">'+$err_msg+'</div>');
                     }
                 });
 
