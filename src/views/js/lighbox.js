@@ -181,6 +181,7 @@ $('.ajax-popup-link').magnificPopup({
                         // ... do something with the data...
                     },
                     error: function (response) {
+                        console.log(response);
                         var errors = response.responseJSON.errors;
                         var $err_msg='<ul>';
                         for (var key in errors) {
