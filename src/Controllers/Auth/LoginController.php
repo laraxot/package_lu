@@ -156,7 +156,11 @@ class LoginController extends Controller
             return $this->sendLoginResponse($request);
         } else {
             if ($request->ajax()) {
-                return response()->json(['error' => 'user o pwd errati'], 500);
+                return response()->json(
+                    [
+                        'error' => 'user o pwd errati',
+                        'errors'=>['password'=>'user o pwd errati'],
+                    ], 500);
             }
             return redirect()->guest('login')
                 ->withError('Qualcosa di errato !')
