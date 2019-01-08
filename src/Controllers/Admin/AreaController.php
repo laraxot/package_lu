@@ -90,7 +90,7 @@ class AreaController extends Controller
 
 
         */
-    
+
         $packs=collect(array_combine($packs, $packs));
         //dd($packs);
         $areas=Area::all()->pluck('area_define_name', 'area_define_name');
@@ -113,7 +113,6 @@ class AreaController extends Controller
         extract($data);
         if (isset($add)) {
             reset($add);
-            //while (list($k, $v)=each($add)) {
             foreach ($add as $k=>$v) {
                 $tmp= preg_replace('/([A-Z]+)/', '_$1', $v);
                 $tmp=strtolower($tmp);
@@ -129,7 +128,6 @@ class AreaController extends Controller
 
         if (isset($sub)) {
             reset($sub);
-            //while (list($k, $v)=each($sub)) {
             foreach ($sub as $k=>$v) {
                 Area::where('area_define_name', $v)->delete();
             }
