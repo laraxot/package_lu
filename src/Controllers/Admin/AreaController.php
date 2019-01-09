@@ -134,7 +134,7 @@ class AreaController extends Controller
         }
 
 
-        //	echo '<pre>';print_r($data);echo '</pre>';die('['.__LINE__.']['.__FILE__.']');
+        	//echo '<pre>';print_r($data);echo '</pre>';die('['.__LINE__.']['.__FILE__.']');
         \Session::flash('status', 'aree aggiornate ');
         return back()->withInput();
     }//end store

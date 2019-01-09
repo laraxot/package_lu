@@ -3,7 +3,7 @@
 //Route::get('timezones/{timezone}', 'XRA\themes\ThemesController@index');
 //Route::group(['middleware' => ['web'],'namespace'=>'XRA\lu'], function () {
 
-//	Route::resource('/lu', 'LUController');
+	//Route::resource('/lu', 'LUController');
     //Route::get('/product/{id_grid}', 'XRA\Fpb\Controllers\ProductController@preview')->name('product.preview');
     //Route::get('/product/{id_grid}/thanks', 'XRA\Fpb\Controllers\ProductController@thanks')->name('product.thanks');
     //Route::get('/product/{id_grid}/pagamento', 'XRA\Fpb\Controllers\ProductController@eseguiPagamento')->name('product.eseguiPagamento');

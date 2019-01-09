@@ -39,7 +39,7 @@ Route::group(
     'namespace'=>$namespace
     ],
     function () use ($areas_prgs,$namespace) {
-        //\XRA\Extend\Library\XOT::dynamic_route($areas_prgs);
+        //\XRA\Extend\Library\RouteTrait::dynamic_route($areas_prgs);
         RouteService::dynamic_route($areas_prgs, null, $namespace);
     }
 );

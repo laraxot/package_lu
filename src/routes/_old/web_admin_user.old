@@ -14,5 +14,5 @@ Route::group(['prefix' => 'admin','middleware' => ['web','auth'],'namespace'=>'a
     $areas_prgs=[
     $item0
 ];
-    \XRA\Extend\Library\XOT::dynamic_route($areas_prgs);
+    \XRA\Extend\Library\RouteTrait::dynamic_route($areas_prgs);
 });
