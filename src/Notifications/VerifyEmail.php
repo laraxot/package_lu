@@ -64,6 +64,7 @@ class VerifyEmail extends Notification
 
         return (new MailMessage)
             ->subject(Lang::getFromJson('Verify Email Address'))
+            ->markdown('lu::notifications.email',['subcopy'=>'subcopy']) //, ['user' => $this->user]
             ->line(Lang::getFromJson('Please click the button below to verify your email address.'))
             ->action(
                 Lang::getFromJson('Verify Email Address'),
