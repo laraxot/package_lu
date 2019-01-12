@@ -12,6 +12,7 @@ $item0=[
         ['name'=>'Area','param_name'=>'area',],
         ['name'=>'Group','param_name'=>'group',],
         ['name'=>'Right','param_name'=>'right',],
+        ['name'=>'Mail'],
         [
             'name'=>'User','param_name'=>'user',
             'subs'=>[

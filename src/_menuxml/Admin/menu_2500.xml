@@ -1,0 +1,13 @@
+<root>
+    <row>
+        <id>2500</id>
+        <id_padre>0</id_padre>
+        <nome>Mail</nome>
+        <img>pencil.png</img>
+        <icons>fa fa-pencil</icons>
+        <ordine>0</ordine>
+        <obj></obj>
+        <act></act>
+        <tipo_act>row</tipo_act>
+    </row>
+</root>

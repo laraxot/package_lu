@@ -1,0 +1,13 @@
+<root>
+    <row>
+        <id>2502</id>
+        <id_padre>2500</id_padre>
+        <nome>Test Mail</nome>
+        <img>pencil.png</img>
+        <icons>fa fa-pencil</icons>
+        <ordine>0</ordine>
+        <obj>lu.mail</obj>
+        <act>create</act>
+        <tipo_act>row</tipo_act>
+    </row>
+</root>
