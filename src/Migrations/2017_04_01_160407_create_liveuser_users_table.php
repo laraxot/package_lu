@@ -7,13 +7,14 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateLiveuserUsersTable extends Migration
 {
+    protected $table = 'liveuser_users';
     /**
      * Run the migrations.
      */
     public function up()
     {
-        if (!Schema::connection('liveuser_general')->hasTable('liveuser_users')) {
-            Schema::connection('liveuser_general')->create('liveuser_users', function (Blueprint $table) {
+        if (!Schema::connection('liveuser_general')->hasTable($this->table)) {
+            Schema::connection('liveuser_general')->create($this->table, function (Blueprint $table) {
                 $table->increments('auth_user_id');
                 $table->string('handle', 32)->nullable()->default('')->index('handle');
                 $table->string('passwd', 32)->nullable()->default('');
@@ -54,6 +55,11 @@ class CreateLiveuserUsersTable extends Migration
                 //$table->index(['ente','matr'], 'i_ente_matr');
             });
         }
+        Schema::connection('liveuser_general')->table($this->table, function (Blueprint $table) {
+            if (!Schema::connection('liveuser_general')->hasColumn($this->table, 'email_verified_at')) {
+                $table->timestamp('email_verified_at')->nullable();
+            }
+        });
     }
 
     /**
@@ -61,6 +67,6 @@ class CreateLiveuserUsersTable extends Migration
      */
     public function down()
     {
-        Schema::connection('liveuser_general')->drop('liveuser_users');
+        Schema::connection('liveuser_general')->drop($this->table);
     }
 }
