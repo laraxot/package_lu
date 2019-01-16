@@ -78,6 +78,14 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
     public $timestamps = true;
 
+    /*
+    public function __construct(array $attributes = []){
+        $resolver = app('Illuminate\Database\ConnectionResolverInterface');
+        $this->setConnectionResolver($resolver);
+        parent::__construct($attributes);
+    }
+    */
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification());
