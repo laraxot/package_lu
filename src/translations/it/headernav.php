@@ -1,4 +1,7 @@
 <?php
+
+
+
 return [
         'welcome' => 'Benvenuto',
 ];

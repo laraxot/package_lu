@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +16,6 @@ class Group extends Model
     protected $connection = 'liveuser_general';
     protected $table = 'liveuser_groups';
     protected $primaryKey = 'group_id';
-
 
     public function search()
     {
@@ -48,7 +49,7 @@ class Group extends Model
     */
     public static function full()
     {
-        $rows=new self;
+        $rows = new self();
 
         return $rows;
     }
@@ -56,12 +57,12 @@ class Group extends Model
     //---------------------------------------------------------------------------
     public static function filter($params)
     {
-        $rows=new self;
-        extract($params);
+        $rows = new self();
+        \extract($params);
         //echo '<pre>';print_r($params);echo '</pre>'
         if (isset($id_user)) {
-            $user=User::find($id_user);
-            $rows=$user->groups();
+            $user = User::find($id_user);
+            $rows = $user->groups();
         } else {
         }
         //echo '<pre>';print_r($areas->toArray());echo '</pre>';
@@ -69,7 +70,6 @@ class Group extends Model
         //$perm_user=$user->permUser['perm_user_id'];
         //echo '<pre>-';print_r($perm_user);echo '-</pre>';
 
-        //
         /*
   if(!isset($tipo)){ // e' il tipo che dice se e' admin o meno.. utente normale solo "competenza"
         $ente=\Auth::user()->ente;
@@ -78,40 +78,41 @@ class Group extends Model
         */
 
         if (isset($ente)) {
-            $rows=$rows->where('ente', '=', $ente);
+            $rows = $rows->where('ente', '=', $ente);
             //echo '<pre>';print_r($params);echo '</pre>';
         }
         if (isset($matr)) {
-            $rows=$rows->where('matr', '=', $matr);
+            $rows = $rows->where('matr', '=', $matr);
         }
-        $datefield='data_start';
+        $datefield = 'data_start';
         if (isset($tipo)) {
             switch ($tipo) {
-            case 1: $datefield='data_start'; break;
-            case 2: $datefield='datemod'; break;
+            case 1: $datefield = 'data_start'; break;
+            case 2: $datefield = 'datemod'; break;
         }
         }
 
         if (isset($mese)) {
-            $rows=$rows->whereMonth($datefield, $mese);
+            $rows = $rows->whereMonth($datefield, $mese);
         }
         if (isset($anno)) {
             //$rows=$rows->whereYear($datefield,$anno);
-            $rows=$rows->where('anno', $anno);
+            $rows = $rows->where('anno', $anno);
         }
         if (isset($stabi)) {
-            $rows=$rows->where('stabi', $stabi);
+            $rows = $rows->where('stabi', $stabi);
         }
         if (isset($repar)) {
-            $rows=$rows->where('repar', $repar);
+            $rows = $rows->where('repar', $repar);
         }
 
-
         if (isset($stati)) {
-            $rows=$rows->whereRaw('find_in_set(last_stato,"'.$stati.'")');
+            $rows = $rows->whereRaw('find_in_set(last_stato,"'.$stati.'")');
         }
         //$rows=$rows->orderBy('data_start', 'desc');
         return $rows;
-    }//end search
+    }
+
+    //end search
 //-----------------------------------------------------------------------------------
 }

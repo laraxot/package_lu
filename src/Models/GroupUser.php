@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +16,7 @@ class GroupUser extends Model
     protected $table = 'liveuser_groupusers';
     /* protected $primaryKey = ['perm_user_id','group_id'];*/ //questo da errore al toArray
     protected $primaryKey = 'group_id';
+
     //--------------------------------------------------
     public function group()
     {

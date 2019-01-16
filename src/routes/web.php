@@ -1,17 +1,19 @@
 <?php
-$namespace=$this->getNamespace();
+
+
+$namespace = $this->getNamespace();
 Route::group(
     [
         'prefix' => null,
-        'middleware'=>['web'],
-        'namespace'=>$namespace.'\Controllers',
+        'middleware' => ['web'],
+        'namespace' => $namespace.'\Controllers',
     ],
     function () {
         Auth::routes(['verify' => true]);
     }
 );
 
-$middleware=['web','guest'];
+$middleware = ['web', 'guest'];
 Route::group(
     [
         'prefix' => null,
@@ -20,13 +22,13 @@ Route::group(
     ],
     function () {
         //--------- SOCIALITE ----------------
-        Route::get('login/{provider}', ['as'=>null,                'uses'=>'LoginController@redirectToProvider']);
-        Route::get('login/{provider}/callback', ['as'=>null,                'uses'=>'LoginController@handleProviderCallback']);
+        Route::get('login/{provider}', ['as' => null,                'uses' => 'LoginController@redirectToProvider']);
+        Route::get('login/{provider}/callback', ['as' => null,                'uses' => 'LoginController@handleProviderCallback']);
     }
 );
 
 Route::get('/slack', function () {
-    new stoca;
+    new stoca();
     //$user = \XRA\LU\Models\User::first();
     //$user->notify(new \XRA\LU\Notifications\Newslack());
     //echo "A slack notification has been send";

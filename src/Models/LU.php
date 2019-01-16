@@ -1,8 +1,10 @@
 <?php
+
+
+
 namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class LU extends Model
 {
@@ -15,6 +17,7 @@ class LU extends Model
     {
         return $this->cognome;
     }
+
     public function getNameAttribute($value)
     {
         return $this->nome;
@@ -24,13 +27,15 @@ class LU extends Model
     {
         $publicBaseUrl = 'https://www.gravatar.com/avatar/';
         $secureBaseUrl = 'https://secure.gravatar.com/avatar/';
-        $default = "https://www.somewhere.com/homestar.jpg";
-        $size=20;
-        return $secureBaseUrl. md5(strtolower(trim($this->email))) . "&s=" . $size;
+        $default = 'https://www.somewhere.com/homestar.jpg';
+        $size = 20;
+
+        return $secureBaseUrl.\md5(\mb_strtolower(\trim($this->email))).'&s='.$size;
     }
+
     //------
     public function latestUsersLoggedIn()
     {
-        return LU::orderBy('last_login_at', 'desc')->limit(8);
+        return self::orderBy('last_login_at', 'desc')->limit(8);
     }
 }

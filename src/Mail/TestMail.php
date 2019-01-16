@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace XRA\LU\Mail;
 
 //use App\Order;
@@ -20,8 +22,6 @@ class TestMail extends Mailable
 
     /**
      * Create a new message instance.
-     *
-     * @return void
      */
     /*
     public function __construct(Order $order)
@@ -29,6 +29,7 @@ class TestMail extends Mailable
         //$this->order = $order;
     }
     */
+
     /**
      * Build the message.
      *

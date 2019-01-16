@@ -1,10 +1,11 @@
 <?php
 
+
+
 namespace XRA\LU\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-
 use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
@@ -24,8 +25,6 @@ class ForgotPasswordController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -40,18 +39,19 @@ class ForgotPasswordController extends Controller
     public function showLinkRequestForm(Request $request)
     {
         //return view('lu::auth.passwords.email');
-        $locz=['pub_theme','adm_theme','lu'];
-        $tpl='auth.passwords.email';
+        $locz = ['pub_theme', 'adm_theme', 'lu'];
+        $tpl = 'auth.passwords.email';
         if ($request->ajax()) {
-            $tpl='auth.passwords.ajax_email';
+            $tpl = 'auth.passwords.ajax_email';
         }
 
         foreach ($locz as $loc) {
-            $view=$loc.'::'.$tpl;
+            $view = $loc.'::'.$tpl;
             if (\View::exists($view)) {
                 return view($view);
             }
         }
+
         return '<h3>Non esiste la view ['.$view.']</h3>';
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace XRA\LU\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -12,7 +14,7 @@ class RightController extends Controller
 
     public function getModel()
     {
-        return new Right;
+        return new Right();
     }
 
     public function getPrimaryKey()

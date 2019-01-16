@@ -1,13 +1,14 @@
 <?php
 
+
+
 namespace XRA\LU\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Registered;
-
+use Illuminate\Support\Facades\Validator;
 //--------- Models ------------
 use XRA\LU\Models\User;
 
@@ -35,8 +36,6 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -46,7 +45,8 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -62,15 +62,16 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return User
      */
     protected function create(array $data)
     {
         if (!isset($data['handle'])) {
-            $data['handle']=$data['username']; //molti template precotti hanno username.. se non hanno neppure questo meglio avere errore
+            $data['handle'] = $data['username']; //molti template precotti hanno username.. se non hanno neppure questo meglio avere errore
         }
-        $user= User::create([
+        $user = User::create([
             //'name' => $data['name'],
             'handle' => $data['handle'],
             'email' => $data['email'],
@@ -95,37 +96,42 @@ class RegisterController extends Controller
         */
         return $user;
     }
+
     //---------------------------------------------------------------------------------------
     public function showRegistrationForm(Request $request)
     {
         $params = \Route::current()->parameters();
-        $row=new User;
-        $locz=['pub_theme','adm_theme','lu'];
-        $tpl='auth.register';
+        $row = new User();
+        $locz = ['pub_theme', 'adm_theme', 'lu'];
+        $tpl = 'auth.register';
         if ($request->ajax()) {
-            $tpl='auth.ajax_register';
+            $tpl = 'auth.ajax_register';
         }
 
         foreach ($locz as $loc) {
-            $view=$loc.'::'.$tpl;
-           
+            $view = $loc.'::'.$tpl;
+
             if (\View::exists($view)) {
-                return view($view, ['action'=>'register'])
-                       ->with('params',$params)
-                       ->with('lang',\App::getLocale())
-                       ->with('view',$view)
-                       ->with('row',$row);
+                return view($view, ['action' => 'register'])
+                       ->with('params', $params)
+                       ->with('lang', \App::getLocale())
+                       ->with('view', $view)
+                       ->with('row', $row);
             }
         }
+
         return '<h3>Non esiste la view ['.$view.']</h3>';
     }
+
     //--------------------------------------------------------------------------------
+
     /**
-        * Handle a registration request for the application.
-        *
-        * @param  \Illuminate\Http\Request  $request
-        * @return \Illuminate\Http\Response
-        */
+     * Handle a registration request for the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function register(Request $request)
     {
         /*
@@ -140,24 +146,25 @@ class RegisterController extends Controller
         */
         $data = $request->all();
 
-        $rules = array(
+        $rules = [
         //    'username' => 'required|alpha_num|min:3|max:32',
             'email' => 'required|email',
             'password' => 'required|min:3|confirmed',
-            'password_confirmation' => 'required|min:3'
-        );
+            'password_confirmation' => 'required|min:3',
+        ];
 
         // Create a new validator instance.
         $validator = Validator::make($data, $rules);
         $errors = $validator->errors();
-        $msg='';
+        $msg = '';
         foreach ($errors->all() as $message) {
-            $msg.='<br/>'.$message;
+            $msg .= '<br/>'.$message;
         }
         if ($validator->fails()) {
             if ($request->ajax()) {
                 return response()->json(['error' => $msg], 500);
             }
+
             return back()
                 ->withError('Qualcosa di errato !')
                 ->withInput($request->all())

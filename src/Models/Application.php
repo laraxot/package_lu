@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +12,7 @@ class Application extends Model
 {
     use Updater;
     use Searchable;
-    //
+
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_applications';
     protected $primaryKey = 'application_id';

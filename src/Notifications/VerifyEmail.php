@@ -1,31 +1,28 @@
 <?php
 
+
+
 namespace XRA\LU\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\URL;
 
 class VerifyEmail extends Notification
 {
     use Queueable;
     /**
-    * The callback that should be used to build the mail message.
-    *
-    * @var \Closure|null
-    */
+     * The callback that should be used to build the mail message.
+     *
+     * @var \Closure|null
+     */
     public static $toMailCallback;
-
 
     /**
      * Create a new notification instance.
-     *
-     * @return void
      */
     /*
     public function __construct()
@@ -33,10 +30,12 @@ class VerifyEmail extends Notification
         //
     }
     */
+
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -47,24 +46,27 @@ class VerifyEmail extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
+
     /**
-    * Build the mail representation of the notification.
-    *
-    * @param  mixed  $notifiable
-    * @return \Illuminate\Notifications\Messages\MailMessage
-    */
+     * Build the mail representation of the notification.
+     *
+     * @param mixed $notifiable
+     *
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
     public function toMail($notifiable)
     {
         if (static::$toMailCallback) {
-            return call_user_func(static::$toMailCallback, $notifiable);
+            return \call_user_func(static::$toMailCallback, $notifiable);
         }
 
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject(Lang::getFromJson('Verify Email Address'))
-            ->markdown('lu::notifications.email',['subcopy'=>'subcopy']) //, ['user' => $this->user]
+            ->markdown('lu::notifications.email', ['subcopy' => 'subcopy']) //, ['user' => $this->user]
             ->line(Lang::getFromJson('Please click the button below to verify your email address.'))
             ->action(
                 Lang::getFromJson('Verify Email Address'),
@@ -76,7 +78,8 @@ class VerifyEmail extends Notification
     /**
      * Get the verification URL for the given notifiable.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return string
      */
     protected function verificationUrl($notifiable)
@@ -91,8 +94,7 @@ class VerifyEmail extends Notification
     /**
      * Set a callback that should be used when building the notification mail message.
      *
-     * @param  \Closure  $callback
-     * @return void
+     * @param \Closure $callback
      */
     public static function toMailUsing($callback)
     {
@@ -102,13 +104,13 @@ class VerifyEmail extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)
     {
         return [
-            //
         ];
     }
 }

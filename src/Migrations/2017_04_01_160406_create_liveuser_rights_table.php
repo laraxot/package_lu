@@ -1,15 +1,14 @@
 <?php
 
+
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateLiveuserRightsTable extends Migration
 {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -20,16 +19,13 @@ class CreateLiveuserRightsTable extends Migration
                 $table->string('right_define_name', 150);
                 $table->char('has_implied', 1)->default('N');
                 $table->char('has_level', 1)->default('N');
-                $table->unique(['area_id','right_define_name'], 'right_define_name');
+                $table->unique(['area_id', 'right_define_name'], 'right_define_name');
             });
         }
     }
 
-
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

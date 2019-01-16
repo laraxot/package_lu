@@ -1,11 +1,13 @@
 <?php
 
+
+
 namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
-use XRA\Extend\Traits\Updater;
 use XRA\Extend\Services\ThemeService;
+use XRA\Extend\Traits\Updater;
 
 class Area extends Model
 {
@@ -15,7 +17,7 @@ class Area extends Model
     protected $table = 'liveuser_areas';
     protected $primaryKey = 'area_id';
 
-    protected $fillable = ['area_id','area_define_name','url'];
+    protected $fillable = ['area_id', 'area_define_name', 'url'];
 
     /*
     function PermUser(){
@@ -42,17 +44,16 @@ class Area extends Model
         return 'area_id';
     }
 
-    
-    public function imageHtml($params=[])
+    public function imageHtml($params = [])
     {
-        extract($params);
+        \extract($params);
+
         return '<img src="'.asset($this->icon_src).'" width="'.$width.'" height="'.$height.'" />';
     }
 
-
     public function getUrlAttribute($value)
     {
-        return url('admin/'.strtolower($this->area_define_name));
+        return url('admin/'.\mb_strtolower($this->area_define_name));
     }
 
     public function getGuidAttribute($value)
@@ -78,14 +79,15 @@ class Area extends Model
             //echo $path; die();
         }
         */
-        $src=strtolower($this->area_define_name.'::img/icon.png');
+        $src = \mb_strtolower($this->area_define_name.'::img/icon.png');
 
         $srcz = ThemeService::viewNamespaceToUrl([$src]);
-    
+
         //dd($srcz);
-        $src=$srcz[0];
+        $src = $srcz[0];
 
         $newsrc = ThemeService::getFileUrl($src);
+
         return $newsrc;
 
         // */
@@ -99,33 +101,28 @@ class Area extends Model
     */
     }
 
-
     public static function full()
     {
-        $rows=new self;
+        $rows = new self();
 
         return $rows;
     }
 
-
-
-
     //---------------------------------------------------------------------------
     public static function filter($params)
     {
-        $rows=new self;
-        extract($params);
+        $rows = new self();
+        \extract($params);
         //echo '<pre>';print_r($params);echo '</pre>';
         if (isset($id_user)) {
-            $user=User::find($id_user);
-            $rows=$user->areas();
+            $user = User::find($id_user);
+            $rows = $user->areas();
         }
         //echo '<pre>';print_r($areas->toArray());echo '</pre>';
         //echo '<pre>';print_r($user);echo '</pre>';
         //$perm_user=$user->permUser['perm_user_id'];
         //echo '<pre>-';print_r($perm_user);echo '-</pre>';
 
-        //
         /*
   if(!isset($tipo)){ // e' il tipo che dice se e' admin o meno.. utente normale solo "competenza"
         $ente=\Auth::user()->ente;
@@ -134,58 +131,60 @@ class Area extends Model
         */
 
         if (isset($ente)) {
-            $rows=$rows->where('ente', '=', $ente);
+            $rows = $rows->where('ente', '=', $ente);
             //echo '<pre>';print_r($params);echo '</pre>';
         }
         if (isset($matr)) {
-            $rows=$rows->where('matr', '=', $matr);
+            $rows = $rows->where('matr', '=', $matr);
         }
-        $datefield='data_start';
+        $datefield = 'data_start';
         if (isset($tipo)) {
             switch ($tipo) {
-            case 1: $datefield='data_start'; break;
-            case 2: $datefield='datemod'; break;
+            case 1: $datefield = 'data_start'; break;
+            case 2: $datefield = 'datemod'; break;
         }
         }
 
         if (isset($mese)) {
-            $rows=$rows->whereMonth($datefield, $mese);
+            $rows = $rows->whereMonth($datefield, $mese);
         }
         if (isset($anno)) {
             //$rows=$rows->whereYear($datefield,$anno);
-            $rows=$rows->where('anno', $anno);
+            $rows = $rows->where('anno', $anno);
         }
         if (isset($stabi)) {
-            $rows=$rows->where('stabi', $stabi);
+            $rows = $rows->where('stabi', $stabi);
         }
         if (isset($repar)) {
-            $rows=$rows->where('repar', $repar);
+            $rows = $rows->where('repar', $repar);
         }
 
-
         if (isset($stati)) {
-            $rows=$rows->whereRaw('find_in_set(last_stato,"'.$stati.'")');
+            $rows = $rows->whereRaw('find_in_set(last_stato,"'.$stati.'")');
         }
         //$rows=$rows->orderBy('data_start', 'desc');
         return $rows;
-    }//end search
+    }
+
+    //end search
     //-----------------------------------------------------------------------------------
     public function dashboard_widget()
     {
-        $view=strtolower($this->area_define_name).'::admin.dashboard_widget';
-        $view_default='lu::admin.dashboard_widget_default';
-        $namespace=config('xra.namespaces');
+        $view = \mb_strtolower($this->area_define_name).'::admin.dashboard_widget';
+        $view_default = 'lu::admin.dashboard_widget_default';
+        $namespace = config('xra.namespaces');
         if (isset($namespace[$this->area_define_name])) {
-            $model=$namespace[$this->area_define_name].'\Models\\'.$this->area_define_name;
+            $model = $namespace[$this->area_define_name].'\Models\\'.$this->area_define_name;
         } else {
-            $model='---';
+            $model = '---';
         }
-        if (class_exists($model)) {
-            $model_obj=new $model;
+        if (\class_exists($model)) {
+            $model_obj = new $model();
         } else {
-            $model_obj=new \stdClass();
+            $model_obj = new \stdClass();
         }
-        $data=['area'=>$this,'row'=>$model_obj];
+        $data = ['area' => $this, 'row' => $model_obj];
+
         return view()->first([$view, $view_default], $data);
         /*
         //if (\View::exists($view)) {
@@ -199,26 +198,27 @@ class Area extends Model
         }
         */
     }
+
     //------------------------------------------------------------------------------------
     public static function syncPacks()
     {
-        $vendors=\XRA\XRA\Packages::allVendors();
-        $packs=[];
+        $vendors = \XRA\XRA\Packages::allVendors();
+        $packs = [];
         foreach ($vendors as $vendor) {
-            $tmp=\XRA\XRA\Packages::all($vendor);
-            $packs=array_merge($packs, $tmp);
+            $tmp = \XRA\XRA\Packages::all($vendor);
+            $packs = \array_merge($packs, $tmp);
         }
-        $packs=collect(array_combine($packs, $packs));
-        $areas=Area::all()->pluck('area_define_name', 'area_define_name');
-        $adds=$packs->diff($areas)->all();
-        $subs=$areas->diff($packs)->all();
+        $packs = collect(\array_combine($packs, $packs));
+        $areas = self::all()->pluck('area_define_name', 'area_define_name');
+        $adds = $packs->diff($areas)->all();
+        $subs = $areas->diff($packs)->all();
         foreach ($adds as $add) {
-            $row=new Area;
-            $row->area_define_name=$add;
+            $row = new self();
+            $row->area_define_name = $add;
             $row->save();
         }
         foreach ($subs as $sub) {
-            Area::where('area_define_name', $sub)->delete();
+            self::where('area_define_name', $sub)->delete();
         }
     }
 }//---------end class Areas

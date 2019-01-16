@@ -1,12 +1,12 @@
 <?php
 
+
+
 namespace XRA\LU\Controllers\Admin\LU;
 
-use Illuminate\Http\Request;
-use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use XRA\Extend\Traits\CrudBindTrait as CrudTrait;
-
 //-------- Models ----------------
 use XRA\LU\Models\User;
 
@@ -15,6 +15,7 @@ use XRA\LU\Models\User;
 class UserController extends Controller
 {
     use CrudTrait;
+
     //-------------------------
     /*
     public function getModel()
@@ -38,31 +39,35 @@ class UserController extends Controller
     //---------------------------------
     public function search(Request $request)
     {
-        $data=$request->all();
+        $data = $request->all();
         //echo '<pre>';print_r($data);echo '</pre>';
-        if ($request->_method!='') {
+        if ('' != $request->_method) {
             return $this->do_search($data);
         }
+
         return view('lu::admin.user.search');
-    }//end search
+    }
+
+    //end search
     //------------------------------------------------------------------------
     public function do_search($data)
     {
         //echo '<h3>do_search</h3>';
-        $rows=$this->getModel();
-        extract($data);
-        if (isset($handle) && $handle!='') {
-            $rows=$rows->where('handle', $handle);
+        $rows = $this->getModel();
+        \extract($data);
+        if (isset($handle) && '' != $handle) {
+            $rows = $rows->where('handle', $handle);
         }
-        if (isset($cognome) && $cognome!='') {
-            $rows=$rows->where('cognome', $cognome);
+        if (isset($cognome) && '' != $cognome) {
+            $rows = $rows->where('cognome', $cognome);
         }
-        if (isset($nome) && $nome!='') {
-            $rows=$rows->where('nome', $nome);
+        if (isset($nome) && '' != $nome) {
+            $rows = $rows->where('nome', $nome);
         }
-        $rows=$rows->get();
+        $rows = $rows->get();
         //echo '<h3>'.$rows->count().'</h3>';
         return view('lu::admin.user.do_search')->with('rows', $rows);
     }
+
     //-------------------------------------------------------------------------
 }

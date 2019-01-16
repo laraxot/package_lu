@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace XRA\LU\Models;
 
 use XRA\XRA\Models\XotModel;

@@ -1,17 +1,18 @@
 <?php
+
+
+
 namespace XRA\LU;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\AliasLoader;
-use XRA\Extend\Traits\ServiceProviderTrait;
 use Illuminate\Support\Facades\Blade;
-
+use Illuminate\Support\ServiceProvider;
+use XRA\Extend\Traits\ServiceProviderTrait;
 //----- models ------
-use XRA\LU\Models\Group;
-use XRA\LU\Models\Right;
 use XRA\LU\Models\Area;
-use XRA\LU\Models\User;
+use XRA\LU\Models\Group;
 use XRA\LU\Models\PermUser;
+use XRA\LU\Models\Right;
+use XRA\LU\Models\User;
 
 class LUServiceProvider extends ServiceProvider
 {
@@ -43,37 +44,38 @@ class LUServiceProvider extends ServiceProvider
         //--- to do --
         //permuser
 
-
         //----------- BLADE
         Blade::if('admin', function () {
             if (!auth()->check()) {
                 return false;
             }
-            return auth()->user()->perm_type>=4;
+
+            return auth()->user()->perm_type >= 4;
         });
         Blade::if('editor', function ($row) {
             //return auth()->user()->handle==$row->created_by;
             if (!auth()->check()) {
                 return false;
             }
-            return auth()->user()->handle==$row->created_by || auth()->user()->perm_type>=4;
+
+            return auth()->user()->handle == $row->created_by || auth()->user()->perm_type >= 4;
         });
         Blade::if('userLevel', function ($level) {
             //return auth()->user()->handle==$row->created_by;
             if (!auth()->check()) {
                 return false;
             }
-            return auth()->user()->perm_type>=$level;
+
+            return auth()->user()->perm_type >= $level;
         });
-        
 
         $this->bootTrait($router);
     }
 
-
     public static function groups()
     {
-        $rows=new Group;
+        $rows = new Group();
+
         return $rows->all();
     }
 }

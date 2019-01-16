@@ -1,8 +1,11 @@
 <?php
+
+
+
 namespace XRA\LU\Repositories;
 
-use XRA\LU\Models\User;
 use XRA\LU\Models\Role;
+use XRA\LU\Models\User;
 
 //https://github.com/bestmomo/laravel5-example
 
@@ -14,29 +17,29 @@ class UserRepository extends BaseRepository
      * @var App\Models\Role
      */
     protected $role;
+
     /**
      * Create a new UserRepository instance.
      *
-     * @param  App\Models\User $user
-     * @param  App\Models\Role $role
-     * @return void
+     * @param App\Models\User $user
+     * @param App\Models\Role $role
      */
     public function __construct(User $user, Role $role)
     {
         $this->model = $user;
         $this->role = $role;
     }
+
     /**
      * Save the User.
      *
-     * @param  App\Models\User $user
-     * @param  Array  $inputs
-     * @return void
+     * @param App\Models\User $user
+     * @param array           $inputs
      */
     private function save($user, $inputs)
     {
         if (isset($inputs['seen'])) {
-            $user->seen = $inputs['seen'] == 'true';
+            $user->seen = 'true' == $inputs['seen'];
         } else {
             $user->username = $inputs['username'];
             $user->email = $inputs['email'];
@@ -49,16 +52,18 @@ class UserRepository extends BaseRepository
         }
         $user->save();
     }
+
     /**
      * Get users collection paginate.
      *
-     * @param  int  $n
-     * @param  string  $role
+     * @param int    $n
+     * @param string $role
+     *
      * @return Illuminate\Support\Collection
      */
     public function index($n, $role)
     {
-        if ($role != 'total') {
+        if ('total' != $role) {
             return $this->model
             ->with('role')
             ->whereHas('role', function ($q) use ($role) {
@@ -68,16 +73,19 @@ class UserRepository extends BaseRepository
             ->latest()
             ->paginate($n);
         }
+
         return $this->model
         ->with('role')
         ->oldest('seen')
         ->latest()
         ->paginate($n);
     }
+
     /**
      * Count the users.
      *
-     * @param  string  $role
+     * @param string $role
+     *
      * @return int
      */
     public function count($role = null)
@@ -88,12 +96,15 @@ class UserRepository extends BaseRepository
                 $q->whereSlug($role);
             })->count();
         }
+
         return $this->model->count();
     }
+
     /**
      * Count the users.
      *
-     * @param  string  $role
+     * @param string $role
+     *
      * @return int
      */
     public function counts()
@@ -101,21 +112,24 @@ class UserRepository extends BaseRepository
         $counts = [
             'admin' => $this->count('admin'),
             'redac' => $this->count('redac'),
-            'user' => $this->count('user')
+            'user' => $this->count('user'),
         ];
-        $counts['total'] = array_sum($counts);
+        $counts['total'] = \array_sum($counts);
+
         return $counts;
     }
+
     /**
      * Create a user.
      *
-     * @param  array  $inputs
-     * @param  int    $confirmation_code
+     * @param array $inputs
+     * @param int   $confirmation_code
+     *
      * @return App\Models\User
      */
     public function store($inputs, $confirmation_code = null)
     {
-        $user = new $this->model;
+        $user = new $this->model();
         $user->password = bcrypt($inputs['password']);
         if ($confirmation_code) {
             $user->confirmation_code = $confirmation_code;
@@ -123,20 +137,22 @@ class UserRepository extends BaseRepository
             $user->confirmed = true;
         }
         $this->save($user, $inputs);
+
         return $user;
     }
+
     /**
      * Update a user.
      *
-     * @param  array  $inputs
-     * @param  App\Models\User $user
-     * @return void
+     * @param array           $inputs
+     * @param App\Models\User $user
      */
     public function update($inputs, $user)
     {
         $user->confirmed = isset($inputs['confirmed']);
         $this->save($user, $inputs);
     }
+
     /**
      * Get statut of authenticated user.
      *
@@ -146,24 +162,24 @@ class UserRepository extends BaseRepository
     {
         return session('statut');
     }
+
     /**
      * Valid user.
      *
-     * @param  bool  $valid
-     * @param  int   $id
-     * @return void
+     * @param bool $valid
+     * @param int  $id
      */
     public function valid($valid, $id)
     {
         $user = $this->getById($id);
-        $user->valid = $valid == 'true';
+        $user->valid = 'true' == $valid;
         $user->save();
     }
+
     /**
      * Destroy a user.
      *
-     * @param  App\Models\User $user
-     * @return void
+     * @param App\Models\User $user
      */
     public function destroyUser(User $user)
     {
@@ -173,13 +189,15 @@ class UserRepository extends BaseRepository
             $post->tags()->detach();
             $post->delete();
         }
-        
+
         $user->delete();
     }
+
     /**
      * Confirm a user.
      *
-     * @param  string  $confirmation_code
+     * @param string $confirmation_code
+     *
      * @return App\Models\User
      */
     public function confirm($confirmation_code)

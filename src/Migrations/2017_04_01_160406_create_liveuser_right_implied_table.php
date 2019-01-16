@@ -1,20 +1,21 @@
 <?php
 
+
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateLiveuserRightImpliedTable extends Migration
 {
-    protected $table='liveuser_right_implied';
-    protected $connection='liveuser_general';
+    protected $table = 'liveuser_right_implied';
+    protected $connection = 'liveuser_general';
+
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        $schema=Schema::connection($this->connection);
+        $schema = Schema::connection($this->connection);
         if (!$schema->hasTable($this->table)) {
             try {
                 $schema->create($this->table, function (Blueprint $table) {
@@ -29,11 +30,8 @@ class CreateLiveuserRightImpliedTable extends Migration
         }
     }
 
-
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

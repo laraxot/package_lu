@@ -1,9 +1,10 @@
 <?php
 
+
+
 namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Flags extends Model
 {
@@ -12,6 +13,6 @@ class Flags extends Model
     protected $primaryKey = 'flag_id';
 
     protected $guarded = [
-        "created_at","updated_at"
+        'created_at', 'updated_at',
     ];
 }

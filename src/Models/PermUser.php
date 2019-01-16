@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace XRA\LU\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +16,7 @@ class PermUser extends Model
     protected $connection = 'liveuser_general'; // this will use the specified database conneciton
     protected $table = 'liveuser_perm_users';
     protected $primaryKey = 'perm_user_id';
-    protected $fillable = ['auth_user_id','perm_type'];
+    protected $fillable = ['auth_user_id', 'perm_type'];
 
     public function User()
     {
@@ -36,6 +38,7 @@ class PermUser extends Model
     public function getPermTypeByUser($user_id)
     {
         $perm_user = $this->where('auth_user_id', $user_id)->first();
+
         return $perm_user->perm_type;
     }
 
@@ -48,8 +51,8 @@ class PermUser extends Model
         );
         con hasManyThrough non c'e' attach e detach che vengono usati nello store e update
         */
-        $pivot= new AreaAdminArea;
-        $rows=$this->belongsToMany(
+        $pivot = new AreaAdminArea();
+        $rows = $this->belongsToMany(
             Area::class,
             $pivot->getTable(),
             'perm_user_id',
@@ -58,7 +61,6 @@ class PermUser extends Model
         //->groupBy('area_define_name');
         return $rows;
     }
-
 
     public function groups()
     {
@@ -69,8 +71,8 @@ class PermUser extends Model
         );
         con hasManyThrough non c'e' attach e detach che vengono usati nello store e update
         */
-        $pivot= new GroupUser;
-        $rows=$this->belongsToMany(
+        $pivot = new GroupUser();
+        $rows = $this->belongsToMany(
             Group::class,
             $pivot->getTable(),
             'perm_user_id',
@@ -82,13 +84,14 @@ class PermUser extends Model
 
     public function rights()
     {
-        $pivot= new UserRight;
-        $rows=$this->belongsToMany(
+        $pivot = new UserRight();
+        $rows = $this->belongsToMany(
             Right::class,
             $pivot->getTable(),
             'perm_user_id',
             'right_id'
         );
+
         return $rows;
     }
 }//end class PermUsers

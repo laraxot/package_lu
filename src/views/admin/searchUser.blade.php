@@ -4,7 +4,7 @@
 @include('backend::includes.flash')
 @include('backend::includes.components')
 <?php
-$routename=Request::route()->getName();
+$routename = Request::route()->getName();
 ?>
 {{-- $routename --}}
 {{ Form::open(['route' => $routename]) }}

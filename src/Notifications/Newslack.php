@@ -1,14 +1,13 @@
 <?php
 
+
+
 namespace XRA\LU\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\SlackMessage;
-
 use Carbon\Carbon;
+use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Notification;
 
 class Newslack extends Notification
 {
@@ -25,7 +24,7 @@ class Newslack extends Notification
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage)
+        return (new SlackMessage())
            ->content('A new visitor has visited to your application . at '.Carbon::now());
     }
 }

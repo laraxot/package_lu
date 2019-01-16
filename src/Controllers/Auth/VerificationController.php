@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace XRA\LU\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -29,8 +31,6 @@ class VerificationController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -39,11 +39,11 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
-
     /**
      * Show the email verification notice.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)

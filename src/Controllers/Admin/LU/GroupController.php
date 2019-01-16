@@ -1,14 +1,13 @@
 <?php
 
+
+
 namespace XRA\LU\Controllers\Admin\LU;
 
-use Illuminate\Http\Request;
-use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
-
 //------models------
-use \XRA\LU\Models\Group;
+use XRA\LU\Models\Group;
 
 class GroupController extends Controller
 {
