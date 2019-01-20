@@ -27,6 +27,13 @@ Route::group(
     }
 );
 
+//---  https://laraveldaily.com/laravel-auth-make-registration-invitation-only/
+//Route::get('register/request', $namespace.'\Controllers\Auth\InvitationController@requestInvitation')->name('requestInvitation');
+Route::get('invitation/create', $namespace.'\Controllers\Auth\InvitationController@create')->middleware('web')->name('requestInvitation');
+Route::post('invitation', $namespace.'\Controllers\Auth\InvitationController@store')->middleware('guest')->name('storeInvitation');
+
+
+
 Route::get('/slack', function () {
     new stoca();
     //$user = \XRA\LU\Models\User::first();

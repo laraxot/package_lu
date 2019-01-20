@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Schema;
 class CreatePasswordResetsTable extends Migration
 {
     protected $table = 'password_resets';
+    protected $connection = 'liveuser_general'; 
 
     /**
      * Run the migrations.
