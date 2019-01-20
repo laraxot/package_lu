@@ -19,9 +19,11 @@ class LUServiceProvider extends ServiceProvider
     use ServiceProviderTrait{
         boot as protected bootTrait;
     }
+    
+    public function registerRoutePattern(\Illuminate\Routing\Router $router){
+    }
 
-    public function boot(\Illuminate\Routing\Router $router)
-    {
+    public function registerRouteBind(\Illuminate\Routing\Router $router){
         //--------- ROUTE BIND
         $router->bind('area', function ($value) {
             //return (new ProductRepository)->find($product_id);
@@ -43,8 +45,10 @@ class LUServiceProvider extends ServiceProvider
         });
         //--- to do --
         //permuser
+    }
 
-        //----------- BLADE
+    public function registerBladeDirective(){
+         //----------- BLADE
         Blade::if('admin', function () {
             if (!auth()->check()) {
                 return false;
@@ -68,9 +72,22 @@ class LUServiceProvider extends ServiceProvider
 
             return auth()->user()->perm_type >= $level;
         });
+    }
 
+    public function boot(\Illuminate\Routing\Router $router)
+    {
+        $this->registerRoutePattern($router);
+        $this->registerRouteBind($router);
+        $this->registerBladeDirective();
+        \Event::listen(\XRA\LU\Events\TestEvent::class, \XRA\LU\Listeners\TestListener::class);
         $this->bootTrait($router);
     }
+    /*
+    public function register(){
+        //https://stackoverflow.com/questions/51604666/listen-to-an-event-in-a-package-of-laravel-5-3
+        $this->app->register(EventServiceProvider::class);
+    }
+    */
 
     public static function groups()
     {
