@@ -110,6 +110,12 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
         $data = $request->all();
         $username_field = $this->username();
         if (isset($data['ente']) && isset($data['matr'])) {
@@ -125,6 +131,12 @@ class LoginController extends Controller
         if (isset($data['user_email'])) {
             $user = User::where('email', $data['user_email'])->first();
         }
+        /*
+        if(!$user->hasVerifiedEmail()){
+            return redirect()->route('verification.notice');
+        }
+        //*/
+
         if (isset($user) && $user->superAdmin() && 1 == User::count()) {
             if (null == $user->perm) {
                 $user->perm()->create(['perm_type' => 5]);
@@ -141,6 +153,7 @@ class LoginController extends Controller
         //}
 
         if (isset($user) && $user->passwd == \md5($data['password'])) {
+            $this->clearLoginAttempts($request);
             //dd($user);
             Auth::login($user, $request->has('remember'));
             $auth = Auth::loginUsingId($user->auth_user_id, $request->has('remember'));
@@ -154,6 +167,7 @@ class LoginController extends Controller
             //return $out;
             return $this->sendLoginResponse($request);
         } else {
+            $this->incrementLoginAttempts($request);
             if ($request->ajax()) {
                 return response()->json(
                     [

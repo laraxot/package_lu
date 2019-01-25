@@ -1,10 +1,9 @@
 <?php
-
-
-
 namespace XRA\LU\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
 class VerificationController extends Controller
@@ -48,8 +47,9 @@ class VerificationController extends Controller
      */
     public function show(Request $request)
     {
+        $view='lu::auth.verify';
         return $request->user()->hasVerifiedEmail()
                         ? redirect($this->redirectPath())
-                        : view('lu::auth.verify');
+                        : view($view)->with('view',$view);
     }
 }
