@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace XRA\LU\Notifications;
 
 use Illuminate\Bus\Queueable;

@@ -81,8 +81,11 @@ class AreaController extends Controller
         $add = $packs->diff($areas);
         $sub = $areas->diff($packs);
         //ddd($add);
+        echo '<br/><h3>Add</h3><pre>';print_r($add);echo '</pre>';
+        echo '<br/><h3>Sub</h3><pre>';print_r($sub);echo '</pre>';
+        
         $this->addAreas($add);
-        $this->subAreas($add);
+        $this->subAreas($sub);
     }
 
     public function addAreas($add)
@@ -92,7 +95,7 @@ class AreaController extends Controller
             $tmp = \mb_strtolower($tmp);
             $tmp = \mb_substr($tmp, 1);
             $row = Area::firstOrCreate(['area_define_name' => $v], ['url' => $tmp]);
-            echo '<br/>Add : ['.$row->area_id.']'.$row->area_define_name.' : '.$area->url;
+            //echo '<br/><h3>Add</h3><pre>';print_r($row->toArray());echo '</pre>';
             //ddd($row);
         }
     }
@@ -131,6 +134,7 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        
         //echo '<pre>';print_r($data);echo '</pre>';die('['.__LINE__.']['.__FILE__.']');
         \extract($data);
         if (isset($add)) {

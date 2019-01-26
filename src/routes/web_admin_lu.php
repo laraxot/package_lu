@@ -15,6 +15,7 @@ $item0 = [
         ['name' => 'Group', 'param_name' => 'group'],
         ['name' => 'Right', 'param_name' => 'right'],
         ['name' => 'Mail'],
+        ['name' => 'Event'],
         [
             'name' => 'User', 'param_name' => 'user',
             'subs' => [

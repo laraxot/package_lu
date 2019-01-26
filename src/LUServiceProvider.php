@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace XRA\LU;
 
 use Illuminate\Support\Facades\Blade;
@@ -79,7 +76,7 @@ class LUServiceProvider extends ServiceProvider
         $this->registerRoutePattern($router);
         $this->registerRouteBind($router);
         $this->registerBladeDirective();
-        \Event::listen(\XRA\LU\Events\TestEvent::class, \XRA\LU\Listeners\TestListener::class);
+        //\Event::listen(\XRA\LU\Events\TestEvent::class, \XRA\LU\Listeners\TestListener::class);
         $this->bootTrait($router);
     }
     /*

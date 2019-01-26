@@ -72,6 +72,7 @@ class AreaController extends Controller
     //-------------------------------------------------------------------------
     public function index(Request $request)
     {
+        ddd('index');
         if (1 == $request->routelist) {
             return ArtisanTrait::exe('route:list');
         }
@@ -80,7 +81,10 @@ class AreaController extends Controller
         $user = User::find($id_user);
         $rows = $user->areas();
         $view = ThemeService::getView(); //'lu::admin.user.area.index'
-        return view($view)->with('rows', $rows)->with('params', $params);
+        return view($view)
+                  ->with('row', $user) 
+                  ->with('rows', $rows)
+                  ->with('params', $params);
     }
 
     //end index

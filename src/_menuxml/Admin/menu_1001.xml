@@ -1,0 +1,11 @@
+<root>
+    <row>
+        <id>1001</id>
+        <id_padre>1000</id_padre>
+        <nome>Events List</nome>
+        <icons>fa fa-pencil</icons>
+        <ordine />
+        <obj>lu.event</obj>
+        <act>index</act>
+    </row>
+</root>

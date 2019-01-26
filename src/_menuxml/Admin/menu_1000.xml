@@ -1,0 +1,11 @@
+<root>
+    <row>
+        <id>1000</id>
+        <id_padre>0</id_padre>
+        <nome>Events</nome>
+        <icons>fa fa-pencil</icons>
+        <ordine />
+        <obj>user</obj>
+        <act>editUser</act>
+    </row>
+</root>

@@ -60,7 +60,12 @@ class Area extends Model
     {
         return str_slug($this->area_define_name);
     }
-
+    public function getOptKeyAttribute($value){
+        return $this->area_id;
+    }
+    public function getOptLabelAttribute($value){
+        return $this->area_define_name;
+    }
     public function getIconSrcAttribute($value)
     {
         //*
