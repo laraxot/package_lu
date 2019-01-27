@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateInvitationsTable extends Migration
 {
     protected $table = 'invitations';
-    protected $connection = 'liveuser_general'; 
+    protected $connection = 'liveuser_general';
 
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class CreateInvitationsTable extends Migration
         if (!Schema::connection('liveuser_general')->hasTable($this->table)) {
             Schema::connection('liveuser_general')->create($this->table, function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('email')->unique();
+                $table->string('email',100)->unique();
                 $table->string('invitation_token', 32)->unique()->nullable();
                 $table->timestamp('registered_at')->nullable();
                 $table->timestamps();
