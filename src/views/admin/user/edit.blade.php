@@ -17,7 +17,7 @@
 
 {{-- Form::bsSelect('giust',null,$row->giust_opts()) --}}
 
-{{Form::submit('Salva ed esci',['class'=>'submit btn btn-success green-meadow'])}}
+{{Form::bs3Submit('Salva ed esci',['class'=>'submit btn btn-success green-meadow'])}}
 {!! Form::close() !!}
 
 @endsection
