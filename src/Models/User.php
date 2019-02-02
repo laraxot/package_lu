@@ -122,17 +122,17 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(PermUser::class, 'auth_user_id', 'auth_user_id');
     }
-
+    /*-- usiamo solo perm 
     public function permUser()
     {
         $row = $this->hasOne(PermUser::class, 'auth_user_id', 'auth_user_id');
 
         return $row;
     }
-
+    */
     public function perm_user_id()
     { //shortcut
-        $permUser = $this->permUser;
+        $permUser = $this->perm;
         if (null == $permUser) {
             $permUser = PermUser::firstOrCreate(['auth_user_id' => $this->auth_user_id]);
         }
@@ -142,39 +142,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     ///----------------------------------------------------------------------
-    /*
-    public function perm_type(){
-        $permUsers=$this->permUser();
-        return $permUsers;
-    }
-    */
-
-    /*
-    public function groups1(){
-        $permUsers=$this->permUser()->first();
-        $groupUsers=$permUsers->groupUsers()->get();
-        //echo '<pre>[';print_r($groupUsers->first()->toArray());echo '</pre>';
-        //$groupUsers=$this->permUser()->first()->groupUsers()->get();
-        //echo '<pre>['; print_r($groupUsers->toArray()); echo ']</pre>';
-        $groups=[];
-        foreach ($groupUsers as $k => $v) {
-            // $v1=$v->group();
-            //echo '<pre>['; print_r($v->toArray()); echo ']</pre>';
-            $v1=$v->group()->first();
-            //echo '<pre>['; print_r($v1->toArray()); echo ']</pre>';
-            if ($v1!=null) {
-                $groups[]=$v1->toArray();
-            }
-        }
-        $collection = collect($groups);
-        //$collection->prepend(['a'=>'b']);
-        $keyed = $collection->keyBy('group_id');
-        $keyed ->prepend('--- SELEZIONA ---');
-        //echo '<pre>';print_r($keyed->all());
-        return $keyed->all();
-        //return $groups;
-    }
-    */
 
     public function groups_opts()
     {

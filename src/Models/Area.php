@@ -123,18 +123,6 @@ class Area extends Model
             $user = User::find($id_user);
             $rows = $user->areas();
         }
-        //echo '<pre>';print_r($areas->toArray());echo '</pre>';
-        //echo '<pre>';print_r($user);echo '</pre>';
-        //$perm_user=$user->permUser['perm_user_id'];
-        //echo '<pre>-';print_r($perm_user);echo '-</pre>';
-
-        /*
-  if(!isset($tipo)){ // e' il tipo che dice se e' admin o meno.. utente normale solo "competenza"
-        $ente=\Auth::user()->ente;
-        $matr=\Auth::user()->matr;
-  }
-        */
-
         if (isset($ente)) {
             $rows = $rows->where('ente', '=', $ente);
             //echo '<pre>';print_r($params);echo '</pre>';
