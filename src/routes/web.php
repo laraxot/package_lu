@@ -36,6 +36,11 @@ Route::get('/eventtest', function () {
     event(new \XRA\LU\Events\TestEvent('preso'));
 });
 
+
+Route::get('/scout', function () {
+    //return \XRA\LU\Models\User::search('sottana')->get();
+});
+
 Route::get('/slack', function () {
     new stoca();
     //$user = \XRA\LU\Models\User::first();
