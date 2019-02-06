@@ -1,7 +1,6 @@
 <?php
 
 
-
 namespace XRA\LU\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -45,12 +44,11 @@ class ResetPasswordController extends Controller
      * Reset the given user's password.
      *
      * @param \Illuminate\Contracts\Auth\CanResetPassword $user
-     * @param string                                      $password
+     * @param string $password
      */
     protected function resetPassword($user, $password)
     {
         $user->forceFill([
-            //'passwd' => md5($password),
             'passwd' => $password,
             'remember_token' => Str::random(60),
         ])->save();
@@ -64,7 +62,7 @@ class ResetPasswordController extends Controller
      * If no token is present, display the link request form.
      *
      * @param \Illuminate\Http\Request $request
-     * @param string|null              $token
+     * @param string|null $token
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -80,15 +78,15 @@ class ResetPasswordController extends Controller
         }
 
         foreach ($locz as $loc) {
-            $view = $loc.'::'.$tpl;
+            $view = $loc . '::' . $tpl;
             if (\View::exists($view)) {
                 return view($view)->with(
-                            ['token' => $token, 'email' => $request->email]
-                        );
+                    ['token' => $token, 'email' => $request->email]
+                );
             }
         }
 
-        return '<h3>Non esiste la view ['.$view.']</h3>';
+        return '<h3>Non esiste la view [' . $view . ']</h3>';
         /*
         return view('lu::auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]

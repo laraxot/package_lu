@@ -1,7 +1,6 @@
 <?php
 
 
-
 namespace XRA\LU\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -109,18 +108,18 @@ class RegisterController extends Controller
         }
 
         foreach ($locz as $loc) {
-            $view = $loc.'::'.$tpl;
+            $view = $loc . '::' . $tpl;
 
             if (\View::exists($view)) {
                 return view($view, ['action' => 'register'])
-                       ->with('params', $params)
-                       ->with('lang', \App::getLocale())
-                       ->with('view', $view)
-                       ->with('row', $row);
+                    ->with('params', $params)
+                    ->with('lang', \App::getLocale())
+                    ->with('view', $view)
+                    ->with('row', $row);
             }
         }
 
-        return '<h3>Non esiste la view ['.$view.']</h3>';
+        return '<h3>Non esiste la view [' . $view . ']</h3>';
     }
 
     //--------------------------------------------------------------------------------
@@ -147,7 +146,7 @@ class RegisterController extends Controller
         $data = $request->all();
 
         $rules = [
-        //    'username' => 'required|alpha_num|min:3|max:32',
+            //    'username' => 'required|alpha_num|min:3|max:32',
             'email' => 'required|email',
             'password' => 'required|min:3|confirmed',
             'password_confirmation' => 'required|min:3',
@@ -158,7 +157,7 @@ class RegisterController extends Controller
         $errors = $validator->errors();
         $msg = '';
         foreach ($errors->all() as $message) {
-            $msg .= '<br/>'.$message;
+            $msg .= '<br/>' . $message;
         }
         if ($validator->fails()) {
             if ($request->ajax()) {
