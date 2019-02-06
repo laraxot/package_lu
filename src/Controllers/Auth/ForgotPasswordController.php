@@ -1,12 +1,11 @@
 <?php
-
-
-
 namespace XRA\LU\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
+
+//use XRA\Extend\Services\ThemeService; //mi serviva per debug
 
 class ForgotPasswordController extends Controller
 {
@@ -38,7 +37,9 @@ class ForgotPasswordController extends Controller
      */
     public function showLinkRequestForm(Request $request)
     {
+        //return ThemeService::getView(); //lu::auth.forgot_password.show_link_request_form
         //return view('lu::auth.passwords.email');
+        $lang=\App::getLocale();
         $locz = ['pub_theme', 'adm_theme', 'lu'];
         $tpl = 'auth.passwords.email';
         if ($request->ajax()) {
@@ -48,7 +49,7 @@ class ForgotPasswordController extends Controller
         foreach ($locz as $loc) {
             $view = $loc.'::'.$tpl;
             if (\View::exists($view)) {
-                return view($view);
+                return view($view)->with('lang',$lang)->with('title','Reset Password');
             }
         }
 
