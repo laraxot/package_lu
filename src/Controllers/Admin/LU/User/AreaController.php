@@ -3,10 +3,11 @@ namespace XRA\LU\Controllers\Admin\LU\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use XRA\Extend\Services\ThemeService;
-use XRA\Extend\Traits\ArtisanTrait;
 //--- services
+use XRA\Extend\Services\ThemeService;
+//--- traits 
 use XRA\Extend\Traits\CrudBindTrait as CrudTrait;
+use XRA\Extend\Traits\ArtisanTrait;
 //--- models ---
 use XRA\LU\Models\Area;
 use XRA\LU\Models\AreaAdminArea;

@@ -1,13 +1,11 @@
 <?php
-
-
-
 namespace XRA\LU\Controllers\Admin\LU;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use XRA\Extend\Services\ThemeService;
 //--- services
+use XRA\Extend\Services\ThemeService;
+//--- traits 
 use XRA\Extend\Traits\CrudBindTrait as CrudTrait;
 //------models------
 use XRA\LU\Models\Area;

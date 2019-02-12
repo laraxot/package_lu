@@ -6,9 +6,10 @@ namespace XRA\LU\Controllers\Admin\user;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use XRA\Extend\Services\ThemeService;
-use XRA\Extend\Traits\ArtisanTrait;
 //--- services
+use XRA\Extend\Services\ThemeService;
+//--- traits
+use XRA\Extend\Traits\ArtisanTrait;
 use XRA\Extend\Traits\CrudSimpleTrait as CrudTrait;
 //--- models ---
 use XRA\LU\Models\Area;

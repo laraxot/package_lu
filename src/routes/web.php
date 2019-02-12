@@ -2,9 +2,14 @@
 
 
 $namespace = $this->getNamespace();
+$prefix=null;
+//$prefix = App::getLocale();
+//$prefix='{locale}';
+//'where' => ['locale' => '[a-zA-Z]{2}']
+
 Route::group(
     [
-        'prefix' => null,
+        'prefix' => $prefix,
         'middleware' => ['web'],
         'namespace' => $namespace.'\Controllers',
     ],
@@ -16,7 +21,7 @@ Route::group(
 $middleware = ['web', 'guest'];
 Route::group(
     [
-        'prefix' => null,
+        'prefix' => $prefix,
         'middleware' => $middleware,
         'namespace' => $namespace.'\Controllers\Auth',
     ],
