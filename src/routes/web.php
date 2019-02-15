@@ -2,14 +2,15 @@
 
 
 $namespace = $this->getNamespace();
-$prefix=null;
-//$prefix = App::getLocale();
-//$prefix='{locale}';
-//'where' => ['locale' => '[a-zA-Z]{2}']
+//$prefix=null;
+$prefix = App::getLocale();
+//$prefix='{lang}';
+//
 
 Route::group(
     [
         'prefix' => $prefix,
+        //'where' => ['lang' => '[a-zA-Z]{2}'], //lang 2 caratteri it, en, es ...
         'middleware' => ['web'],
         'namespace' => $namespace.'\Controllers',
     ],
