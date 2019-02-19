@@ -178,7 +178,7 @@ class LoginController extends Controller
                 );
             }
 
-            return redirect()->guest('login')
+            return redirect()->guest(route('login'))
                 ->withError('Qualcosa di errato !')
                 ->withInput($request->all())
                 ->withErrors([
