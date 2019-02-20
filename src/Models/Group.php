@@ -17,6 +17,8 @@ class Group extends Model
     protected $table = 'liveuser_groups';
     protected $primaryKey = 'group_id';
 
+    protected $fillable = ['group_id', 'group_type', 'group_define_name','owner_user_id','owner_group_id','is_active'];
+
     public function search()
     {
         return $this;
@@ -52,6 +54,14 @@ class Group extends Model
         $rows = new self();
 
         return $rows;
+    }
+
+    //--------- mutators --------
+    public function getOptKeyAttribute($value){
+        return $this->group_id;
+    }
+    public function getOptLabelAttribute($value){
+        return $this->group_id.'] '.$this->group_define_name;
     }
 
     //---------------------------------------------------------------------------

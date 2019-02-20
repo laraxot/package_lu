@@ -19,6 +19,8 @@ class Right extends XotModel
     protected $table = 'liveuser_rights';
     protected $primaryKey = 'right_id';
 
+    protected $fillable = ['right_id', 'area_id', 'right_define_name','has_implied','has_level'];
+
     /*
     public static function filter($params){
         $rows=new self;
@@ -41,4 +43,17 @@ class Right extends XotModel
     {
         return 'right_id';
     }
+
+    //--------- mutators --------
+    public function getOptKeyAttribute($value){
+        return $this->right_id;
+    }
+    public function getOptLabelAttribute($value){
+        return $this->right_id.'] '.$this->right_define_name;
+    }
+
+    public function setRightsAttribute($value){
+        ddd('aaa');
+    }
+
 }

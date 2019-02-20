@@ -100,6 +100,7 @@ class AreaController extends Controller
 
     public function store(Request $request)
     {
+        $key='areas';
         $data = $request->all();
         $area_id = [];
         \extract($data);

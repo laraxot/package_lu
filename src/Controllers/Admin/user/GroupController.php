@@ -98,6 +98,7 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        
         $group_id = [];
         \extract($data);
         $params = \Route::current()->parameters();

@@ -91,15 +91,16 @@ class AreaController extends Controller
 
     public function store(Request $request)
     {
+        $ids='areas';
         $data = $request->all();
         \extract($data);
         $params = \Route::current()->parameters();
         \extract($params);
 
-        $items = $user->areas();
+        $items = $user->$ids();
         $items_key = 'area_id';
         $items_0 = $items->get()->pluck($items_key);
-        $items_1 = collect($areas);
+        $items_1 = collect($$ids);
         $items_add = $items_1->diff($items_0);
         $items_sub = $items_0->diff($items_1);
         $items->detach($items_sub->all());

@@ -9,12 +9,13 @@
 
 {{-- per update ci vuole id_area .. --}}
 
-{!! Form::bsOpen($rows,'index','store') !!}
+{!! Form::bsOpen($user,'index','store') !!}
 
 {{-- Form::bsMultiSelect('group_id',$rows->get(),$rows->first()->full()->get()) --}}
-{{ Form::bsMultiSelect('group_id',$user->groups,lu::groups() ) }}
+{{-- Form::bsMultiSelect('group_id',$user->groups,lu::groups() ) --}}
+{{ Form::bsMultiCheckbox('groups') }}
 
-{{Form::submit('Salva ed esci',['class'=>'submit btn btn-success green-meadow'])}}
+{{Form::bsSubmit('Salva ed esci',['class'=>'submit btn btn-success green-meadow'])}}
 
 {!! Form::close() !!}
 

@@ -157,6 +157,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return Area::all();
     }
 
+    public function getAllGroupsAttribute($value){
+        return Group::all();
+    }
+
+    public function getAllRightsAttribute($value){
+        return Right::all();
+    }
+
     //-----------------------------------------------------------
     public function areaAdminAreas()
     {
