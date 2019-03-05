@@ -36,7 +36,7 @@ class LUController extends Controller
 
     public function index(Request $request)
     {
-        if (1 == $request->routelist) {
+        if ($request->act=='routelist') {
             return ArtisanTrait::exe('route:list');
         }
 

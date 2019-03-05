@@ -34,7 +34,7 @@ class GroupController extends Controller
     //end getPrimaryKey
     /*
     public function index(Request $request){
-        if($request->routelist==1){
+        if ($request->act=='routelist') {
             return ArtisanTrait::exe('route:list');
         }
         return view('lu::index');
@@ -77,7 +77,7 @@ class GroupController extends Controller
     ////-------------------------------------------------------------------------
     public function index(Request $request)
     {
-        if (1 == $request->routelist) {
+        if ($request->act=='routelist') {
             return ArtisanTrait::exe('route:list');
         }
         $params = \Route::current()->parameters();

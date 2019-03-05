@@ -70,7 +70,7 @@ class AreaController extends Controller
     //-------------------------------------------------------------------------
     /*
     public function index(Request $request){
-        if ($request->routelist==1) {
+        if ($request->act=='routelist') {
             return ArtisanTrait::exe('route:list');
         }
         $params = \Route::current()->parameters();

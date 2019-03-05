@@ -17,7 +17,7 @@ class PermUserController extends Controller
 
     public function index(Request $request, $user_id)
     {
-        if (1 == $request->routelist) {
+        if ($request->act=='routelist') {
             return ArtisanTrait::exe('route:list');
         }
         $tmp = new PermUser();

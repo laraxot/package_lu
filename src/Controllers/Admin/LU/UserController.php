@@ -30,7 +30,7 @@ class UserController extends Controller
     */
     /*
     public function index(Request $request){
-        if($request->routelist==1){
+        if ($request->act=='routelist') {
             return ArtisanTrait::exe('route:list');
         }
         return view('lu::index');
