@@ -12,6 +12,8 @@
 {{ Form::bsText('cognome') }}
 {{ Form::bsText('nome') }}
 {{ Form::bsText('email') }}
+{{ Form::bsText('ente') }}
+{{ Form::bsText('matr') }}
 {{ Form::bsText('handle') }}
 {{ Form::bsText('passwd') }}
 
