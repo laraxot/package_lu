@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace XRA\LU\Models;
 
 use Carbon\Carbon;
@@ -124,6 +121,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(PermUser::class, 'auth_user_id', 'auth_user_id');
     }
+
+    public function post(){
+
+        return $this->morphOne(Post::class,'post',null,'auth_user_id')->where('lang',$this->lang);
+    }
+
     /*-- usiamo solo perm 
     public function permUser()
     {
@@ -155,6 +158,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $plucked->all();
     }
 
+    public function getLangAttribute($value){
+        $lang=\App::getLocale();
+        return $lang;
+    }
     public function getAllAreasAttribute($value){
         return Area::all();
     }
