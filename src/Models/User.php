@@ -17,6 +17,12 @@ use XRA\Extend\Traits\Updater;
 use XRA\LU\Notifications\ResetPassword as ResetPasswordNotification;
 use XRA\LU\Notifications\VerifyEmail   as VerifyEmailNotification;
 
+
+//--------models -------
+use XRA\Blog\Models\Post;  
+use XRA\Blog\Models\Profile;  
+
+
 //class User extends Model
 /*
 class User extends \Eloquent implements
@@ -123,8 +129,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function post(){
+        return $this->morphOne(Post::class,'post',null,'post_id')->where('lang',$this->lang);
+    }
 
-        return $this->morphOne(Post::class,'post',null,'auth_user_id')->where('lang',$this->lang);
+    public function profile(){
+        return $this->hasOne(Profile::class,'post_id','auth_user_id');
     }
 
     /*-- usiamo solo perm 
