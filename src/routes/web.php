@@ -37,7 +37,7 @@ Route::group(
 //Route::get('register/request', $namespace.'\Controllers\Auth\InvitationController@requestInvitation')->name('requestInvitation');
 Route::get('invitation/create', $namespace.'\Controllers\Auth\InvitationController@create')->middleware('web')->name('requestInvitation');
 Route::post('invitation', $namespace.'\Controllers\Auth\InvitationController@store')->middleware('guest')->name('storeInvitation');
-
+/*
 Route::get('/eventtest', function () {
     event(new \XRA\LU\Events\TestEvent('preso'));
 });
@@ -65,5 +65,7 @@ Route::get('/slack', function () {
     //https://github.com/gpressutto5/laravel-slack
     //https://laravel-news.com/email-on-error-exceptions
 });
+*/
+
 
 $this->routes();
