@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace XRA\LU\Models;
 
 use Carbon\Carbon;
@@ -19,6 +16,12 @@ use Laravel\Scout\Searchable;
 use XRA\Extend\Traits\Updater;
 use XRA\LU\Notifications\ResetPassword as ResetPasswordNotification;
 use XRA\LU\Notifications\VerifyEmail   as VerifyEmailNotification;
+
+
+//--------models -------
+use XRA\Blog\Models\Post;  
+use XRA\Blog\Models\Profile;  
+
 
 //class User extends Model
 /*
@@ -124,6 +127,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(PermUser::class, 'auth_user_id', 'auth_user_id');
     }
+
+    public function post(){
+        return $this->morphOne(Post::class,'post',null,'post_id')->where('lang',$this->lang);
+    }
+
+    public function profile(){
+        return $this->hasOne(Profile::class,'post_id','auth_user_id');
+    }
+
     /*-- usiamo solo perm 
     public function permUser()
     {
@@ -155,6 +167,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $plucked->all();
     }
 
+    public function getLangAttribute($value){
+        $lang=\App::getLocale();
+        return $lang;
+    }
     public function getAllAreasAttribute($value){
         return Area::all();
     }
