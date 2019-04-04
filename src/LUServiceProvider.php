@@ -16,6 +16,8 @@ class LUServiceProvider extends ServiceProvider
     use ServiceProviderTrait{
         boot as protected bootTrait;
     }
+
+    protected $defer = true;
     
     public function registerRoutePattern(\Illuminate\Routing\Router $router){
     }
