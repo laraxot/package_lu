@@ -1,6 +1,6 @@
 <?php
 namespace XRA\LU;
-
+use XRA\Extend\BaseServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use XRA\Extend\Traits\ServiceProviderTrait;
@@ -11,7 +11,7 @@ use XRA\LU\Models\PermUser;
 use XRA\LU\Models\Right;
 use XRA\LU\Models\User;
 
-class LUServiceProvider extends ServiceProvider
+class LUServiceProvider extends BaseServiceProvider
 {
     use ServiceProviderTrait{
         boot as protected bootTrait;
