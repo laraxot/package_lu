@@ -10,19 +10,19 @@
                      document.getElementById('logout-form').submit();">
                 Logout
             </a></li>
-            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+            <form id="logout-form" action="{{ route('logout',['lang'=>$lang]) }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
         </ul>
     </li>
 @else
     <li class="nav-item">
-        <a href="{{ asset('/login') }}" class="ajax-popup-link nav-link" id="js-login" title="login">
+        <a href="{{ route('login',['lang'=>$lang]) }}" class="ajax-popup-link nav-link" id="js-login" title="login">
             <i class="fa fa-sign-in"></i>&nbsp;Sign in
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ asset('/register') }}" class="ajax-popup-link nav-link" title="register" >
+        <a href="{{ route('register',['lang'=>$lang]) }}" class="ajax-popup-link nav-link" title="register" >
             <i class="fa fa-edit"></i>&nbsp;Sign up
         </a>
     </li>

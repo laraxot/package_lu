@@ -2,7 +2,7 @@
         <div id="login-dialog" class="mfp-with-anim mfp-hide mfp-dialog clearfix">
             <i class="fa fa-sign-in dialog-icon"></i>
             <h3>Login</h3>
-            <form id="withErrors" class="dialog-form" action="{{url('/login')}}" onsubmit="return true;" method="post">
+            <form id="withErrors" class="dialog-form" action="{{ route('login',['lang'=>$lang]) }}" onsubmit="return true;" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>E-mail</label>
@@ -32,7 +32,7 @@
         <div id="register-dialog" class="mfp-with-anim mfp-hide mfp-dialog clearfix">
             <i class="fa fa-edit dialog-icon"></i>
             <h3>@lang('login.registration')</h3>
-            <form action="{{url('/register')}}" id="registerForm" class="dialog-form" method="post" name="registerForm">
+            <form action="{{ route('register',['lang'=>$lang]) }}" id="registerForm" class="dialog-form" method="post" name="registerForm">
                 {{ csrf_field() }}
                 <div class="form-group" id="register-name">
                     <label class="control-label" for="name">@lang('login.name')</label>

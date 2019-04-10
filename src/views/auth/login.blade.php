@@ -8,7 +8,7 @@
 				<div class="panel-heading">Login</div>
 				<div class="panel-body">
 					 @include($view.'.social')
-					<form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ route('login',['lang'=>$lang]) }}">
 						{{ csrf_field() }}
 						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 							<label for="email" class="col-md-4 control-label">E-Mail Address</label>
@@ -54,7 +54,7 @@
 									Login
 								</button>
 
-								<a class="btn btn-link" href="{{ route('password.request') }}">
+								<a class="btn btn-link" href="{{ route('password.request',['lang'=>$lang]) }}">
 									Forgot Your Password?
 								</a>
 							</div>

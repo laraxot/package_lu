@@ -5,7 +5,7 @@
 <i class="fa fa-edit dialog-icon"></i>
 <h3>Member Register</h3>
 <h5>Ready to get best offers? Let's get started!</h5>
-<form class="dialog-form" role="form" method="POST" action="{{ route('register') }}">
+<form class="dialog-form" role="form" method="POST" action="{{ route('register',['lang'=>$lang]) }}">
     {{ csrf_field() }}
     <div class="form-group">
         <label>UserName</label>
@@ -47,7 +47,7 @@
     <input type="submit" value="Sign up" class="btn btn-primary">
 </form>
 <ul class="dialog-alt-links">
-    <li><a href="{{ asset('/login') }}" class="ajax-popup-link" data-effect="mfp-zoom-out">Already member</a>
+    <li><a href="{{ route('login',['lang'=>$lang]) }}" class="ajax-popup-link" data-effect="mfp-zoom-out">Already member</a>
     </li>
 </ul>
 {{--

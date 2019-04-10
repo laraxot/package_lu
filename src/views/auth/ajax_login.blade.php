@@ -11,7 +11,7 @@
         <a  href='/login/twitter' class='btn btn-info' title="Sign in with Twitter"><i class="fa fa-twitter" style="width:1em;"></i></a>
     </div>
 
-    <form method="POST" action="{{ asset('/login') }}" accept-charset="UTF-8" class="dialog-form" id="formLogin">{{ csrf_field() }}
+    <form method="POST" action="{{ route('login',['lang'=>$lang]) }}" accept-charset="UTF-8" class="dialog-form" id="formLogin">{{ csrf_field() }}
         <div class="form-group">
             <label>E-mail</label>
             <input type="text" placeholder="email@domain.com" class="form-control" name="email" />
@@ -28,9 +28,9 @@
         <input type="submit" value="Sign in" class="btn btn-primary">
     </form>
     <ul class="dialog-alt-links">
-        <li><a href="{{ asset('/register') }}" class="ajax-popup-link"  data-effect="mfp-zoom-out">Not member yet</a>
+        <li><a href="{{ route('register',['lang'=>$lang]) }}" class="ajax-popup-link"  data-effect="mfp-zoom-out">Not member yet</a>
         </li>
-        <li><a href="{{ asset('/password/reset') }}" class="ajax-popup-link" data-effect="mfp-zoom-out">Forgot password</a>
+        <li><a href="{{ route('password.request',['lang'=>$lang]) }}{{-- asset('/password/reset') --}}" class="ajax-popup-link" data-effect="mfp-zoom-out">Forgot password</a>
         </li>
        
     </ul>
