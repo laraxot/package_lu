@@ -490,6 +490,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function addArea($area)
     {
+        
         $areas = $this->perm->areas->where('area_id', $area->area_id);
         if (0 == $areas->count()) { //lo aggiunge solo se non c'e'
             $this->perm->areas()->attach($area->area_id);
