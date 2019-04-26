@@ -28,8 +28,8 @@ Route::group(
     ],
     function () {
         //--------- SOCIALITE ----------------
-        Route::get('login/{provider}', ['as' => null,                'uses' => 'LoginController@redirectToProvider']);
-        Route::get('login/{provider}/callback', ['as' => null,                'uses' => 'LoginController@handleProviderCallback']);
+        Route::get('login/{provider}',          ['as' => 'login.provider',          'uses' => 'LoginController@redirectToProvider']);
+        Route::get('login/{provider}/callback', ['as' => 'login.provider.callback', 'uses' => 'LoginController@handleProviderCallback']);
     }
 );
 

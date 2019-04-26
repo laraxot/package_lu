@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace XRA\LU\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -231,8 +228,8 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider($provider)
-    {
+    public function redirectToProvider($provider){
+
         if ('facebook' != $provider) {
             return Socialite::driver($provider)->redirect();
         } else {
