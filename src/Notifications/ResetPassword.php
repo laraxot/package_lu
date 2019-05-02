@@ -1,11 +1,12 @@
 <?php
-
-
-
 namespace XRA\LU\Notifications;
 
+use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\URL;
 
 class ResetPassword extends Notification
 {
@@ -47,9 +48,20 @@ class ResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
+        ///*
         return (new MailMessage())
-            ->line('!!!!!You are receiving this email because we received a password reset request for your account.')
+            ->subject(Lang::getFromJson('Reset Password'))
+            ->markdown('lu::notifications.email', ['subcopy' => 'subcopy']) 
+            ->line(Lang::getFromJson('You are receiving this email because we received a password reset request for your account.'))
             ->action('Reset Password', url(route('password.reset', $this->token, false)))
-            ->line('If you did not request a password reset, no further action is required.');
+            ->line(Lang::getFromJson('If you did not request a password reset, no further action is required.'));
+        //*/
+            /*
+        $reset_password_url=url(route('password.reset', $this->token, false));
+        return (new MailMessage())
+            ->subject(Lang::getFromJson('Verify Email Address'))
+            ->greeting('Hello!')
+            ->view('lu::mail.reset_password',['reset_password_url'=>$reset_password_url])
+        */
     }
 }
