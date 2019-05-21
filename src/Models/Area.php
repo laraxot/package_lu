@@ -164,7 +164,8 @@ class Area extends Model
     public function dashboard_widget()
     {
         $view = \mb_strtolower($this->area_define_name).'::admin.dashboard_widget';
-        $view_default = 'lu::admin.dashboard_widget_default';
+        $view_default = 'adm_theme::layouts.widgets.dashboard';
+        $view_lu = 'lu::admin.dashboard_widget_default';
         $namespace = config('xra.namespaces');
         if (isset($namespace[$this->area_define_name])) {
             $model = $namespace[$this->area_define_name].'\Models\\'.$this->area_define_name;
@@ -178,7 +179,7 @@ class Area extends Model
         }
         $data = ['area' => $this, 'row' => $model_obj];
 
-        return view()->first([$view, $view_default], $data);
+        return view()->first([$view, $view_default,$view_lu], $data);
         /*
         //if (\View::exists($view)) {
         if (view()->exists($view)) {
