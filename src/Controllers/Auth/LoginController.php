@@ -92,6 +92,9 @@ class LoginController extends Controller
         foreach ($locz as $loc) {
             $view = $loc.'::'.$tpl;
             if (\View::exists($view)) {
+                \View::composer('*', function($view1) use($view){
+                    \View::share('view', $view);
+                });
                 return view($view, ['action' => 'login'])
                             ->with('params', $params)
                             ->with('lang', \App::getLocale())
