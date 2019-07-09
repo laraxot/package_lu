@@ -42,17 +42,26 @@ class AreaAdminArea extends Model
         return $rows;
     }
 
-    public function getAreaDefineNameAttribute($value)
-    {
-        $area = $this->area();
+    public function getAreaDefineNameAttribute($value){
+        $area = $this->area;
+        return $area->area_define_name;
+    }
 
-        return $area->first()->area_define_name;
+    public function getUrlAttribute($value){
+        $area = $this->area;
+        return $area->url;
+    }
+
+    public function getIconSrcAttribute($value){
+        $area = $this->area;
+        return $area->icon_src;
     }
 
     /**
      * { item_description }.
      */
     //-----------------------------------------------------------------------------------
+    /*
     public function dashboard_widget()
     {
         $view = \mb_strtolower($this->area_define_name).'::admin.dashboard_widget';
@@ -62,6 +71,7 @@ class AreaAdminArea extends Model
             return view('lu::admin.dashboard_widget_default')->with('row', $this);
         }
     }
+    */
 
     /**
      * { item_description }.
@@ -110,5 +120,38 @@ class AreaAdminArea extends Model
     }
     return asset($this->icon_path);
     */
+    }
+
+
+    public function dashboard_widget()
+    {
+        $view = \mb_strtolower($this->area_define_name).'::admin.dashboard_widget';
+        $view_default = 'adm_theme::layouts.widgets.dashboard';
+        $view_lu = 'lu::admin.dashboard_widget_default';
+        $namespace = config('xra.namespaces');
+        if (isset($namespace[$this->area_define_name])) {
+            $model = $namespace[$this->area_define_name].'\Models\\'.$this->area_define_name;
+        } else {
+            $model = '---';
+        }
+        if (\class_exists($model)) {
+            $model_obj = new $model();
+        } else {
+            $model_obj = new \stdClass();
+        }
+        $data = ['area' => $this, 'row' => $model_obj];
+
+        return view()->first([$view, $view_default,$view_lu], $data);
+        /*
+        //if (\View::exists($view)) {
+        if (view()->exists($view)) {
+            $namespace=config('xra.namespaces');
+            $model=$namespace[$this->area_define_name].'\Models\\'.$this->area_define_name;
+            $model_obj=new $model;
+            return view($view)->with('area', $this)->with('row',$model_obj);
+        } else {
+            return view('lu::admin.dashboard_widget_default')->with('row', $this);
+        }
+        */
     }
 }//---end class
