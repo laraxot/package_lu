@@ -195,7 +195,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'perm_user_id',
             'auth_user_id',
             'perm_user_id'
-        );
+        )->has('area');
 
         return $rows;
     }
