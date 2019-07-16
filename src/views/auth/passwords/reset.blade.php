@@ -1,4 +1,4 @@
-@extends('lu::layouts.app')
+@extends('lu::layouts.app',['title'=>'Reset Password!'])
 
 @section('content')
 <div class="container">
